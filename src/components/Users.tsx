@@ -20,6 +20,7 @@ function Users() {
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  console.log(users.map((user) => console.log(user.id)));
 
   return (
     <div>

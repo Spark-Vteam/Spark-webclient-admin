@@ -7,6 +7,7 @@ import active from "../img/pin/Active.png";
 import available from "../img/pin/Available.png";
 import service from "../img/pin/Service.png";
 import charging from "../img/pin/Charging.png";
+import Navbar from "./Users";
 
 import { useState } from "react";
 
@@ -65,6 +66,12 @@ function Map() {
     return scooterIcon;
   }
 
+  function resetCity(): void {
+    setCity("");
+    setLatitude(undefined);
+    setLongitude(undefined);
+  }
+
   return (
     <div>
       <div className="topnav">
@@ -80,37 +87,45 @@ function Map() {
           </Link>
         </div>
       </div>
-      <div className="container">
-        <Link to="/users" className="customers-link center">
-          {" "}
-          Customers
-        </Link>
-      </div>
       {longitude !== undefined && latitude !== undefined ? (
-        <div className="map-container">
-          <MapContainer
-            center={[latitude, longitude]}
-            zoom={13}
-            scrollWheelZoom={true}
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {filteredBikes.map((location) => (
-              <Marker
-                key={location.station_id}
-                position={[location.lat, location.lon]}
-                icon={checkIcon(location)}
-              >
-                <Popup>
-                  Status: {location.status} <br />
-                  Battery: {location.battery}% <br />
-                  <a href="#">Move bike</a>
-                </Popup>
-              </Marker>
-            ))}
-          </MapContainer>
+        <div>
+          <div className="btn-container">
+            <Link to="/map" className="customers-link center">
+              {" "}
+              <button className="option-btn" onClick={resetCity}>
+                Change city
+              </button>
+            </Link>
+            <Link to="/users" className="customers-link center">
+              {" "}
+              <button className="option-btn">Customer overview</button>
+            </Link>
+          </div>
+          <div className="map-container">
+            <MapContainer
+              center={[latitude, longitude]}
+              zoom={13}
+              scrollWheelZoom={true}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              {filteredBikes.map((location) => (
+                <Marker
+                  key={location.station_id}
+                  position={[location.lat, location.lon]}
+                  icon={checkIcon(location)}
+                >
+                  <Popup>
+                    Status: {location.status} <br />
+                    Battery: {location.battery}% <br />
+                    <a href="#">Move bike</a>
+                  </Popup>
+                </Marker>
+              ))}
+            </MapContainer>
+          </div>
         </div>
       ) : (
         <div className="container">
