@@ -1,12 +1,12 @@
 version: "3"
 services:
-    webclient-admin:
+    webclient-customer:
         build:
             context: .
             dockerfile: Dockerfile
         restart: always
         ports:
-            - 3003:3002
+            - 3001:3001
         expose:
-            - '3002'
+            - '3001'
         stdin_open: true
