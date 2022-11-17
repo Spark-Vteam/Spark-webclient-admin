@@ -1,4 +1,4 @@
-import { EditControl } from "react-leaflet-draw";
+import { useState, useEffect } from "react";
 import L from "leaflet";
 import testLocations from "../Data/lund-test-locations.json";
 import logo from "../img/logo-admin.png";
@@ -7,40 +7,44 @@ import active from "../img/pin/Active.png";
 import available from "../img/pin/Available.png";
 import service from "../img/pin/Service.png";
 import charging from "../img/pin/Charging.png";
+// import chargingStation from "../img/pin/ChargingStation.png";
+import parking from "../img/pin/Parking.png";
+import "leaflet/dist/leaflet.css";
+import "leaflet-draw/dist/leaflet.draw.css";
 
 import {
   MapContainer,
   Marker,
   Popup,
   TileLayer,
-  FeatureGroup
+  FeatureGroup,
 } from "react-leaflet";
 
-import { useState, useEffect } from "react";
+import { EditControl } from "react-leaflet-draw";
 
 function Map(props: any) {
   const [city, setCity] = useState<string>("");
   const [longitude, setLongitude] = useState<number>();
   const [latitude, setLatitude] = useState<number>();
+  const [mapLayers, setMapLayers] = useState<Array<any>>([]);
+  const [stations, setStations] = useState([]);
 
-  // const [station, setStation] = useState([]);
+  function fetchStation() {
+    fetch("http://localhost:4000/stations")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setStations(data);
+      });
+  }
 
-  // function fetchStation() {
-  //   fetch("http://localhost:4000/station")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       setStation(data);
-  //     });
-  // }
+  useEffect(() => {
+    (async () => {
+      await fetchStation();
+    })();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // useEffect(() => {
-  //   (async () => {
-  //     await fetchStation();
-  //   })();
-  // }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // console.log(station);
+  console.log(stations);
 
   function setCityCoordinates(event: any) {
     if (event.target.value === "malmo") {
@@ -65,25 +69,25 @@ function Map(props: any) {
 
     if (scooter.status === "Available") {
       scooterIcon = L.icon({
-        iconSize: [35, 35],
+        iconSize: [35, 38],
         iconAnchor: [13, 41],
         iconUrl: available,
       });
     } else if (scooter.status === "Active") {
       scooterIcon = L.icon({
-        iconSize: [35, 35],
+        iconSize: [35, 38],
         iconAnchor: [13, 41],
         iconUrl: active,
       });
     } else if (scooter.status === "Needs charging") {
       scooterIcon = L.icon({
-        iconSize: [35, 35],
+        iconSize: [35, 38],
         iconAnchor: [13, 41],
         iconUrl: charging,
       });
     } else if (scooter.status === "Needs service") {
       scooterIcon = L.icon({
-        iconSize: [35, 35],
+        iconSize: [35, 38],
         iconAnchor: [13, 41],
         iconUrl: service,
       });
@@ -92,12 +96,71 @@ function Map(props: any) {
     return scooterIcon;
   }
 
+  function parkingIcon() {
+    let parkingIcon = L.icon({
+      iconSize: [35, 38],
+      iconAnchor: [13, 41],
+      iconUrl: parking,
+    });
+
+    return parkingIcon;
+  }
+
   function resetCity(): void {
     setCity("");
     setLatitude(undefined);
     setLongitude(undefined);
   }
 
+  //Insert coordinates in database
+  function _onCreate(e: any) {
+    console.log(typeof e);
+
+    const { layerType, layer } = e;
+    if (layerType === "polygon") {
+      const { _leaflet_id } = layer;
+
+      setMapLayers((layers) => [
+        ...layers,
+        { id: _leaflet_id, latlngs: layer.getLatLngs()[0] },
+      ]);
+    }
+  }
+
+  //Update coordinates in database
+  function _onEditPath(e: any) {
+    const {
+      layers: { _layers },
+    } = e;
+
+    Object.values(_layers).map(({ _leaflet_id, editing }: any) => {
+      setMapLayers((layers) =>
+        layers.map((l) =>
+          l.id === _leaflet_id
+            ? { ...l, latlngs: { ...editing.latlngs[0] } }
+            : l
+        )
+      );
+    });
+  }
+
+  //Delete coordinates in database
+  function _onDeleted(e: any) {
+    console.log(e.target);
+    const {
+      layers: { _layers },
+    } = e;
+
+    Object.values(_layers).map(({ _leaflet_id }: any) => {
+      setMapLayers((layers) =>
+        layers.filter((layers) =>
+          layers.filter((l: any) => l.id !== _leaflet_id)
+        )
+      );
+    });
+  }
+
+  console.log(mapLayers);
   return (
     <div>
       <div className="topnav">
@@ -137,7 +200,7 @@ function Map(props: any) {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              {filteredBikes.map((location) => (
+              {filteredBikes.map((location: any) => (
                 <Marker
                   key={location.station_id}
                   position={[location.lat, location.lon]}
@@ -150,18 +213,36 @@ function Map(props: any) {
                   </Popup>
                 </Marker>
               ))}
-              {/* <FeatureGroup>
+              {stations.map((station: any) => (
+                <Marker
+                  key={station.station_id}
+                  position={station.Position.split(",")}
+                  icon={parkingIcon()}
+                >
+                  <Popup>
+                    Name: {station.Name} <br />
+                    Scooters: 48 <br />
+                    <a href="#">Move bike</a>
+                  </Popup>
+                </Marker>
+              ))}
+              <FeatureGroup>
                 <EditControl
                   position="topright"
-                  onEdited={props._onEditPath}
-                  onCreated={props._onCreate}
-                  onDeleted={props._onDeleted}
+                  onEdited={_onEditPath}
+                  onCreated={_onCreate}
+                  onDeleted={_onDeleted}
                   draw={{
                     rectangle: false,
+                    circle: false,
+                    polyline: false,
+                    circlemarker: false,
+                    marker: false,
                   }}
                 />
-              </FeatureGroup>{" "} */}
+              </FeatureGroup>{" "}
             </MapContainer>
+            <pre className="text-left">{JSON.stringify(mapLayers)}</pre>
           </div>
         </div>
       ) : (

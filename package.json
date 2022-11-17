@@ -12,6 +12,7 @@
     "@types/react-dom": "^18.0.8",
     "@types/react-router-dom": "^5.3.3",
     "leaflet": "^1.9.2",
+    "leaflet-draw": "^1.0.4",
     "mapbox-gl": "^2.10.0",
     "mapbox-gl-leaflet": "^0.0.15",
     "react": "^18.2.0",

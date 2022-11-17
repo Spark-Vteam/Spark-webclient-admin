@@ -15,8 +15,8 @@
           "station_id":"2",
           "name":"Bike2",
           "address":"Bike2",
-          "lat":55.70172436328225,
-          "lon":13.196109434635462,
+          "lat":55.71172436328225,
+          "lon":13.206109434635462,
           "battery":10,
           "status": "Needs service"
         },
@@ -25,8 +25,8 @@
           "station_id":"3",
           "name":"Bike3",
           "address":"Bike3",
-          "lat":55.70172435438225,
-          "lon":13.196109844635462,
+          "lat":55.71172435438225,
+          "lon":13.196109324635462,
           "battery":100,
           "status": "Available"
         },
@@ -66,7 +66,7 @@
           "name":"Bike7",
           "address":"Bike7",
           "lat":55.707336666321058,
-          "lon": 13.17826599076278,
+          "lon": 13.18956599076278,
           "battery":33,
           "status": "Needs charging"
         },
@@ -75,8 +75,8 @@
           "station_id":"8",
           "name":"Bike8",
           "address":"Bike8",
-          "lat":55.70733664551058,
-          "lon": 13.178265904876278,
+          "lat":55.70463664561058,
+          "lon": 13.179365904876278,
           "battery":33,
           "status": "Needs charging"
         },
@@ -105,7 +105,7 @@
           "station_id":"11",
           "name":"Bike11",
           "address":"Bike11",
-          "lat":55.707336643058,
+          "lat":55.717336643058,
           "lon": 13.191904876178,
           "battery":74,
           "status": "Available"
@@ -115,8 +115,8 @@
           "station_id":"12",
           "name":"Bike12",
           "address":"Bike12",
-          "lat":55.707336643058,
-          "lon": 13.191904876178,
+          "lat":55.705346643058,
+          "lon": 13.192904876178,
           "battery":55,
           "status": "Available"
         },
@@ -149,6 +149,16 @@
           "lon": 13.00271,
           "battery":67,
           "status": "Active"
+        },
+        {  
+          "city":"malmo",
+          "station_id":"16",
+          "name":"Bike16",
+          "address":"Bike16",
+          "lat":55.59587,
+          "lon": 13.01271,
+          "battery":13,
+          "status": "Needs charging"
         }
       ]
     }
