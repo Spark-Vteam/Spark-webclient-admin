@@ -7,7 +7,6 @@ import active from "../img/pin/Active.png";
 import available from "../img/pin/Available.png";
 import service from "../img/pin/Service.png";
 import charging from "../img/pin/Charging.png";
-// import chargingStation from "../img/pin/ChargingStation.png";
 import parking from "../img/pin/Parking.png";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
@@ -22,14 +21,24 @@ import {
 
 import { EditControl } from "react-leaflet-draw";
 
-function Map(props: any) {
+function Map() {
   const [city, setCity] = useState<string>("");
   const [longitude, setLongitude] = useState<number>();
   const [latitude, setLatitude] = useState<number>();
   const [mapLayers, setMapLayers] = useState<Array<any>>([]);
-  const [stations, setStations] = useState([]);
+  const [stations, setStations] = useState<Array<any>>([]);
 
-  function fetchStation() {
+  /** @type {Array} filter bikes to current city */
+  const filteredBikes: Array<any> = testLocations.data.stations.filter(
+    (bike) => bike.city === city
+  );
+
+  //Add to folder models
+  /**
+   * fetch stations from API
+   * @returns {void}
+   */
+  function fetchStation(): void {
     fetch("http://localhost:4000/stations")
       .then((response) => response.json())
       .then((data) => {
@@ -44,9 +53,12 @@ function Map(props: any) {
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  console.log(stations);
-
-  function setCityCoordinates(event: any) {
+  /**
+   * Sets coordinates and city
+   * @param {any} event Current city
+   * @returns {any}
+   */
+  function setCityCoordinates(event: any): void {
     if (event.target.value === "malmo") {
       setLatitude(55.60587);
       setLongitude(13.00073);
@@ -60,11 +72,12 @@ function Map(props: any) {
     }
   }
 
-  const filteredBikes = testLocations.data.stations.filter(
-    (bike) => bike.city === city
-  );
-
-  function checkIcon(scooter: any) {
+  /**
+   * Check which icon bike should have on map depending on status
+   * @param {any} scooter Current bike
+   * @returns {any}
+   */
+  function checkIcon(scooter: any): any {
     let scooterIcon;
 
     if (scooter.status === "Available") {
@@ -96,7 +109,11 @@ function Map(props: any) {
     return scooterIcon;
   }
 
-  function parkingIcon() {
+  /**
+   * Set parking icon
+   * @returns {L.Icon}
+   */
+  function parkingIcon(): L.Icon {
     let parkingIcon = L.icon({
       iconSize: [35, 38],
       iconAnchor: [13, 41],
@@ -106,6 +123,10 @@ function Map(props: any) {
     return parkingIcon;
   }
 
+  /**
+   * Resets city
+   * @returns {void}
+   */
   function resetCity(): void {
     setCity("");
     setLatitude(undefined);
@@ -113,7 +134,12 @@ function Map(props: any) {
   }
 
   //Insert coordinates in database
-  function _onCreate(e: any) {
+  /**
+   * Create geofence on map
+   * @param {any} e Position to create geofence
+   * @returns {void}
+   */
+  function _onCreate(e: any): void {
     console.log(typeof e);
 
     const { layerType, layer } = e;
@@ -128,7 +154,12 @@ function Map(props: any) {
   }
 
   //Update coordinates in database
-  function _onEditPath(e: any) {
+  /**
+   * Update geofence on map
+   * @param {any} e Position to create geofence
+   * @returns {void}
+   */
+  function _onEditPath(e: any): void {
     const {
       layers: { _layers },
     } = e;
@@ -145,7 +176,12 @@ function Map(props: any) {
   }
 
   //Delete coordinates in database
-  function _onDeleted(e: any) {
+  /**
+   * Delete geofence on map
+   * @param {any} e Position to create geofence
+   * @returns {void}
+   */
+  function _onDeleted(e: any): void {
     console.log(e.target);
     const {
       layers: { _layers },
@@ -160,7 +196,6 @@ function Map(props: any) {
     });
   }
 
-  console.log(mapLayers);
   return (
     <div>
       <div className="topnav">
