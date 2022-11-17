@@ -47,6 +47,10 @@ body {
   margin: 0 auto;
 }
 
+.sr-only {
+  display: none;
+}
+
 .customers-link {
   text-decoration: none;
   color: #00b38e;

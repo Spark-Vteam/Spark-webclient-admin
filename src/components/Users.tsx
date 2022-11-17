@@ -20,8 +20,6 @@ function Users() {
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  console.log(users.map((user) => console.log(user.id)));
-
   return (
     <div>
       <div className="topnav">
@@ -39,7 +37,7 @@ function Users() {
       </div>
       <div>
         <div className="container">
-          {users.map((user) => {
+          {users.map((user:any) => {
             return (
               <div key={user.id}>
                 <h2>

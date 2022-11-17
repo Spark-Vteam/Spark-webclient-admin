@@ -1,4 +1,4 @@
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { EditControl } from "react-leaflet-draw";
 import L from "leaflet";
 import testLocations from "../Data/lund-test-locations.json";
 import logo from "../img/logo-admin.png";
@@ -7,14 +7,40 @@ import active from "../img/pin/Active.png";
 import available from "../img/pin/Available.png";
 import service from "../img/pin/Service.png";
 import charging from "../img/pin/Charging.png";
-import Navbar from "./Users";
 
-import { useState } from "react";
+import {
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  FeatureGroup
+} from "react-leaflet";
 
-function Map() {
+import { useState, useEffect } from "react";
+
+function Map(props: any) {
   const [city, setCity] = useState<string>("");
   const [longitude, setLongitude] = useState<number>();
   const [latitude, setLatitude] = useState<number>();
+
+  // const [station, setStation] = useState([]);
+
+  // function fetchStation() {
+  //   fetch("http://localhost:4000/station")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setStation(data);
+  //     });
+  // }
+
+  // useEffect(() => {
+  //   (async () => {
+  //     await fetchStation();
+  //   })();
+  // }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // console.log(station);
 
   function setCityCoordinates(event: any) {
     if (event.target.value === "malmo") {
@@ -124,6 +150,17 @@ function Map() {
                   </Popup>
                 </Marker>
               ))}
+              {/* <FeatureGroup>
+                <EditControl
+                  position="topright"
+                  onEdited={props._onEditPath}
+                  onCreated={props._onCreate}
+                  onDeleted={props._onDeleted}
+                  draw={{
+                    rectangle: false,
+                  }}
+                />
+              </FeatureGroup>{" "} */}
             </MapContainer>
           </div>
         </div>
