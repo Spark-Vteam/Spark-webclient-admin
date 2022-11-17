@@ -17,6 +17,7 @@ import {
   Popup,
   TileLayer,
   FeatureGroup,
+  Polygon,
 } from "react-leaflet";
 
 import { EditControl } from "react-leaflet-draw";
@@ -140,7 +141,7 @@ function Map() {
    * @returns {void}
    */
   function _onCreate(e: any): void {
-    console.log(typeof e);
+    console.log(e);
 
     const { layerType, layer } = e;
     if (layerType === "polygon") {
@@ -195,6 +196,13 @@ function Map() {
       );
     });
   }
+
+  const polygon = [
+    [51.515, -0.09],
+    [51.52, -0.1],
+    [51.52, -0.12],
+  ];
+  const purpleOptions = { color: "purple" };
 
   return (
     <div>
@@ -276,6 +284,31 @@ function Map() {
                   }}
                 />
               </FeatureGroup>{" "}
+              {/* Fetch geofence positions from db */}
+              <Polygon
+                pathOptions={purpleOptions}
+                //Test coordinates
+                positions={[
+                  [55.7154749638867, 13.190239814751019],
+                  [55.714991177018184, 13.188040006736431],
+                  [55.71666360282453, 13.186885455057052],
+                  [55.71691758080317, 13.187100070473088],
+                  [55.71717155713039, 13.188688224551896],
+                  [55.71689339249541, 13.191392378794184],
+                  [55.71685711000568, 13.193903379162057],
+                  [55.7164217175, 13.19634999490506],
+                  [55.71545416122276, 13.19851761060723],
+                  [55.715296931063996, 13.198775149106515],
+                  [55.714704288623274, 13.198860995272932],
+                  [55.71244248891907, 13.195105225491954],
+                  [55.712043334200686, 13.19302345595624],
+                  [55.712950498116875, 13.192014763500758],
+                  [55.71314402369265, 13.191091917211729],
+                  [55.71505503727621, 13.190126147839456],
+                ]}
+              >
+                <Popup>No parking</Popup>
+              </Polygon>
             </MapContainer>
             <pre className="text-left">{JSON.stringify(mapLayers)}</pre>
           </div>
