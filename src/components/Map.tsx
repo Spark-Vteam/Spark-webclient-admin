@@ -10,6 +10,7 @@ import charging from "../img/pin/Charging.png";
 import parking from "../img/pin/Parking.png";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
+import mapsModel from "../models/MapModels";
 
 import {
   MapContainer,
@@ -44,18 +45,13 @@ function Map() {
       bike.Status === 50
   );
 
-  //Add to folder models
   /**
    * fetch stations from API
-   * @returns {void}
+   * @returns {Promise<void>}
    */
-  function fetchStation(): void {
-    fetch("http://localhost:4000/stations")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setStations(data);
-      });
+  async function fetchStation(): Promise<void> {
+    let stations = await mapsModel.getStations();
+    setStations(stations);
   }
 
   useEffect(() => {
@@ -64,18 +60,13 @@ function Map() {
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  //Add to folder models
   /**
    * fetch bikes from API
-   * @returns {void}
+   * @returns {Promise<void>}
    */
-  function fetchBikes(): void {
-    fetch("http://localhost:4000/bikes")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setBikes(data);
-      });
+  async function fetchBikes(): Promise<void> {
+    let stations = await mapsModel.getBikes();
+    setBikes(stations);
   }
 
   useEffect(() => {
@@ -84,12 +75,10 @@ function Map() {
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  console.log(bikes);
-
   /**
    * Sets coordinates and city
    * @param {any} event Current city
-   * @returns {any}
+   * @returns {void}
    */
   function setCityCoordinates(event: any): void {
     if (event.target.value === "malmo") {
@@ -108,12 +97,11 @@ function Map() {
   /**
    * Check which icon bike should have on map depending on status
    * @param {any} scooter Current bike
-   * @returns {any}
+   * @returns {L.Icon<L.IconOptions> | undefined}
    */
-  function checkIcon(scooter: any): any {
+  function checkIcon(scooter: any): L.Icon<L.IconOptions> | undefined {
     let scooterIcon;
 
-    console.log(typeof scooter.Status);
     if (scooter.Status === 10) {
       scooterIcon = L.icon({
         iconSize: [35, 38],
@@ -149,7 +137,7 @@ function Map() {
    * @returns {string}
    */
   function setStatus(scooter: any): string {
-    let message;
+    let message = "";
 
     if (scooter.Status === 10) {
       message = "Bike is available";
@@ -339,7 +327,7 @@ function Map() {
               {/* Fetch geofence positions from db */}
               <Polygon
                 pathOptions={purpleOptions}
-                //Test coordinates, change to geo fence api endpoint
+                //Test coordinates, change to geofence api endpoint
                 positions={[
                   [55.7154749638867, 13.190239814751019],
                   [55.714991177018184, 13.188040006736431],
