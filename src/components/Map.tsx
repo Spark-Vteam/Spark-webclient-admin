@@ -28,10 +28,20 @@ function Map() {
   const [latitude, setLatitude] = useState<number>();
   const [mapLayers, setMapLayers] = useState<Array<any>>([]);
   const [stations, setStations] = useState<Array<any>>([]);
+  const [bikes, setBikes] = useState<Array<any>>([]);
 
-  /** @type {Array} filter bikes to current city */
-  const filteredBikes: Array<any> = testLocations.data.stations.filter(
-    (bike) => bike.city === city
+  // /** @type {Array} filter bikes to current city */
+  // const filteredBikes: Array<any> = testLocations.data.stations.filter(
+  //   (bike) => bike.city === city
+  // );
+
+  /** @type {Array} filter bikes depending on status */
+  const filteredBikes: Array<any> = bikes.filter(
+    (bike: any) =>
+      bike.Status === 10 ||
+      bike.Status === 20 ||
+      bike.Status === 30 ||
+      bike.Status === 50
   );
 
   //Add to folder models
@@ -53,6 +63,28 @@ function Map() {
       await fetchStation();
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  //Add to folder models
+  /**
+   * fetch bikes from API
+   * @returns {void}
+   */
+  function fetchBikes(): void {
+    fetch("http://localhost:4000/bikes")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setBikes(data);
+      });
+  }
+
+  useEffect(() => {
+    (async () => {
+      await fetchBikes();
+    })();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  console.log(bikes);
 
   /**
    * Sets coordinates and city
@@ -81,25 +113,26 @@ function Map() {
   function checkIcon(scooter: any): any {
     let scooterIcon;
 
-    if (scooter.status === "Available") {
+    console.log(typeof scooter.Status);
+    if (scooter.Status === 10) {
       scooterIcon = L.icon({
         iconSize: [35, 38],
         iconAnchor: [13, 41],
         iconUrl: available,
       });
-    } else if (scooter.status === "Active") {
+    } else if (scooter.Status === 20) {
       scooterIcon = L.icon({
         iconSize: [35, 38],
         iconAnchor: [13, 41],
         iconUrl: active,
       });
-    } else if (scooter.status === "Needs charging") {
+    } else if (scooter.Status === 30) {
       scooterIcon = L.icon({
         iconSize: [35, 38],
         iconAnchor: [13, 41],
         iconUrl: charging,
       });
-    } else if (scooter.status === "Needs service") {
+    } else if (scooter.Status === 50) {
       scooterIcon = L.icon({
         iconSize: [35, 38],
         iconAnchor: [13, 41],
@@ -108,6 +141,29 @@ function Map() {
     }
 
     return scooterIcon;
+  }
+
+  /**
+   * Set status message
+   * @param {any} scooter Current bike
+   * @returns {string}
+   */
+  function setStatus(scooter: any): string {
+    let message;
+
+    if (scooter.Status === 10) {
+      message = "Bike is available";
+    } else if (scooter.Status === 20) {
+      message = "Bike is active";
+    } else if (scooter.Status === 30) {
+      message = "Bike has no battery";
+    } else if (scooter.Status === 50) {
+      message = "Bike needs maintenance";
+    } else {
+      message = "Could not load status message";
+    }
+
+    return message;
   }
 
   /**
@@ -197,11 +253,7 @@ function Map() {
     });
   }
 
-  const polygon = [
-    [51.515, -0.09],
-    [51.52, -0.1],
-    [51.52, -0.12],
-  ];
+  console.log(filteredBikes);
   const purpleOptions = { color: "purple" };
 
   return (
@@ -245,13 +297,13 @@ function Map() {
               />
               {filteredBikes.map((location: any) => (
                 <Marker
-                  key={location.station_id}
-                  position={[location.lat, location.lon]}
+                  key={location.id}
+                  position={location.Position.split(",")}
                   icon={checkIcon(location)}
                 >
                   <Popup>
-                    Status: {location.status} <br />
-                    Battery: {location.battery}% <br />
+                    Status: {setStatus(location)} <br />
+                    Battery: {location.Battery}% <br />
                     <a href="#">Move bike</a>
                   </Popup>
                 </Marker>
@@ -263,9 +315,9 @@ function Map() {
                   icon={parkingIcon()}
                 >
                   <Popup>
-                    Name: {station.Name} <br />
-                    Scooters: 48 <br />
-                    <a href="#">Move bike</a>
+                    {station.Name} <br />
+                    {/* Hard coding, change */}
+                    Bikes: 21
                   </Popup>
                 </Marker>
               ))}
@@ -287,7 +339,7 @@ function Map() {
               {/* Fetch geofence positions from db */}
               <Polygon
                 pathOptions={purpleOptions}
-                //Test coordinates
+                //Test coordinates, change to geo fence api endpoint
                 positions={[
                   [55.7154749638867, 13.190239814751019],
                   [55.714991177018184, 13.188040006736431],
