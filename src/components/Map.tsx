@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 import L from 'leaflet';
-// import testLocations from '../Data/lund-test-locations.json'
-import logo from '../img/logo-admin.png';
 import { Link } from 'react-router-dom';
 import active from '../img/pin/Active.png';
 import available from '../img/pin/Available.png';
@@ -11,6 +9,8 @@ import parking from '../img/pin/Parking.png';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 import mapsModel from '../models/mapModels';
+import Navbar from './Navbar';
+// import testLocations from '../Data/lund-test-locations.json'
 
 import { MapContainer, Marker, Popup, TileLayer, FeatureGroup, Polygon } from 'react-leaflet';
 
@@ -226,23 +226,11 @@ function Map() {
   }
 
   console.log(filteredBikes);
-  const purpleOptions = { color: 'purple' };
+  const redOption = { color: 'red' };
 
   return (
     <div>
-      <div className='topnav'>
-        <img src={logo} width='50px' alt='logo' />
-        <div className='topnav-right'>
-          <Link to='/' className='home-link'>
-            {' '}
-            Home
-          </Link>
-          <Link to='/map' className='login-link'>
-            {' '}
-            Log out
-          </Link>
-        </div>
-      </div>
+      <Navbar />
       {longitude !== undefined && latitude !== undefined ? (
         <div>
           <div className='btn-container'>
@@ -306,7 +294,7 @@ function Map() {
               </FeatureGroup>{' '}
               {/* Fetch geofence positions from db */}
               <Polygon
-                pathOptions={purpleOptions}
+                pathOptions={redOption}
                 // Test coordinates, change to geofence api endpoint
                 positions={[
                   [55.7154749638867, 13.190239814751019],
