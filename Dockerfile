@@ -1,24 +1,16 @@
 # Pull official base image
 # FROM node:13.12.0-alpine
-FROM node:16.17.0-bullseye-slim
+FROM node:13.12.0-alpine as builder
 
 # Set working directory
-WORKDIR /webclient-admin
+WORKDIR /app
 
-# Add `/app/node_modules/.bin` to $PATH
-ENV PATH /webclient-admin/node_modules/.bin:$PATH
+COPY package.json .
 
-# Install app dependencies
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm install --silent
-RUN npm install react-scripts@3.4.1 -g --silent
+RUN npm install
 
-# Add app
-COPY . ./
+COPY . .
 
-# Expose port
-EXPOSE 3001
+EXPOSE 3000
 
-# Start app
 CMD ["npm", "start"]

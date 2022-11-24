@@ -10,7 +10,7 @@ import charging from "../img/pin/Charging.png";
 import parking from "../img/pin/Parking.png";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
-import mapsModel from "../models/MapModels";
+import mapsModel from "../models/mapModels";
 
 import {
   MapContainer,
