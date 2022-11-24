@@ -1,165 +1,165 @@
 {
-    "data": {
-      "stations": [
-        { 
-          "city":"lund",
-          "station_id":"1",
-          "name":"Bike1",
-          "lat":55.702803070800606,
-          "lon":13.193070166554184,
-          "battery":72,
-          "status": "Active"
-        },
-        {  
-          "city":"lund",
-          "station_id":"2",
-          "name":"Bike2",
-          "address":"Bike2",
-          "lat":55.71172436328225,
-          "lon":13.206109434635462,
-          "battery":10,
-          "status": "Needs service"
-        },
-        {  
-          "city":"lund",
-          "station_id":"3",
-          "name":"Bike3",
-          "address":"Bike3",
-          "lat":55.71172435438225,
-          "lon":13.196109324635462,
-          "battery":100,
-          "status": "Available"
-        },
-        {  
-          "city":"lund",
-          "station_id":"4",
-          "name":"Bike4",
-          "address":"Bike4",
-          "lat":55.70172436138225,
-          "lon":13.196109844635462,
-          "battery":63,
-          "status": "Active"
-        },
-        {  
-          "city":"lund",
-          "station_id":"5",
-          "name":"Bike5",
-          "address":"Bike5",
-          "lat":55.70733666331058,
-          "lon": 13.188265904817278,
-          "battery":"0",
-          "status": "Needs service"
-        },
-        {  
-          "city":"lund",
-          "station_id":"6",
-          "name":"Bike6",
-          "address":"Bike6",
-          "lat":55.70733666331058,
-          "lon": 13.178265904817278,
-          "battery":89,
-          "status": "Active"
-        },
-        {  
-          "city":"lund",
-          "station_id":"7",
-          "name":"Bike7",
-          "address":"Bike7",
-          "lat":55.707336666321058,
-          "lon": 13.18956599076278,
-          "battery":33,
-          "status": "Needs charging"
-        },
-        {  
-          "city":"lund",
-          "station_id":"8",
-          "name":"Bike8",
-          "address":"Bike8",
-          "lat":55.70463664561058,
-          "lon": 13.179365904876278,
-          "battery":33,
-          "status": "Needs charging"
-        },
-        {  
-          "city":"lund",
-          "station_id":"9",
-          "name":"Bike9",
-          "address":"Bike9",
-          "lat":55.70933664551058,
-          "lon": 13.189965904876278,
-          "battery":23,
-          "status": "Needs charging"
-        },
-        {  
-          "city":"lund",
-          "station_id":"10",
-          "name":"Bike10",
-          "address":"Bike10",
-          "lat":55.70933632151058,
-          "lon": 13.2012433994876178,
-          "battery":76,
-          "status": "Available"
-        },
-        {  
-          "city":"lund",
-          "station_id":"11",
-          "name":"Bike11",
-          "address":"Bike11",
-          "lat":55.717336643058,
-          "lon": 13.191904876178,
-          "battery":74,
-          "status": "Available"
-        },
-        {  
-          "city":"lund",
-          "station_id":"12",
-          "name":"Bike12",
-          "address":"Bike12",
-          "lat":55.705346643058,
-          "lon": 13.192904876178,
-          "battery":55,
-          "status": "Available"
-        },
-        {  
-          "city":"malmo",
-          "station_id":"13",
-          "name":"Bike13",
-          "address":"Bike13",
-          "lat":55.61537,
-          "lon": 13.06173,
-          "battery":10,
-          "status": "Needs service"
-        },
-        {  
-          "city":"malmo",
-          "station_id":"14",
-          "name":"Bike14",
-          "address":"Bike14",
-          "lat":55.60587,
-          "lon": 13.00073,
-          "battery":100,
-          "status": "Available"
-        },
-        {  
-          "city":"malmo",
-          "station_id":"15",
-          "name":"Bike15",
-          "address":"Bike15",
-          "lat":55.58587,
-          "lon": 13.00271,
-          "battery":67,
-          "status": "Active"
-        },
-        {  
-          "city":"malmo",
-          "station_id":"16",
-          "name":"Bike16",
-          "address":"Bike16",
-          "lat":55.59587,
-          "lon": 13.01271,
-          "battery":13,
-          "status": "Needs charging"
-        }
-      ]
-    }
+  "data": {
+    "stations": [
+      {
+        "city": "lund",
+        "station_id": "1",
+        "name": "Bike1",
+        "lat": 55.702803070800606,
+        "lon": 13.193070166554184,
+        "battery": 72,
+        "status": "Active"
+      },
+      {
+        "city": "lund",
+        "station_id": "2",
+        "name": "Bike2",
+        "address": "Bike2",
+        "lat": 55.71172436328225,
+        "lon": 13.206109434635462,
+        "battery": 10,
+        "status": "Needs service"
+      },
+      {
+        "city": "lund",
+        "station_id": "3",
+        "name": "Bike3",
+        "address": "Bike3",
+        "lat": 55.71172435438225,
+        "lon": 13.196109324635462,
+        "battery": 100,
+        "status": "Available"
+      },
+      {
+        "city": "lund",
+        "station_id": "4",
+        "name": "Bike4",
+        "address": "Bike4",
+        "lat": 55.70172436138225,
+        "lon": 13.196109844635462,
+        "battery": 63,
+        "status": "Active"
+      },
+      {
+        "city": "lund",
+        "station_id": "5",
+        "name": "Bike5",
+        "address": "Bike5",
+        "lat": 55.70733666331058,
+        "lon": 13.188265904817278,
+        "battery": "0",
+        "status": "Needs service"
+      },
+      {
+        "city": "lund",
+        "station_id": "6",
+        "name": "Bike6",
+        "address": "Bike6",
+        "lat": 55.70733666331058,
+        "lon": 13.178265904817278,
+        "battery": 89,
+        "status": "Active"
+      },
+      {
+        "city": "lund",
+        "station_id": "7",
+        "name": "Bike7",
+        "address": "Bike7",
+        "lat": 55.707336666321058,
+        "lon": 13.18956599076278,
+        "battery": 33,
+        "status": "Needs charging"
+      },
+      {
+        "city": "lund",
+        "station_id": "8",
+        "name": "Bike8",
+        "address": "Bike8",
+        "lat": 55.70463664561058,
+        "lon": 13.179365904876278,
+        "battery": 33,
+        "status": "Needs charging"
+      },
+      {
+        "city": "lund",
+        "station_id": "9",
+        "name": "Bike9",
+        "address": "Bike9",
+        "lat": 55.70933664551058,
+        "lon": 13.189965904876278,
+        "battery": 23,
+        "status": "Needs charging"
+      },
+      {
+        "city": "lund",
+        "station_id": "10",
+        "name": "Bike10",
+        "address": "Bike10",
+        "lat": 55.70933632151058,
+        "lon": 13.2012433994876178,
+        "battery": 76,
+        "status": "Available"
+      },
+      {
+        "city": "lund",
+        "station_id": "11",
+        "name": "Bike11",
+        "address": "Bike11",
+        "lat": 55.717336643058,
+        "lon": 13.191904876178,
+        "battery": 74,
+        "status": "Available"
+      },
+      {
+        "city": "lund",
+        "station_id": "12",
+        "name": "Bike12",
+        "address": "Bike12",
+        "lat": 55.705346643058,
+        "lon": 13.192904876178,
+        "battery": 55,
+        "status": "Available"
+      },
+      {
+        "city": "malmo",
+        "station_id": "13",
+        "name": "Bike13",
+        "address": "Bike13",
+        "lat": 55.61537,
+        "lon": 13.06173,
+        "battery": 10,
+        "status": "Needs service"
+      },
+      {
+        "city": "malmo",
+        "station_id": "14",
+        "name": "Bike14",
+        "address": "Bike14",
+        "lat": 55.60587,
+        "lon": 13.00073,
+        "battery": 100,
+        "status": "Available"
+      },
+      {
+        "city": "malmo",
+        "station_id": "15",
+        "name": "Bike15",
+        "address": "Bike15",
+        "lat": 55.58587,
+        "lon": 13.00271,
+        "battery": 67,
+        "status": "Active"
+      },
+      {
+        "city": "malmo",
+        "station_id": "16",
+        "name": "Bike16",
+        "address": "Bike16",
+        "lat": 55.59587,
+        "lon": 13.01271,
+        "battery": 13,
+        "status": "Needs charging"
+      }
+    ]
   }
+}
