@@ -1,24 +1,24 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import logo from '../img/logo-admin.png'
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import logo from '../img/logo-admin.png';
 
 function Users() {
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([]);
 
   function fetchUsers() {
     fetch('http://localhost:4000/')
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
-        setUsers(data)
-      })
+        console.log(data);
+        setUsers(data);
+      });
   }
 
   useEffect(() => {
-    ;(async () => {
-      await fetchUsers()
-    })()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    (async () => {
+      await fetchUsers();
+    })();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div>
@@ -48,12 +48,12 @@ function Users() {
                 <p>{user.EmailAdress}</p>
                 <hr />
               </div>
-            )
+            );
           })}
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Users
+export default Users;

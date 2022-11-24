@@ -1,18 +1,18 @@
 const mapsModel = {
   getStations: async function getStations() {
-    const response = await fetch('http://localhost:4000/stations')
+    const response = await fetch('http://localhost:4000/stations');
 
-    const stations = await response.json()
+    const stations = await response.json();
 
-    return stations
+    return stations;
   },
   getBikes: async function getBikes() {
-    const response = await fetch('http://localhost:4000/bikes')
+    const response = await fetch('http://localhost:4000/bikes');
 
-    const bikes = await response.json()
+    const bikes = await response.json();
 
-    return bikes
+    return bikes;
   },
-}
+};
 
-export default mapsModel
+export default mapsModel;

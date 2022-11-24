@@ -1,8 +1,8 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import cell from '../img/cell.png'
-import logo from '../img/logo-admin.png'
-import spark from '../img/heading.png'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import cell from '../img/cell.png';
+import logo from '../img/logo-admin.png';
+import spark from '../img/heading.png';
 
 function Home() {
   return (
@@ -28,7 +28,7 @@ function Home() {
         </h3>
       </div>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

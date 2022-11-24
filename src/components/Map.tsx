@@ -1,28 +1,28 @@
-import { useState, useEffect } from 'react'
-import L from 'leaflet'
-import testLocations from '../Data/lund-test-locations.json'
-import logo from '../img/logo-admin.png'
-import { Link } from 'react-router-dom'
-import active from '../img/pin/Active.png'
-import available from '../img/pin/Available.png'
-import service from '../img/pin/Service.png'
-import charging from '../img/pin/Charging.png'
-import parking from '../img/pin/Parking.png'
-import 'leaflet/dist/leaflet.css'
-import 'leaflet-draw/dist/leaflet.draw.css'
-import mapsModel from '../models/mapModels'
+import { useState, useEffect } from 'react';
+import L from 'leaflet';
+// import testLocations from '../Data/lund-test-locations.json'
+import logo from '../img/logo-admin.png';
+import { Link } from 'react-router-dom';
+import active from '../img/pin/Active.png';
+import available from '../img/pin/Available.png';
+import service from '../img/pin/Service.png';
+import charging from '../img/pin/Charging.png';
+import parking from '../img/pin/Parking.png';
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-draw/dist/leaflet.draw.css';
+import mapsModel from '../models/mapModels';
 
-import { MapContainer, Marker, Popup, TileLayer, FeatureGroup, Polygon } from 'react-leaflet'
+import { MapContainer, Marker, Popup, TileLayer, FeatureGroup, Polygon } from 'react-leaflet';
 
-import { EditControl } from 'react-leaflet-draw'
+import { EditControl } from 'react-leaflet-draw';
 
 function Map() {
-  const [city, setCity] = useState<string>('')
-  const [longitude, setLongitude] = useState<number>()
-  const [latitude, setLatitude] = useState<number>()
-  const [mapLayers, setMapLayers] = useState<Array<any>>([])
-  const [stations, setStations] = useState<Array<any>>([])
-  const [bikes, setBikes] = useState<Array<any>>([])
+  const [city, setCity] = useState<string>('');
+  const [longitude, setLongitude] = useState<number>();
+  const [latitude, setLatitude] = useState<number>();
+  const [mapLayers, setMapLayers] = useState<Array<any>>([]);
+  const [stations, setStations] = useState<Array<any>>([]);
+  const [bikes, setBikes] = useState<Array<any>>([]);
 
   // /** @type {Array} filter bikes to current city */
   // const filteredBikes: Array<any> = testLocations.data.stations.filter(
@@ -33,37 +33,37 @@ function Map() {
   const filteredBikes: Array<any> = bikes.filter(
     (bike: any) =>
       bike.Status === 10 || bike.Status === 20 || bike.Status === 30 || bike.Status === 50,
-  )
+  );
 
   /**
    * fetch stations from API
    * @returns {Promise<void>}
    */
   async function fetchStation(): Promise<void> {
-    const stations = await mapsModel.getStations()
-    setStations(stations)
+    const stations = await mapsModel.getStations();
+    setStations(stations);
   }
 
   useEffect(() => {
-    ;(async () => {
-      await fetchStation()
-    })()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    (async () => {
+      await fetchStation();
+    })();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**
    * fetch bikes from API
    * @returns {Promise<void>}
    */
   async function fetchBikes(): Promise<void> {
-    const stations = await mapsModel.getBikes()
-    setBikes(stations)
+    const stations = await mapsModel.getBikes();
+    setBikes(stations);
   }
 
   useEffect(() => {
-    ;(async () => {
-      await fetchBikes()
-    })()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    (async () => {
+      await fetchBikes();
+    })();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**
    * Sets coordinates and city
@@ -72,15 +72,15 @@ function Map() {
    */
   function setCityCoordinates(event: any): void {
     if (event.target.value === 'malmo') {
-      setLatitude(55.60587)
-      setLongitude(13.00073)
-      setCity('malmo')
+      setLatitude(55.60587);
+      setLongitude(13.00073);
+      setCity('malmo');
     } else if (event.target.value === 'lund') {
-      setLatitude(55.70584)
-      setLongitude(13.19321)
-      setCity('lund')
+      setLatitude(55.70584);
+      setLongitude(13.19321);
+      setCity('lund');
     } else {
-      console.log('City does not exist')
+      console.log('City does not exist');
     }
   }
 
@@ -90,35 +90,35 @@ function Map() {
    * @returns {L.Icon<L.IconOptions> | undefined}
    */
   function checkIcon(scooter: any): L.Icon<L.IconOptions> | undefined {
-    let scooterIcon
+    let scooterIcon;
 
     if (scooter.Status === 10) {
       scooterIcon = L.icon({
         iconSize: [35, 38],
         iconAnchor: [13, 41],
         iconUrl: available,
-      })
+      });
     } else if (scooter.Status === 20) {
       scooterIcon = L.icon({
         iconSize: [35, 38],
         iconAnchor: [13, 41],
         iconUrl: active,
-      })
+      });
     } else if (scooter.Status === 30) {
       scooterIcon = L.icon({
         iconSize: [35, 38],
         iconAnchor: [13, 41],
         iconUrl: charging,
-      })
+      });
     } else if (scooter.Status === 50) {
       scooterIcon = L.icon({
         iconSize: [35, 38],
         iconAnchor: [13, 41],
         iconUrl: service,
-      })
+      });
     }
 
-    return scooterIcon
+    return scooterIcon;
   }
 
   /**
@@ -127,21 +127,21 @@ function Map() {
    * @returns {string}
    */
   function setStatus(scooter: any): string {
-    let message = ''
+    let message = '';
 
     if (scooter.Status === 10) {
-      message = 'Bike is available'
+      message = 'Bike is available';
     } else if (scooter.Status === 20) {
-      message = 'Bike is active'
+      message = 'Bike is active';
     } else if (scooter.Status === 30) {
-      message = 'Bike has no battery'
+      message = 'Bike has no battery';
     } else if (scooter.Status === 50) {
-      message = 'Bike needs maintenance'
+      message = 'Bike needs maintenance';
     } else {
-      message = 'Could not load status message'
+      message = 'Could not load status message';
     }
 
-    return message
+    return message;
   }
 
   /**
@@ -153,9 +153,9 @@ function Map() {
       iconSize: [35, 38],
       iconAnchor: [13, 41],
       iconUrl: parking,
-    })
+    });
 
-    return parkingIcon
+    return parkingIcon;
   }
 
   /**
@@ -163,9 +163,10 @@ function Map() {
    * @returns {void}
    */
   function resetCity(): void {
-    setCity('')
-    setLatitude(undefined)
-    setLongitude(undefined)
+    setCity('');
+    setLatitude(undefined);
+    setLongitude(undefined);
+    console.log(city);
   }
 
   // Insert coordinates in database
@@ -175,13 +176,13 @@ function Map() {
    * @returns {void}
    */
   function _onCreate(e: any): void {
-    console.log(e)
+    console.log(e);
 
-    const { layerType, layer } = e
+    const { layerType, layer } = e;
     if (layerType === 'polygon') {
-      const { _leaflet_id } = layer
+      const { leafletId } = layer;
 
-      setMapLayers((layers) => [...layers, { id: _leaflet_id, latlngs: layer.getLatLngs()[0] }])
+      setMapLayers((layers) => [...layers, { id: leafletId, latlngs: layer.getLatLngs()[0] }]);
     }
   }
 
@@ -194,15 +195,15 @@ function Map() {
   function _onEditPath(e: any): void {
     const {
       layers: { _layers },
-    } = e
+    } = e;
 
-    Object.values(_layers).map(({ _leaflet_id, editing }: any) => {
+    Object.values(_layers).map(({ leafletId, editing }: any) => {
       setMapLayers((layers) =>
         layers.map((l) =>
-          l.id === _leaflet_id ? { ...l, latlngs: { ...editing.latlngs[0] } } : l,
+          l.id === leafletId ? { ...l, latlngs: { ...editing.latlngs[0] } } : l,
         ),
-      )
-    })
+      );
+    });
   }
 
   // Delete coordinates in database
@@ -212,20 +213,20 @@ function Map() {
    * @returns {void}
    */
   function _onDeleted(e: any): void {
-    console.log(e.target)
+    console.log(e.target);
     const {
       layers: { _layers },
-    } = e
+    } = e;
 
-    Object.values(_layers).map(({ _leaflet_id }: any) => {
+    Object.values(_layers).map(({ leafletId }: any) => {
       setMapLayers((layers) =>
-        layers.filter((layers) => layers.filter((l: any) => l.id !== _leaflet_id)),
-      )
-    })
+        layers.filter((layers) => layers.filter((l: any) => l.id !== leafletId)),
+      );
+    });
   }
 
-  console.log(filteredBikes)
-  const purpleOptions = { color: 'purple' }
+  console.log(filteredBikes);
+  const purpleOptions = { color: 'purple' };
 
   return (
     <div>
@@ -345,7 +346,7 @@ function Map() {
         </div>
       )}
     </div>
-  )
+  );
 }
 
-export default Map
+export default Map;

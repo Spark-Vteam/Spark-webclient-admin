@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+// import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../img/logo-admin.png'
 
 function Navbar() {
@@ -19,7 +19,7 @@ function Navbar() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
