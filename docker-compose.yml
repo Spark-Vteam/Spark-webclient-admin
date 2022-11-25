@@ -4,9 +4,15 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+        container_name: webclient-admin
+        image: webclient-admin:1.0
         restart: always
+        volumes:
+             - ./src:/app/src 
+        environment:
+            - CHOKIDAR_USEPOLLING=true
         ports:
-            - 3003:3002
+            - 3000:3000
         expose:
-            - '3002'
+            - '3000'
         stdin_open: true

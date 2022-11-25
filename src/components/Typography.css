@@ -1,0 +1,21 @@
+.heading {
+  top: 25%;
+  width: 50%;
+  left: 50%;
+  position: absolute;
+}
+
+.heading-text {
+  max-width: 80%;
+}
+
+.head-text-sub {
+  font-size: 32px;
+  font-weight: bolder;
+  color: #00b38e;
+  text-transform: uppercase;
+}
+
+.center {
+  text-align: center;
+}

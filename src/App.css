@@ -1,38 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Teko&display=swap');
+
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: url(./img/bg.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: #272727;
+  color: #fff;
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container {
+  padding: 1em;
+  width: 50%;
+  margin: 0 auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.bg-layer {
+  width: 50%;
+  left: 50%;
+  position: absolute;
+  top: 120px;
+  left: 100px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.margin-top {
+  margin-top: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.leaflet-container {
+  width: 100%;
+  height: 80vh;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.map-container {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.sr-only {
+  display: none;
+}
+
+.customers-link {
+  text-decoration: none;
+  color: #00b38e;
+  font-size: 1.2em;
+}
+
+.customers-link:hover {
+  opacity: 0.7;
 }
