@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import userModel from '../models/userModels';
 import Navbar from './Navbar';
 
-
 function Users() {
   const [users, setUsers] = useState([]);
 

@@ -65,7 +65,6 @@ function Map() {
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-
   /**
    * Sets coordinates and city
    * @param {any} event Current city

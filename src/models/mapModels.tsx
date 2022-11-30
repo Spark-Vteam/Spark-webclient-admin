@@ -14,7 +14,7 @@ const mapsModel = {
 
     // return bikes;
     return bikes[0];
-  }
+  },
 };
 
 export default mapsModel;
