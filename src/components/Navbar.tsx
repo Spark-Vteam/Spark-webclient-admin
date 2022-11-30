@@ -13,7 +13,7 @@ function Navbar() {
         </Link>
         <Link to='/map' className='login-link'>
           {' '}
-          Log out
+          Log in
         </Link>
       </div>
     </div>

@@ -23,7 +23,6 @@ function Map() {
   const [mapLayers, setMapLayers] = useState<Array<any>>([]);
   const [stations, setStations] = useState<Array<any>>([]);
   const [bikes, setBikes] = useState<Array<any>>([]);
-  const [geofence, setGeofence] = useState<Array<any>>([]);
 
   // /** @type {Array} filter bikes to current city */
   // const filteredBikes: Array<any> = testLocations.data.stations.filter(

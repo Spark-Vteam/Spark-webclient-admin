@@ -4,6 +4,7 @@ const mapsModel = {
 
     const stations = await response.json();
 
+    console.log(stations);
     return stations[0];
   },
   getBikes: async function getBikes() {
