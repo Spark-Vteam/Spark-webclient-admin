@@ -1,17 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../img/logo-admin.png';
+import userModel from '../models/userModels';
+import Navbar from './Navbar';
+
 
 function Users() {
   const [users, setUsers] = useState([]);
 
-  function fetchUsers() {
-    fetch('http://localhost:4000/')
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setUsers(data);
-      });
+  /**
+   * fetch users from API
+   * @returns {Promise<void>}
+   */
+  async function fetchUsers(): Promise<void> {
+    const users = await userModel.getUsers();
+    setUsers(users);
   }
 
   useEffect(() => {
@@ -22,19 +25,7 @@ function Users() {
 
   return (
     <div>
-      <div className='topnav'>
-        <img src={logo} width='50px' alt='logo' />
-        <div className='topnav-right'>
-          <Link to='/' className='home-link'>
-            {' '}
-            Home
-          </Link>
-          <Link to='/map' className='login-link'>
-            {' '}
-            Log out
-          </Link>
-        </div>
-      </div>
+      <Navbar />
       <div>
         <div className='container'>
           {users.map((user: any) => {
