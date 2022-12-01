@@ -199,9 +199,7 @@ function Map() {
 
     Object.values(_layers).map(({ leafletId, editing }: any) => {
       setMapLayers((layers) =>
-        layers.map((l) =>
-          l.id === leafletId ? { ...l, latlngs: { ...editing.latlngs[0] } } : l,
-        ),
+        layers.map((l) => (l.id === leafletId ? { ...l, latlngs: { ...editing.latlngs[0] } } : l)),
       );
     });
   }
