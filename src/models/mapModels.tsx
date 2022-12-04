@@ -4,7 +4,6 @@ const mapsModel = {
 
     const stations = await response.json();
 
-    console.log(stations);
     return stations[0];
   },
   getBikes: async function getBikes() {
@@ -14,6 +13,14 @@ const mapsModel = {
 
     // return bikes;
     return bikes[0];
+  },
+  getGeofence: async function getGeofence() {
+    const response = await fetch('http://localhost:4000/geofence');
+
+    const geofence = await response.json();
+
+    // return geofence;
+    return geofence[0];
   },
 };
 
