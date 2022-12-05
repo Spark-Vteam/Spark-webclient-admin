@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
-import L from 'leaflet';
+import { useState, useEffect, useRef } from 'react';
+import L, { MarkerCluster } from 'leaflet';
 import { Link } from 'react-router-dom';
+import MarkerClusterGroup from 'react-leaflet-cluster';
 import active from '../img/pin/Active.png';
 import available from '../img/pin/Available.png';
 import service from '../img/pin/Service.png';
@@ -10,6 +11,7 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 import mapsModel from '../models/mapModels';
 import Navbar from './Navbar';
+import './Map.css';
 // import testLocations from '../Data/lund-test-locations.json'
 
 import { MapContainer, Marker, Popup, TileLayer, FeatureGroup, Polygon } from 'react-leaflet';
@@ -71,10 +73,10 @@ function Map() {
    * @returns {void}
    */
   function setCityCoordinates(event: any): void {
-    if (event.target.value === 'malmo') {
-      setLatitude(55.60587);
-      setLongitude(13.00073);
-      setCity('malmo');
+    if (event.target.value === 'stockholm') {
+      setLatitude(59.334591);
+      setLongitude(18.06324);
+      setCity('stockholm');
     } else if (event.target.value === 'lund') {
       setLatitude(55.70584);
       setLongitude(13.19321);
@@ -158,6 +160,14 @@ function Map() {
     return parkingIcon;
   }
 
+  const createClusterCustomIcon = function (cluster: MarkerCluster) {
+    return L.divIcon({
+      html: `<span>${cluster.getChildCount()}</span>`,
+      className: 'custom-marker-cluster',
+      iconSize: L.point(33, 33, true),
+    });
+  };
+
   /**
    * Resets city
    * @returns {void}
@@ -166,7 +176,6 @@ function Map() {
     setCity('');
     setLatitude(undefined);
     setLongitude(undefined);
-    console.log(city);
   }
 
   // Insert coordinates in database
@@ -176,8 +185,6 @@ function Map() {
    * @returns {void}
    */
   function _onCreate(e: any): void {
-    console.log(e);
-
     const { layerType, layer } = e;
     if (layerType === 'polygon') {
       const { leafletId } = layer;
@@ -211,7 +218,6 @@ function Map() {
    * @returns {void}
    */
   function _onDeleted(e: any): void {
-    console.log(e.target);
     const {
       layers: { _layers },
     } = e;
@@ -223,7 +229,6 @@ function Map() {
     });
   }
 
-  console.log(filteredBikes);
   const redOption = { color: 'red' };
 
   return (
@@ -249,32 +254,36 @@ function Map() {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
               />
-              {filteredBikes.map((location: any) => (
-                <Marker
-                  key={location.id}
-                  position={location.Position.split(',')}
-                  icon={checkIcon(location)}
-                >
-                  <Popup>
-                    Status: {setStatus(location)} <br />
-                    Battery: {location.Battery}% <br />
-                    <a href='#'>Move bike</a>
-                  </Popup>
-                </Marker>
-              ))}
-              {stations.map((station: any) => (
-                <Marker
-                  key={station.station_id}
-                  position={station.Position.split(',')}
-                  icon={parkingIcon()}
-                >
-                  <Popup>
-                    {station.Name} <br />
-                    {/* Hard coding, change */}
-                    Bikes: 21
-                  </Popup>
-                </Marker>
-              ))}
+              <MarkerClusterGroup chunkedLoading>
+                {filteredBikes.map((location: any) => (
+                  <Marker
+                    key={location.id}
+                    position={location.Position.split(',')}
+                    icon={checkIcon(location)}
+                  >
+                    <Popup>
+                      Status: {setStatus(location)} <br />
+                      Battery: {location.Battery}% <br />
+                      <a href='#'>Move bike</a>
+                    </Popup>
+                  </Marker>
+                ))}
+              </MarkerClusterGroup>
+              <MarkerClusterGroup chunkedLoading>
+                {stations.map((station: any) => (
+                  <Marker
+                    key={station.station_id}
+                    position={station.Position.split(',')}
+                    icon={parkingIcon()}
+                  >
+                    <Popup>
+                      {station.Name} <br />
+                      {/* Hard coding, change */}
+                      Bikes: 21
+                    </Popup>
+                  </Marker>
+                ))}
+              </MarkerClusterGroup>
               <FeatureGroup>
                 <EditControl
                   position='topright'
@@ -326,8 +335,8 @@ function Map() {
             Lund
           </button>
           <br></br>
-          <button className='btn margin-top' onClick={setCityCoordinates} value='malmo'>
-            Malmö
+          <button className='btn margin-top' onClick={setCityCoordinates} value='stockholm'>
+            Stockholm
           </button>
         </div>
       )}
