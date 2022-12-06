@@ -6,7 +6,7 @@ import active from '../img/pin/Active.png';
 import available from '../img/pin/Available.png';
 import service from '../img/pin/Service.png';
 import charging from '../img/pin/Charging.png';
-import parking from '../img/pin/Parking.png';
+import parking from '../img/pin/ChargingStation.png';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 import mapsModel from '../models/mapModels';
@@ -164,7 +164,7 @@ function Map() {
     return L.divIcon({
       html: `<span>${cluster.getChildCount()}</span>`,
       className: 'custom-marker-cluster',
-      iconSize: L.point(33, 33, true),
+      iconSize: L.point(33, 33, true)
     });
   };
 
