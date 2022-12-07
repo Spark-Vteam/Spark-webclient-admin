@@ -11,6 +11,14 @@ function Navbar() {
           {' '}
           Home
         </Link>
+        <Link to='/users' className='home-link'>
+          {' '}
+          Customer overview
+        </Link>
+        <Link to='/map' className='home-link'>
+          {' '}
+          City overview
+        </Link>
         <Link to='/map' className='login-link'>
           {' '}
           Log in
