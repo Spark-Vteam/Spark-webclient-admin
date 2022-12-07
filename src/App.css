@@ -60,6 +60,17 @@ body {
   font-size: 1.2em;
 }
 
+.users-link {
+  text-decoration: none;
+  color: #000000;
+  font-size: 1.2em;
+  text-decoration: none;
+}
+
 .customers-link:hover {
+  opacity: 0.7;
+}
+
+.users-link:hover {
   opacity: 0.7;
 }

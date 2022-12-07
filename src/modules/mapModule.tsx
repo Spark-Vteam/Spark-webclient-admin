@@ -1,4 +1,4 @@
-import L, { MarkerCluster } from 'leaflet';
+import L from 'leaflet';
 import active from '../img/pin/Active.png';
 import available from '../img/pin/Available.png';
 import service from '../img/pin/Service.png';

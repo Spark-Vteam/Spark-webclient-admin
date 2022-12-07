@@ -5,18 +5,15 @@ import { Link } from 'react-router-dom';
 
 function Users() {
   const [users, setUsers] = useState<any>([]);
-  let [filteredList, setFilteredList] = useState(users);
+  const [filteredList, setFilteredList] = useState(users);
 
   const filterBySearch = (event: any) => {
     // Access input value
     const query = event.target.value;
-    console.log(query);
     // Create copy of item list
-    var updatedList = [...users];
-    console.log(updatedList);
+    let updatedList = [...users];
     // Include all elements which includes the search query
     updatedList = updatedList.filter((item) => {
-      console.log(item);
       return item.FirstName.toLowerCase().indexOf(query.toLowerCase()) !== -1;
     });
     // Trigger render with updated values

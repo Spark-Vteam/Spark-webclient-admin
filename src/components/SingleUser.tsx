@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import userModel from '../models/userModels';
 import Navbar from './Navbar';
+import { Link } from 'react-router-dom';
 
 function SingleUser() {
   const [user, setUser] = useState<any>([]);
 
-  let urlArray = window.location.href.split('/');
-  let userId = urlArray[urlArray.length - 1];
+  const urlArray = window.location.href.split('/');
+  const userId = urlArray[urlArray.length - 1];
 
   /**
    * fetch single user from API
@@ -16,8 +17,6 @@ function SingleUser() {
     const singleUser = await userModel.getSingleUser(userId);
     setUser(singleUser[0]);
   }
-
-  console.log(user);
 
   useEffect(() => {
     (async () => {
@@ -29,13 +28,30 @@ function SingleUser() {
     <div>
       <Navbar />
       <div className='container'>
-        <p>{user.FirstName} {user.LastName}</p>
-        <p>{user.PhoneNumber}</p>
-        <p>{user.EmailAdress}</p>
-        <p>Betalningsmetod: {"Undefined" || user.PartialPayment}</p>
-        {/* Lägg till information om resor också? */}
-        <button>Update</button>
-        <button>Delete</button>
+        <Link to={'/users'}>
+          {' '}
+          <p className='users-link center'>Back to users</p>
+        </Link>
+        <div className='user-container'>
+          <h2>
+            {user.FirstName} {user.LastName}
+          </h2>
+          <hr />
+          <p>
+            <strong>Email: </strong>
+            {user.EmailAdress}
+          </p>
+          <p>
+            <strong>Phone number: </strong>
+            {user.PhoneNumber}
+          </p>
+          <p>
+            <strong>Payment method:</strong> {'Undefined' || user.PartialPayment}
+          </p>
+          {/* Lägg till information om resor också? */}
+          <button className='update-btn'>Update</button>
+          <button className='delete-btn'>Delete</button>
+        </div>
       </div>
     </div>
   );

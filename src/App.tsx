@@ -17,7 +17,7 @@ function App() {
       <Route path='/' element={<Home />} />
       <Route path='/map' element={<Map />} />
       <Route path='/users' element={<Users />} />
-      <Route path={`/user/:id`} element={<SingleUser />} />
+      <Route path={'/user/:id'} element={<SingleUser />} />
     </Routes>
   );
 }

@@ -56,8 +56,14 @@ function Map() {
   /** @type {Array} filter bikes depending on status */
   const filteredBikes: Array<any> = bikes.filter(
     (bike: any) =>
-      bike.Status === 10 || bike.Status === 20 || bike.Status === 30 || bike.Status === 50,
+      bike.id < 500 &&
+      bike.Status === 10 ||
+      bike.Status === 20 ||
+      bike.Status === 30 ||
+      bike.Status === 50,
   );
+
+  console.log(filteredBikes);
 
   /**
    * Sets coordinates and city
@@ -65,7 +71,7 @@ function Map() {
    * @returns {void}
    */
   function setCityCoordinates(event: any): void {
-    let values = mapModule.setCityC(event);
+    const values = mapModule.setCityC(event);
     setLatitude(values[0]);
     setLongitude(values[1]);
     setCity(values[2]);
@@ -77,7 +83,7 @@ function Map() {
    * @returns {L.Icon<L.IconOptions> | undefined}
    */
   function checkIcon(scooter: any): L.Icon<L.IconOptions> | undefined {
-    let scooterIcon = mapModule.sIcon(scooter);
+    const scooterIcon = mapModule.sIcon(scooter);
     return scooterIcon;
   }
 
@@ -87,7 +93,7 @@ function Map() {
    * @returns {string}
    */
   function setStatus(scooter: any): string {
-    let message = mapModule.statusMessage(scooter);
+    const message = mapModule.statusMessage(scooter);
     return message;
   }
 
@@ -186,6 +192,7 @@ function Map() {
                     icon={checkIcon(location)}
                   >
                     <Popup>
+                      ID: {location.id} <br />
                       Status: {setStatus(location)} <br />
                       Battery: {location.Battery}% <br />
                       <a href='#'>Move bike</a>
