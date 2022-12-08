@@ -1,8 +1,8 @@
 import { useState, useEffect, Fragment } from 'react';
 import L from 'leaflet';
 import { Link } from 'react-router-dom';
-import MarkerClusterGroup from 'react-leaflet-cluster';
-import PixiOverlay from 'react-leaflet-pixi-overlay';
+import MarkerClusterGroup from "./MarkerClusterGroup";
+// import PixiOverlay from 'react-leaflet-pixi-overlay';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 import mapsModel from '../models/mapModels';
@@ -18,7 +18,6 @@ import { EditControl } from 'react-leaflet-draw';
 function Map() {
   const [bikes, setBikes] = useState<Array<any>>([]);
   const [stations, setStations] = useState<Array<any>>([]);
-  const [geofence, setGeofence] = useState<Array<any>>([]);
   const [, setCity] = useState<string>('');
   const [longitude, setLongitude] = useState<number>();
   const [latitude, setLatitude] = useState<number>();
@@ -158,7 +157,7 @@ function Map() {
 
   /** @type {Array} filter bikes depending on status */
   const filteredBikes: Array<any> = bikes.filter(
-    (bike: any) => bike.id < 400 && bike.Status !== 40,
+    (bike: any) => bike.Status !== 40,
     // bike.Status === 10 ||
     // bike.Status === 20 ||
     // bike.Status === 30 ||
@@ -193,7 +192,7 @@ function Map() {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
               />
-              {/* <MarkerClusterGroup disableClusteringAtZoom={15} chunkedLoading> */}
+              <MarkerClusterGroup>
               {filteredBikes.map((location: any) => (
                 <Fragment key={location.id}>
                   <Marker
@@ -210,9 +209,9 @@ function Map() {
                   </Marker>
                 </Fragment>
               ))}
-              {/* </MarkerClusterGroup>
-              <MarkerClusterGroup disableClusteringAtZoom={15} chunkedLoading> */}
-              {filteredStations.map((station: any) => (
+              </MarkerClusterGroup>
+              <MarkerClusterGroup>
+              {stations.map((station: any) => (
                 <Fragment key={station.id}>
                 <Marker
                   key={station.station_id}
@@ -228,7 +227,7 @@ function Map() {
                 </Marker>
                 </Fragment>
               ))}
-              {/* </MarkerClusterGroup> */}
+              </MarkerClusterGroup>
               <FeatureGroup>
                 <EditControl
                   position='topright'
