@@ -5,21 +5,6 @@ import { Link } from 'react-router-dom';
 
 function Users() {
   const [users, setUsers] = useState<any>([]);
-  const [filteredList, setFilteredList] = useState(users);
-
-  const filterBySearch = (event: any) => {
-    // Access input value
-    const query = event.target.value;
-    // Create copy of item list
-    let updatedList = [...users];
-    // Include all elements which includes the search query
-    updatedList = updatedList.filter((item) => {
-      return item.FirstName.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-    });
-    // Trigger render with updated values
-    setFilteredList(updatedList);
-  };
-
   /**
    * fetch users from API
    * @returns {Promise<void>}
@@ -39,6 +24,21 @@ function Users() {
   function handleClick(event: any) {
     console.log(event.target);
   }
+
+  const [filteredList, setFilteredList] = useState(users);
+
+  const filterBySearch = (event: any) => {
+    // Access input value
+    const query = event.target.value;
+    // Create copy of item list
+    let updatedList = [...users];
+    // Include all elements which includes the search query
+    updatedList = updatedList.filter((item) => {
+      return item.FirstName.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+    });
+    // Trigger render with updated values
+    setFilteredList(updatedList);
+  };
 
   return (
     <div>
@@ -63,7 +63,9 @@ function Users() {
                 <p>{user.EmailAdress}</p>
                 <Link to={`/user/${user.id}`}>
                   {' '}
-                  <button value={user.id} onClick={handleClick}>Handle customer</button>
+                  <button value={user.id} onClick={handleClick}>
+                    Handle customer
+                  </button>
                 </Link>
                 <hr />
               </div>

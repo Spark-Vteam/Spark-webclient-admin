@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import L from 'leaflet';
 import { Link } from 'react-router-dom';
 import MarkerClusterGroup from 'react-leaflet-cluster';
+import PixiOverlay from 'react-leaflet-pixi-overlay';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 import mapsModel from '../models/mapModels';
@@ -15,28 +16,13 @@ import { MapContainer, Marker, Popup, TileLayer, FeatureGroup, Polygon } from 'r
 import { EditControl } from 'react-leaflet-draw';
 
 function Map() {
-  const [city, setCity] = useState<string>('');
+  const [bikes, setBikes] = useState<Array<any>>([]);
+  const [stations, setStations] = useState<Array<any>>([]);
+  const [, setCity] = useState<string>('');
   const [longitude, setLongitude] = useState<number>();
   const [latitude, setLatitude] = useState<number>();
   const [mapLayers, setMapLayers] = useState<Array<any>>([]);
-  const [stations, setStations] = useState<Array<any>>([]);
-  const [bikes, setBikes] = useState<Array<any>>([]);
   const redOption = { color: 'red' };
-
-  /**
-   * fetch stations from API
-   * @returns {Promise<void>}
-   */
-  async function fetchStation(): Promise<void> {
-    const stations = await mapsModel.getStations();
-    setStations(stations);
-  }
-
-  useEffect(() => {
-    (async () => {
-      await fetchStation();
-    })();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**
    * fetch bikes from API
@@ -53,17 +39,20 @@ function Map() {
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  /** @type {Array} filter bikes depending on status */
-  const filteredBikes: Array<any> = bikes.filter(
-    (bike: any) =>
-      bike.id < 500 &&
-      bike.Status === 10 ||
-      bike.Status === 20 ||
-      bike.Status === 30 ||
-      bike.Status === 50,
-  );
+  /**
+   * fetch stations from API
+   * @returns {Promise<void>}
+   */
+  async function fetchStation(): Promise<void> {
+    const stations = await mapsModel.getStations();
+    setStations(stations);
+  }
 
-  console.log(filteredBikes);
+  useEffect(() => {
+    (async () => {
+      await fetchStation();
+    })();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**
    * Sets coordinates and city
@@ -103,16 +92,6 @@ function Map() {
    */
   function parkingIcon(): L.Icon {
     return mapModule.pIcon();
-  }
-
-  /**
-   * Resets city
-   * @returns {void}
-   */
-  function resetCity(): void {
-    setCity('');
-    setLatitude(undefined);
-    setLongitude(undefined);
   }
 
   // Insert coordinates in database
@@ -165,6 +144,36 @@ function Map() {
       );
     });
   }
+
+  /**
+   * Resets city
+   * @returns {void}
+   */
+  function resetCity(): void {
+    setCity('');
+    setLatitude(undefined);
+    setLongitude(undefined);
+  }
+
+  /** @type {Array} filter bikes depending on status */
+  const filteredBikes: Array<any> = bikes.filter(
+    (bike: any) => bike.id < 400 && bike.Status !== 40,
+    // bike.Status === 10 ||
+    // bike.Status === 20 ||
+    // bike.Status === 30 ||
+    // bike.Status === 50,
+  );
+
+  /** @type {Array} filter bikes depending on status */
+  const filteredStations: Array<any> = stations.filter(
+    (station: any) => station.id < 100,
+    // bike.Status === 10 ||
+    // bike.Status === 20 ||
+    // bike.Status === 30 ||
+    // bike.Status === 50,
+  );
+
+
   return (
     <div>
       <Navbar />
@@ -185,35 +194,36 @@ function Map() {
                 url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
               />
               <MarkerClusterGroup disableClusteringAtZoom={15} chunkedLoading>
-                {filteredBikes.map((location: any) => (
-                  <Marker
-                    key={location.id}
-                    position={location.Position.split(',')}
-                    icon={checkIcon(location)}
-                  >
-                    <Popup>
-                      ID: {location.id} <br />
-                      Status: {setStatus(location)} <br />
-                      Battery: {location.Battery}% <br />
-                      <a href='#'>Move bike</a>
-                    </Popup>
-                  </Marker>
-                ))}
+              {filteredBikes.map((location: any) => (
+                <Marker
+                  key={location.id}
+                  position={location.Position.split(',')}
+                  icon={checkIcon(location)}
+                >
+                  <Popup key={location.id}>
+                    ID: {location.id} <br />
+                    Status: {setStatus(location)} <br />
+                    Battery: {location.Battery}% <br />
+                    <a href='#'>Move bike</a>
+                  </Popup>
+                </Marker>
+              ))}
               </MarkerClusterGroup>
               <MarkerClusterGroup disableClusteringAtZoom={15} chunkedLoading>
-                {stations.map((station: any) => (
-                  <Marker
-                    key={station.station_id}
-                    position={station.Position.split(',')}
-                    icon={parkingIcon()}
-                  >
-                    <Popup>
-                      {station.Name} <br />
-                      {/* Hard coding, change */}
-                      Bikes: 21
-                    </Popup>
-                  </Marker>
-                ))}
+              {filteredStations.map((station: any) => (
+                <Marker
+                  key={station.station_id}
+                  position={station.Position.split(',')}
+                  icon={parkingIcon()}
+                >
+                  <Popup key={station.id}>
+                    {station.Name} <br />
+                    ID: {station.id} <br />
+                    Occupied spots: {station.Occupied} <br />
+                    Available spots: {station.Available} <br />
+                  </Popup>
+                </Marker>
+              ))}
               </MarkerClusterGroup>
               <FeatureGroup>
                 <EditControl
