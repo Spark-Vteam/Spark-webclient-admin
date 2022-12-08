@@ -2,6 +2,7 @@
 
 * {
   font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
 }
 
 body {
@@ -20,8 +21,11 @@ body {
 
 .container {
   padding: 1em;
-  width: 50%;
+  width: 100%;
   margin: 0 auto;
+  background-color: #d0cbcb5a;
+  height: 100vh;
+  border-top: 2px solid #272727;
 }
 
 .bg-layer {
@@ -56,6 +60,17 @@ body {
   font-size: 1.2em;
 }
 
+.users-link {
+  text-decoration: none;
+  color: #000000;
+  font-size: 1.2em;
+  text-decoration: none;
+}
+
 .customers-link:hover {
+  opacity: 0.7;
+}
+
+.users-link:hover {
   opacity: 0.7;
 }

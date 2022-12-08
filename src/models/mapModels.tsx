@@ -18,6 +18,7 @@ const mapsModel = {
     const response = await fetch('http://localhost:4000/geofence');
 
     const geofence = await response.json();
+    console.log(geofence);
 
     // return geofence;
     return geofence[0];

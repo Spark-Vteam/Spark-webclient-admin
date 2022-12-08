@@ -1,15 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
-import L, { MarkerCluster } from 'leaflet';
+import { useState, useEffect } from 'react';
+import L from 'leaflet';
 import { Link } from 'react-router-dom';
 import MarkerClusterGroup from 'react-leaflet-cluster';
-import active from '../img/pin/Active.png';
-import available from '../img/pin/Available.png';
-import service from '../img/pin/Service.png';
-import charging from '../img/pin/Charging.png';
-import parking from '../img/pin/ChargingStation.png';
+import PixiOverlay from 'react-leaflet-pixi-overlay';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 import mapsModel from '../models/mapModels';
+import mapModule from '../modules/mapModule';
 import Navbar from './Navbar';
 import './Map.css';
 // import testLocations from '../Data/lund-test-locations.json'
@@ -19,38 +16,13 @@ import { MapContainer, Marker, Popup, TileLayer, FeatureGroup, Polygon } from 'r
 import { EditControl } from 'react-leaflet-draw';
 
 function Map() {
-  const [city, setCity] = useState<string>('');
+  const [bikes, setBikes] = useState<Array<any>>([]);
+  const [stations, setStations] = useState<Array<any>>([]);
+  const [, setCity] = useState<string>('');
   const [longitude, setLongitude] = useState<number>();
   const [latitude, setLatitude] = useState<number>();
   const [mapLayers, setMapLayers] = useState<Array<any>>([]);
-  const [stations, setStations] = useState<Array<any>>([]);
-  const [bikes, setBikes] = useState<Array<any>>([]);
-
-  // /** @type {Array} filter bikes to current city */
-  // const filteredBikes: Array<any> = testLocations.data.stations.filter(
-  //   (bike) => bike.city === city
-  // );
-
-  /** @type {Array} filter bikes depending on status */
-  const filteredBikes: Array<any> = bikes.filter(
-    (bike: any) =>
-      bike.Status === 10 || bike.Status === 20 || bike.Status === 30 || bike.Status === 50,
-  );
-
-  /**
-   * fetch stations from API
-   * @returns {Promise<void>}
-   */
-  async function fetchStation(): Promise<void> {
-    const stations = await mapsModel.getStations();
-    setStations(stations);
-  }
-
-  useEffect(() => {
-    (async () => {
-      await fetchStation();
-    })();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const redOption = { color: 'red' };
 
   /**
    * fetch bikes from API
@@ -68,22 +40,30 @@ function Map() {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**
+   * fetch stations from API
+   * @returns {Promise<void>}
+   */
+  async function fetchStation(): Promise<void> {
+    const stations = await mapsModel.getStations();
+    setStations(stations);
+  }
+
+  useEffect(() => {
+    (async () => {
+      await fetchStation();
+    })();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  /**
    * Sets coordinates and city
    * @param {any} event Current city
    * @returns {void}
    */
   function setCityCoordinates(event: any): void {
-    if (event.target.value === 'stockholm') {
-      setLatitude(59.334591);
-      setLongitude(18.06324);
-      setCity('stockholm');
-    } else if (event.target.value === 'lund') {
-      setLatitude(55.70584);
-      setLongitude(13.19321);
-      setCity('lund');
-    } else {
-      console.log('City does not exist');
-    }
+    const values = mapModule.setCityC(event);
+    setLatitude(values[0]);
+    setLongitude(values[1]);
+    setCity(values[2]);
   }
 
   /**
@@ -92,34 +72,7 @@ function Map() {
    * @returns {L.Icon<L.IconOptions> | undefined}
    */
   function checkIcon(scooter: any): L.Icon<L.IconOptions> | undefined {
-    let scooterIcon;
-
-    if (scooter.Status === 10) {
-      scooterIcon = L.icon({
-        iconSize: [35, 38],
-        iconAnchor: [13, 41],
-        iconUrl: available,
-      });
-    } else if (scooter.Status === 20) {
-      scooterIcon = L.icon({
-        iconSize: [35, 38],
-        iconAnchor: [13, 41],
-        iconUrl: active,
-      });
-    } else if (scooter.Status === 30) {
-      scooterIcon = L.icon({
-        iconSize: [35, 38],
-        iconAnchor: [13, 41],
-        iconUrl: charging,
-      });
-    } else if (scooter.Status === 50) {
-      scooterIcon = L.icon({
-        iconSize: [35, 38],
-        iconAnchor: [13, 41],
-        iconUrl: service,
-      });
-    }
-
+    const scooterIcon = mapModule.sIcon(scooter);
     return scooterIcon;
   }
 
@@ -129,20 +82,7 @@ function Map() {
    * @returns {string}
    */
   function setStatus(scooter: any): string {
-    let message = '';
-
-    if (scooter.Status === 10) {
-      message = 'Bike is available';
-    } else if (scooter.Status === 20) {
-      message = 'Bike is active';
-    } else if (scooter.Status === 30) {
-      message = 'Bike has no battery';
-    } else if (scooter.Status === 50) {
-      message = 'Bike needs maintenance';
-    } else {
-      message = 'Could not load status message';
-    }
-
+    const message = mapModule.statusMessage(scooter);
     return message;
   }
 
@@ -151,31 +91,7 @@ function Map() {
    * @returns {L.Icon}
    */
   function parkingIcon(): L.Icon {
-    const parkingIcon = L.icon({
-      iconSize: [35, 38],
-      iconAnchor: [13, 41],
-      iconUrl: parking,
-    });
-
-    return parkingIcon;
-  }
-
-  const createClusterCustomIcon = function (cluster: MarkerCluster) {
-    return L.divIcon({
-      html: `<span>${cluster.getChildCount()}</span>`,
-      className: 'custom-marker-cluster',
-      iconSize: L.point(33, 33, true)
-    });
-  };
-
-  /**
-   * Resets city
-   * @returns {void}
-   */
-  function resetCity(): void {
-    setCity('');
-    setLatitude(undefined);
-    setLongitude(undefined);
+    return mapModule.pIcon();
   }
 
   // Insert coordinates in database
@@ -229,7 +145,34 @@ function Map() {
     });
   }
 
-  const redOption = { color: 'red' };
+  /**
+   * Resets city
+   * @returns {void}
+   */
+  function resetCity(): void {
+    setCity('');
+    setLatitude(undefined);
+    setLongitude(undefined);
+  }
+
+  /** @type {Array} filter bikes depending on status */
+  const filteredBikes: Array<any> = bikes.filter(
+    (bike: any) => bike.id < 400 && bike.Status !== 40,
+    // bike.Status === 10 ||
+    // bike.Status === 20 ||
+    // bike.Status === 30 ||
+    // bike.Status === 50,
+  );
+
+  /** @type {Array} filter bikes depending on status */
+  const filteredStations: Array<any> = stations.filter(
+    (station: any) => station.id < 100,
+    // bike.Status === 10 ||
+    // bike.Status === 20 ||
+    // bike.Status === 30 ||
+    // bike.Status === 50,
+  );
+
 
   return (
     <div>
@@ -243,10 +186,6 @@ function Map() {
                 Change city
               </button>
             </Link>
-            <Link to='/users' className='customers-link center'>
-              {' '}
-              <button className='option-btn'>Customer overview</button>
-            </Link>
           </div>
           <div className='map-container'>
             <MapContainer center={[latitude, longitude]} zoom={13} scrollWheelZoom={true}>
@@ -254,35 +193,37 @@ function Map() {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
               />
-              <MarkerClusterGroup chunkedLoading>
-                {filteredBikes.map((location: any) => (
-                  <Marker
-                    key={location.id}
-                    position={location.Position.split(',')}
-                    icon={checkIcon(location)}
-                  >
-                    <Popup>
-                      Status: {setStatus(location)} <br />
-                      Battery: {location.Battery}% <br />
-                      <a href='#'>Move bike</a>
-                    </Popup>
-                  </Marker>
-                ))}
+              <MarkerClusterGroup disableClusteringAtZoom={15} chunkedLoading>
+              {filteredBikes.map((location: any) => (
+                <Marker
+                  key={location.id}
+                  position={location.Position.split(',')}
+                  icon={checkIcon(location)}
+                >
+                  <Popup key={location.id}>
+                    ID: {location.id} <br />
+                    Status: {setStatus(location)} <br />
+                    Battery: {location.Battery}% <br />
+                    <a href='#'>Move bike</a>
+                  </Popup>
+                </Marker>
+              ))}
               </MarkerClusterGroup>
-              <MarkerClusterGroup chunkedLoading>
-                {stations.map((station: any) => (
-                  <Marker
-                    key={station.station_id}
-                    position={station.Position.split(',')}
-                    icon={parkingIcon()}
-                  >
-                    <Popup>
-                      {station.Name} <br />
-                      {/* Hard coding, change */}
-                      Bikes: 21
-                    </Popup>
-                  </Marker>
-                ))}
+              <MarkerClusterGroup disableClusteringAtZoom={15} chunkedLoading>
+              {filteredStations.map((station: any) => (
+                <Marker
+                  key={station.station_id}
+                  position={station.Position.split(',')}
+                  icon={parkingIcon()}
+                >
+                  <Popup key={station.id}>
+                    {station.Name} <br />
+                    ID: {station.id} <br />
+                    Occupied spots: {station.Occupied} <br />
+                    Available spots: {station.Available} <br />
+                  </Popup>
+                </Marker>
+              ))}
               </MarkerClusterGroup>
               <FeatureGroup>
                 <EditControl
@@ -330,14 +271,16 @@ function Map() {
         </div>
       ) : (
         <div className='container'>
-          <h1>Choose a city:</h1>
-          <button className='btn' onClick={setCityCoordinates} value='lund'>
-            Lund
-          </button>
-          <br></br>
-          <button className='btn margin-top' onClick={setCityCoordinates} value='stockholm'>
-            Stockholm
-          </button>
+          <div className='center'>
+            <h1>Choose a city</h1>
+            <button className='btn' onClick={setCityCoordinates} value='lund'>
+              Lund
+            </button>
+            <br></br>
+            <button className='btn margin-top' onClick={setCityCoordinates} value='stockholm'>
+              Stockholm
+            </button>
+          </div>
         </div>
       )}
     </div>
