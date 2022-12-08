@@ -1,7 +1,7 @@
 import { useState, useEffect, Fragment } from 'react';
 import L from 'leaflet';
 import { Link } from 'react-router-dom';
-import MarkerClusterGroup from "./MarkerClusterGroup";
+import MarkerClusterGroup from './MarkerClusterGroup';
 // import PixiOverlay from 'react-leaflet-pixi-overlay';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
@@ -34,9 +34,15 @@ function Map() {
   }
 
   useEffect(() => {
-    (async () => {
-      await fetchBikes();
-    })();
+    let interval = setInterval(() => {
+      (async () => {
+        await fetchBikes();
+        console.log("Fetching bikes from API")
+      })();
+    }, 2000);
+    return () => {
+      clearInterval(interval);
+    };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**
@@ -164,14 +170,14 @@ function Map() {
     // bike.Status === 50,
   );
 
-  /** @type {Array} filter bikes depending on status */
-  const filteredStations: Array<any> = stations.filter(
-    (station: any) => station.id < 100,
-    // bike.Status === 10 ||
-    // bike.Status === 20 ||
-    // bike.Status === 30 ||
-    // bike.Status === 50,
-  );
+  // /** @type {Array} filter bikes depending on status */
+  // const filteredStations: Array<any> = stations.filter(
+  //   (station: any) => station.id < 100,
+  //   // bike.Status === 10 ||
+  //   // bike.Status === 20 ||
+  //   // bike.Status === 30 ||
+  //   // bike.Status === 50,
+  // );
 
   return (
     <div>
@@ -193,40 +199,40 @@ function Map() {
                 url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
               />
               <MarkerClusterGroup>
-              {filteredBikes.map((location: any) => (
-                <Fragment key={location.id}>
-                  <Marker
-                    key={location.id}
-                    position={location.Position.split(',')}
-                    icon={checkIcon(location)}
-                  >
-                    <Popup key={location.id}>
-                      ID: {location.id} <br />
-                      Status: {setStatus(location)} <br />
-                      Battery: {location.Battery}% <br />
-                      <a href='#'>Move bike</a>
-                    </Popup>
-                  </Marker>
-                </Fragment>
-              ))}
+                {filteredBikes.map((location: any) => (
+                  <Fragment key={location.id}>
+                    <Marker
+                      key={location.id}
+                      position={location.Position.split(',')}
+                      icon={checkIcon(location)}
+                    >
+                      <Popup key={location.id}>
+                        ID: {location.id} <br />
+                        Status: {setStatus(location)} <br />
+                        Battery: {location.Battery}% <br />
+                        <a href='#'>Move bike</a>
+                      </Popup>
+                    </Marker>
+                  </Fragment>
+                ))}
               </MarkerClusterGroup>
               <MarkerClusterGroup>
-              {stations.map((station: any) => (
-                <Fragment key={station.id}>
-                <Marker
-                  key={station.station_id}
-                  position={station.Position.split(',')}
-                  icon={parkingIcon()}
-                >
-                  <Popup key={station.id}>
-                    {station.Name} <br />
-                    ID: {station.id} <br />
-                    Occupied spots: {station.Occupied} <br />
-                    Available spots: {station.Available} <br />
-                  </Popup>
-                </Marker>
-                </Fragment>
-              ))}
+                {stations.map((station: any) => (
+                  <Fragment key={station.id}>
+                    <Marker
+                      key={station.station_id}
+                      position={station.Position.split(',')}
+                      icon={parkingIcon()}
+                    >
+                      <Popup key={station.id}>
+                        {station.Name} <br />
+                        ID: {station.id} <br />
+                        Occupied spots: {station.Occupied} <br />
+                        Available spots: {station.Available} <br />
+                      </Popup>
+                    </Marker>
+                  </Fragment>
+                ))}
               </MarkerClusterGroup>
               <FeatureGroup>
                 <EditControl

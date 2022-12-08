@@ -2,6 +2,7 @@ import 'react-leaflet-cluster';
 import { createPathComponent } from '@react-leaflet/core';
 import L from 'leaflet';
 
+// tslint:disable-next-line no-unused-vars
 const MarkerClusterGroup = createPathComponent(({ children: _c, ...props }, ctx) => {
   const clusterProps: Record<string, any> = {};
   const clusterEvents: Record<string, any> = {};
