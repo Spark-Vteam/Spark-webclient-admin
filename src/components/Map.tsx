@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import L from 'leaflet';
 import { Link } from 'react-router-dom';
 import MarkerClusterGroup from 'react-leaflet-cluster';
@@ -18,6 +18,7 @@ import { EditControl } from 'react-leaflet-draw';
 function Map() {
   const [bikes, setBikes] = useState<Array<any>>([]);
   const [stations, setStations] = useState<Array<any>>([]);
+  const [geofence, setGeofence] = useState<Array<any>>([]);
   const [, setCity] = useState<string>('');
   const [longitude, setLongitude] = useState<number>();
   const [latitude, setLatitude] = useState<number>();
@@ -173,7 +174,6 @@ function Map() {
     // bike.Status === 50,
   );
 
-
   return (
     <div>
       <Navbar />
@@ -188,29 +188,32 @@ function Map() {
             </Link>
           </div>
           <div className='map-container'>
-            <MapContainer center={[latitude, longitude]} zoom={13} scrollWheelZoom={true}>
+            <MapContainer key={1} center={[latitude, longitude]} zoom={13} scrollWheelZoom={true}>
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
               />
-              <MarkerClusterGroup disableClusteringAtZoom={15} chunkedLoading>
+              {/* <MarkerClusterGroup disableClusteringAtZoom={15} chunkedLoading> */}
               {filteredBikes.map((location: any) => (
-                <Marker
-                  key={location.id}
-                  position={location.Position.split(',')}
-                  icon={checkIcon(location)}
-                >
-                  <Popup key={location.id}>
-                    ID: {location.id} <br />
-                    Status: {setStatus(location)} <br />
-                    Battery: {location.Battery}% <br />
-                    <a href='#'>Move bike</a>
-                  </Popup>
-                </Marker>
+                <Fragment key={location.id}>
+                  <Marker
+                    key={location.id}
+                    position={location.Position.split(',')}
+                    icon={checkIcon(location)}
+                  >
+                    <Popup key={location.id}>
+                      ID: {location.id} <br />
+                      Status: {setStatus(location)} <br />
+                      Battery: {location.Battery}% <br />
+                      <a href='#'>Move bike</a>
+                    </Popup>
+                  </Marker>
+                </Fragment>
               ))}
-              </MarkerClusterGroup>
-              <MarkerClusterGroup disableClusteringAtZoom={15} chunkedLoading>
+              {/* </MarkerClusterGroup>
+              <MarkerClusterGroup disableClusteringAtZoom={15} chunkedLoading> */}
               {filteredStations.map((station: any) => (
+                <Fragment key={station.id}>
                 <Marker
                   key={station.station_id}
                   position={station.Position.split(',')}
@@ -223,8 +226,9 @@ function Map() {
                     Available spots: {station.Available} <br />
                   </Popup>
                 </Marker>
+                </Fragment>
               ))}
-              </MarkerClusterGroup>
+              {/* </MarkerClusterGroup> */}
               <FeatureGroup>
                 <EditControl
                   position='topright'
