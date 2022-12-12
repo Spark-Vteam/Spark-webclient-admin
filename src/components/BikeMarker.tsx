@@ -11,9 +11,8 @@ const icon = L.icon({
 });
 
 export default function BikeMarker({ data }: any) {
-  // console.log(data);
-  const lat = data.Position[0];
-  const lng = data.Position[1];
+  const lat = data.Position.split(',')[0];
+  const lng = data.Position.split(',')[1];
   const [prevPos, setPrevPos] = useState<any>([lat, lng]);
 
   useEffect(() => {
@@ -26,8 +25,8 @@ export default function BikeMarker({ data }: any) {
         icon={icon}
         position={[lat, lng]}
         previousPosition={prevPos}
-        duration={1000}
-        keepAtCenter={true}
+        duration={2000}
+        keepAtCenter={false}
       ></LeafletTrackingMarker>
     </>
   );
