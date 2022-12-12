@@ -2,6 +2,8 @@ import { useState, useEffect, Fragment } from 'react';
 import L from 'leaflet';
 import { Link } from 'react-router-dom';
 import MarkerClusterGroup from './MarkerClusterGroup';
+import { LeafletTrackingMarker } from 'react-leaflet-tracking-marker';
+import BikeMarker from './BikeMarker';
 // import PixiOverlay from 'react-leaflet-pixi-overlay';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
@@ -9,7 +11,6 @@ import mapsModel from '../models/mapModels';
 import mapModule from '../modules/mapModule';
 import Navbar from './Navbar';
 import './Map.css';
-// import testLocations from '../Data/lund-test-locations.json'
 
 import { MapContainer, Marker, Popup, TileLayer, FeatureGroup, Polygon } from 'react-leaflet';
 
@@ -22,6 +23,8 @@ function Map() {
   const [longitude, setLongitude] = useState<number>();
   const [latitude, setLatitude] = useState<number>();
   const [mapLayers, setMapLayers] = useState<Array<any>>([]);
+  const [currentTrack, setCurrentTrack] = useState({});
+
   const redOption = { color: 'red' };
 
   /**
@@ -34,10 +37,10 @@ function Map() {
   }
 
   useEffect(() => {
-    let interval = setInterval(() => {
+    const interval = setInterval(() => {
       (async () => {
         await fetchBikes();
-        console.log("Fetching bikes from API")
+        console.log('Fetching bikes from API');
       })();
     }, 2000);
     return () => {
@@ -163,21 +166,14 @@ function Map() {
 
   /** @type {Array} filter bikes depending on status */
   const filteredBikes: Array<any> = bikes.filter(
-    (bike: any) => bike.Status !== 40,
-    // bike.Status === 10 ||
-    // bike.Status === 20 ||
-    // bike.Status === 30 ||
-    // bike.Status === 50,
+    (bike: any) => bike.id < 400 && bike.Status !== 40 && bike.Status !== 20,
   );
 
-  // /** @type {Array} filter bikes depending on status */
-  // const filteredStations: Array<any> = stations.filter(
-  //   (station: any) => station.id < 100,
-  //   // bike.Status === 10 ||
-  //   // bike.Status === 20 ||
-  //   // bike.Status === 30 ||
-  //   // bike.Status === 50,
-  // );
+  /** @type {Array} filter bikes depending on status */
+  const activeBikes: Array<any> = bikes.filter((bike: any) => bike.Status === 20);
+
+  /** @type {Array} filter bikes depending on status */
+  const filteredStations: Array<any> = stations.filter((station: any) => station.id < 100);
 
   return (
     <div>
@@ -216,8 +212,11 @@ function Map() {
                   </Fragment>
                 ))}
               </MarkerClusterGroup>
+              {activeBikes.map((bike: any) => (
+                <BikeMarker data={bike ?? {}} />
+              ))}
               <MarkerClusterGroup>
-                {stations.map((station: any) => (
+                {filteredStations.map((station: any) => (
                   <Fragment key={station.id}>
                     <Marker
                       key={station.station_id}
