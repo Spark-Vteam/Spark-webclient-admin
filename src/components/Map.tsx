@@ -2,7 +2,6 @@ import { useState, useEffect, Fragment } from 'react';
 import L from 'leaflet';
 import { Link } from 'react-router-dom';
 import MarkerClusterGroup from './MarkerClusterGroup';
-import { LeafletTrackingMarker } from 'react-leaflet-tracking-marker';
 import BikeMarker from './BikeMarker';
 // import PixiOverlay from 'react-leaflet-pixi-overlay';
 import 'leaflet/dist/leaflet.css';
@@ -12,7 +11,15 @@ import mapModule from '../modules/mapModule';
 import Navbar from './Navbar';
 import './Map.css';
 
-import { MapContainer, Marker, Popup, TileLayer, FeatureGroup, Polygon } from 'react-leaflet';
+import {
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  FeatureGroup,
+  Polygon,
+  useMapEvents,
+} from 'react-leaflet';
 
 import { EditControl } from 'react-leaflet-draw';
 
@@ -23,7 +30,7 @@ function Map() {
   const [longitude, setLongitude] = useState<number>();
   const [latitude, setLatitude] = useState<number>();
   const [mapLayers, setMapLayers] = useState<Array<any>>([]);
-  const [currentTrack, setCurrentTrack] = useState({});
+  const [mapBounds, setMapBounds] = useState<Array<any>>([]);
 
   const redOption = { color: 'red' };
 
@@ -38,10 +45,10 @@ function Map() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      (async () => {
-        await fetchBikes();
-        console.log('Fetching bikes from API');
-      })();
+    (async () => {
+      await fetchBikes();
+      // console.log('Fetching bikes from API');
+    })();
     }, 2000);
     return () => {
       clearInterval(interval);
@@ -175,6 +182,26 @@ function Map() {
   /** @type {Array} filter bikes depending on status */
   const filteredStations: Array<any> = stations.filter((station: any) => station.id < 100);
 
+  //Set Mapbounds on map to fetch bikes within map.
+  function getMapBounds(bounds: any, zoom: any, zoomThreshold = 8) {
+    // console.log(bounds);
+    setMapBounds([
+      [bounds._northEast.lat, bounds._northEast.lng],
+      [bounds._southWest.lat, bounds._southWest.lng],
+    ]);
+    if (zoom > zoomThreshold) {
+      // console.log('make a call to the server with the bounds:', bounds);
+    }
+  }
+
+  const MapEvents = () => {
+    const map = useMapEvents({
+      moveend: () => getMapBounds(map.getBounds(), map.getZoom()),
+      zoomend: () => getMapBounds(map.getBounds(), map.getZoom()),
+    });
+    return null;
+  };
+
   return (
     <div>
       <Navbar />
@@ -190,6 +217,7 @@ function Map() {
           </div>
           <div className='map-container'>
             <MapContainer key={1} center={[latitude, longitude]} zoom={13} scrollWheelZoom={true}>
+              <MapEvents />
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -213,7 +241,17 @@ function Map() {
                 ))}
               </MarkerClusterGroup>
               {activeBikes.map((bike: any) => (
-                <BikeMarker data={bike ?? {}} />
+                <Fragment key={bike.id}>
+                  <BikeMarker data={bike ?? {}}>
+                    {' '}
+                    <Popup key={bike.id}>
+                      ID: {bike.id} <br />
+                      Status: {setStatus(bike)} <br />
+                      Battery: {bike.Battery}% <br />
+                      <a href='#'>Stop bike</a>
+                    </Popup>
+                  </BikeMarker>
+                </Fragment>
               ))}
               <MarkerClusterGroup>
                 {filteredStations.map((station: any) => (
@@ -249,30 +287,13 @@ function Map() {
                 />
               </FeatureGroup>{' '}
               {/* Fetch geofence positions from db */}
-              <Polygon
+              {/* <Polygon
                 pathOptions={redOption}
                 // Test coordinates, change to geofence api endpoint
-                positions={[
-                  [55.7154749638867, 13.190239814751019],
-                  [55.714991177018184, 13.188040006736431],
-                  [55.71666360282453, 13.186885455057052],
-                  [55.71691758080317, 13.187100070473088],
-                  [55.71717155713039, 13.188688224551896],
-                  [55.71689339249541, 13.191392378794184],
-                  [55.71685711000568, 13.193903379162057],
-                  [55.7164217175, 13.19634999490506],
-                  [55.71545416122276, 13.19851761060723],
-                  [55.715296931063996, 13.198775149106515],
-                  [55.714704288623274, 13.198860995272932],
-                  [55.71244248891907, 13.195105225491954],
-                  [55.712043334200686, 13.19302345595624],
-                  [55.712950498116875, 13.192014763500758],
-                  [55.71314402369265, 13.191091917211729],
-                  [55.71505503727621, 13.190126147839456],
-                ]}
+                positions={mapBounds}
               >
                 <Popup>No parking</Popup>
-              </Polygon>
+              </Polygon> */}
             </MapContainer>
             <pre className='text-left'>{JSON.stringify(mapLayers)}</pre>
           </div>

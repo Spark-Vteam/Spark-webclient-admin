@@ -46,6 +46,9 @@ function SingleUser() {
             {user.PhoneNumber}
           </p>
           <p>
+            <strong>OAuth authorized:</strong> {'Undefined' || user.oAuth}
+          </p>
+          <p>
             <strong>Payment method:</strong> {'Undefined' || user.PartialPayment}
           </p>
           {/* Lägg till information om resor också? */}
