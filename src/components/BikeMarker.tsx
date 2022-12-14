@@ -27,6 +27,7 @@ export default function BikeMarker({ data }: any) {
         previousPosition={prevPos}
         duration={2000}
         keepAtCenter={false}
+        rotationAngle={0}
       ></LeafletTrackingMarker>
     </>
   );
