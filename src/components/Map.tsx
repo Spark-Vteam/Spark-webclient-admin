@@ -3,7 +3,6 @@ import L from 'leaflet';
 import { Link } from 'react-router-dom';
 import MarkerClusterGroup from './MarkerClusterGroup';
 import BikeMarker from './BikeMarker';
-// import PixiOverlay from 'react-leaflet-pixi-overlay';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 import mapsModel from '../models/mapModels';
@@ -26,7 +25,7 @@ import { EditControl } from 'react-leaflet-draw';
 function Map() {
   const [bikes, setBikes] = useState<Array<any>>([]);
   const [stations, setStations] = useState<Array<any>>([]);
-  const [, setCity] = useState<string>('');
+  const [city, setCity] = useState<string>('');
   const [longitude, setLongitude] = useState<number>();
   const [latitude, setLatitude] = useState<number>();
   const [mapLayers, setMapLayers] = useState<Array<any>>([]);
@@ -188,8 +187,13 @@ function Map() {
   }
 
   /** @type {Array} filter bikes depending on status */
-  const filteredBikes: Array<any> = bikes.filter(
-    (bike: any) => bike.id < 400 && bike.Status !== 40 && bike.Status !== 20,
+  const LundBikes: Array<any> = bikes.filter(
+    (bike: any) => bike.id < 1500 && bike.Status !== 40 && bike.Status !== 20,
+  );
+
+  /** @type {Array} filter bikes depending on status */
+  const StockholmBikes: Array<any> = bikes.filter(
+    (bike: any) => bike.id > 1500 && bike.Status !== 40 && bike.Status !== 20,
   );
 
   /** @type {Array} filter bikes depending on status */
@@ -198,12 +202,7 @@ function Map() {
   /** @type {Array} filter bikes depending on status */
   const filteredStations: Array<any> = stations.filter((station: any) => station.id < 100);
 
-  // /** @type {Array} filter bikes depending on status */
-  // const mapGeofence: Array<any> = geofence.map((geo: any) => console.log(geo.Coordinates));
-
-  // console.log(mapGeofence);
-
-  //Set Mapbounds on map to fetch bikes within map.
+  // Set Mapbounds on map to fetch bikes within map.
   function getMapBounds(bounds: any, zoom: any, zoomThreshold = 8) {
     // console.log(bounds);
     setMapBounds([
@@ -244,7 +243,7 @@ function Map() {
                 url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
               />
               <MarkerClusterGroup>
-                {filteredBikes.map((location: any) => (
+                {LundBikes.map((location: any) => (
                   <Fragment key={location.id}>
                     <Marker
                       key={location.id}
