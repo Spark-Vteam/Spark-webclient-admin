@@ -46,7 +46,7 @@ function SingleUser() {
             {user.PhoneNumber}
           </p>
           <p>
-            <strong>OAuth authorized:</strong> {'Undefined' || user.oAuth}
+            <strong>OAuth authorized:</strong> {user.Oauth}
           </p>
           <p>
             <strong>Payment method:</strong> {'Undefined' || user.PartialPayment}
