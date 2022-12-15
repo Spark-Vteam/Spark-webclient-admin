@@ -30,6 +30,7 @@ function Map() {
   const [longitude, setLongitude] = useState<number>();
   const [latitude, setLatitude] = useState<number>();
   const [mapLayers, setMapLayers] = useState<Array<any>>([]);
+  const [geofence, setGeofence] = useState<Array<any>>([]);
   const [mapBounds, setMapBounds] = useState<Array<any>>([]);
 
   const redOption = { color: 'red' };
@@ -44,15 +45,15 @@ function Map() {
   }
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    // const interval = setInterval(() => {
     (async () => {
       await fetchBikes();
       // console.log('Fetching bikes from API');
     })();
-    }, 2000);
-    return () => {
-      clearInterval(interval);
-    };
+    // }, 2000);
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**
@@ -67,6 +68,21 @@ function Map() {
   useEffect(() => {
     (async () => {
       await fetchStation();
+    })();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  /**
+   * fetch geofence from API
+   * @returns {Promise<void>}
+   */
+  async function fetchGeofence(): Promise<void> {
+    const getGeofence = await mapsModel.getGeofence();
+    setGeofence(getGeofence);
+  }
+
+  useEffect(() => {
+    (async () => {
+      await fetchGeofence();
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -182,6 +198,11 @@ function Map() {
   /** @type {Array} filter bikes depending on status */
   const filteredStations: Array<any> = stations.filter((station: any) => station.id < 100);
 
+  // /** @type {Array} filter bikes depending on status */
+  // const mapGeofence: Array<any> = geofence.map((geo: any) => console.log(geo.Coordinates));
+
+  // console.log(mapGeofence);
+
   //Set Mapbounds on map to fetch bikes within map.
   function getMapBounds(bounds: any, zoom: any, zoomThreshold = 8) {
     // console.log(bounds);
@@ -286,14 +307,16 @@ function Map() {
                   }}
                 />
               </FeatureGroup>{' '}
-              {/* Fetch geofence positions from db */}
-              {/* <Polygon
-                pathOptions={redOption}
-                // Test coordinates, change to geofence api endpoint
-                positions={mapBounds}
-              >
-                <Popup>No parking</Popup>
-              </Polygon> */}
+              {geofence.map(
+                (location: any) => (
+                  console.log([location.Coordinates]),
+                  (
+                    <Polygon pathOptions={redOption} positions={[JSON.parse(location.Coordinates)]}>
+                      <Popup>No parking</Popup>
+                    </Polygon>
+                  )
+                ),
+              )}
             </MapContainer>
             <pre className='text-left'>{JSON.stringify(mapLayers)}</pre>
           </div>
