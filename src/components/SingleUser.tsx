@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
 import userModel from '../models/userModels';
+import rentModel from '../models/rentModels';
 import Navbar from './Navbar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import RentInformation from './RentInformation';
 
 function SingleUser() {
   const [user, setUser] = useState<any>([]);
+  const [rents, setRents] = useState<any>([]);
+  const navigate = useNavigate();
 
   const urlArray = window.location.href.split('/');
   const userId = urlArray[urlArray.length - 1];
@@ -24,14 +28,46 @@ function SingleUser() {
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  /**
+   * fetch rents for user from API
+   * @returns {Promise<void>}
+   */
+  async function fetchRents(): Promise<void> {
+    console.log(user.id);
+    const fetchedRents = await rentModel.getRents();
+    setRents(fetchedRents);
+  }
+
+  useEffect(() => {
+    (async () => {
+      await fetchRents();
+    })();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  async function deleteUser() {
+    await userModel.deleteUser(user.id);
+    navigate('/users');
+    // window.location.reload();
+  }
+
+  console.log(user.id);
+  console.log(rents);
+
+  /** @type {Array} filter rents depending on user */
+  const filteredRents: Array<any> = rents.filter((rent: any) => user.id === rent.Users_id);
+
+  console.log(filteredRents);
+
   return (
     <div>
       <Navbar />
       <div className='container'>
+        <div className='link-container'>
         <Link to={'/users'}>
           {' '}
           <p className='users-link center'>Back to users</p>
         </Link>
+        </div>
         <div className='user-container'>
           <h2>
             {user.FirstName} {user.LastName}
@@ -51,9 +87,13 @@ function SingleUser() {
           <p>
             <strong>Payment method:</strong> {'Undefined' || user.PartialPayment}
           </p>
-          {/* Lägg till information om resor också? */}
+          <p>
+            <RentInformation rents={filteredRents} />
+          </p>
           <button className='update-btn'>Update</button>
-          <button className='delete-btn'>Delete</button>
+          <button className='delete-btn' onClick={deleteUser}>
+            Delete
+          </button>
         </div>
       </div>
     </div>

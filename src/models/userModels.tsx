@@ -13,6 +13,21 @@ const userModels = {
 
     return user[0];
   },
+  deleteUser: async function deleteUser(id: any) {
+    fetch(`http://localhost:4000/user/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => {
+        res.json();
+      })
+      .catch((err) => {
+        return err;
+      });
+    return 'success';
+  },
 };
 
 export default userModels;

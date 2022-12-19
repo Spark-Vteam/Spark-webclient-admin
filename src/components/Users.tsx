@@ -63,8 +63,8 @@ function Users() {
                 <p>{user.EmailAdress}</p>
                 <Link to={`/user/${user.id}`}>
                   {' '}
-                  <button value={user.id} onClick={handleClick}>
-                    Handle customer
+                  <button className='customer-btn' value={user.id} onClick={handleClick}>
+                    Details
                   </button>
                 </Link>
                 <hr />
