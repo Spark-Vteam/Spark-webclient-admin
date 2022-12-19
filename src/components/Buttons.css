@@ -66,3 +66,22 @@
   margin-left: 25px;
   margin-right: 25px;
 }
+
+.customer-btn{
+  display: inline-block;
+  width: 100px;
+  background: linear-gradient(270deg, #0c0c0c 28.76%, #282828 100%);
+  border-radius: 20px;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.customer-btn:hover{
+  opacity: 0.9;
+}

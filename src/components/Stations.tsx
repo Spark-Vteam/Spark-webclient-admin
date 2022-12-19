@@ -13,6 +13,9 @@ function Stations({ filteredStations }: any) {
   function parkingIcon(): L.Icon {
     return mapModule.pIcon();
   }
+
+  console.log(filteredStations);
+
   return (
     <div>
       <MarkerClusterGroup>
