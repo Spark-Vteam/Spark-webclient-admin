@@ -1,6 +1,7 @@
 import cell from '../img/cell.png';
 import spark from '../img/heading.png';
 import Navbar from './Navbar';
+import Footer from './Footer';
 
 function Home() {
   return (
@@ -13,6 +14,7 @@ function Home() {
           <span>Administration</span>
         </h3>
       </div>
+      <Footer />
     </div>
   );
 }

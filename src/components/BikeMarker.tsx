@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { LeafletTrackingMarker } from 'react-leaflet-tracking-marker';
-import L, { Popup } from 'leaflet';
-
+import L from 'leaflet';
+// import { Bike, DataProps } from '../interfaces/maps';
 import Active from '../img/pin/Active.png';
 
 const icon = L.icon({

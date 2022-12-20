@@ -1,5 +1,5 @@
-const redOption = { color: 'red' }; //30
-const yellowOption = { color: 'yellow' }; //10
+const redOption = { color: 'red' }; // 30
+const yellowOption = { color: 'yellow' }; // 10
 const orangeOption = { color: 'orange' }; // 20
 const greyOption = { color: 'grey' }; // 40
 

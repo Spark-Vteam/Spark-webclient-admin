@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import userModel from '../models/userModels';
 import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
+import { User } from '../interfaces/maps';
 
 function Users() {
   const [users, setUsers] = useState<any>([]);
@@ -43,7 +44,7 @@ function Users() {
   return (
     <div>
       <Navbar />
-      <div className='container'>
+      <div>
         <div className='user-container'>
           <div className='search-header'>
             <input
@@ -52,7 +53,7 @@ function Users() {
               onChange={filterBySearch}
             />
           </div>
-          {filteredList.map((user: any) => {
+          {filteredList.map((user: User) => {
             return (
               <div key={user.id}>
                 <h2>

@@ -74,7 +74,6 @@ function DrawGeofence() {
       </FeatureGroup>{' '}
       <pre className='text-left'>{JSON.stringify(mapLayers)}</pre>
     </div>
-    
   );
 }
 

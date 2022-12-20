@@ -51,23 +51,24 @@
   margin: 0 auto;
   background-color: #00b38f83;
   padding: 10px;
-  width: 100%;
+  width: 90%;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   margin-bottom: 10px;
+  text-align: left;
 }
 
 .option-btn {
   background-color: rgba(245, 245, 220, 0);
   outline: none;
   border-color: rgba(245, 245, 220, 0);
-  font-size: 1em;
+  font-size: 0.8em;
   color: #fff;
   margin-left: 25px;
   margin-right: 25px;
 }
 
-.customer-btn{
+.customer-btn {
   display: inline-block;
   width: 100px;
   background: linear-gradient(270deg, #0c0c0c 28.76%, #282828 100%);
@@ -82,6 +83,21 @@
   margin-right: 10px;
 }
 
-.customer-btn:hover{
+.customer-btn:hover {
   opacity: 0.9;
+}
+
+.search-bike-btn {
+  display: inline-block;
+  width: 100px;
+  background: linear-gradient(270deg, #0c0c0c 28.76%, #282828 100%);
+  border-radius: 10px;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 10px 20px 10px;
+  text-decoration: none;
+  margin-left: 10px;
 }

@@ -50,23 +50,18 @@ function SingleUser() {
     // window.location.reload();
   }
 
-  console.log(user.id);
-  console.log(rents);
-
   /** @type {Array} filter rents depending on user */
   const filteredRents: Array<any> = rents.filter((rent: any) => user.id === rent.Users_id);
-
-  console.log(filteredRents);
 
   return (
     <div>
       <Navbar />
       <div className='container'>
         <div className='link-container'>
-        <Link to={'/users'}>
-          {' '}
-          <p className='users-link center'>Back to users</p>
-        </Link>
+          <Link to={'/users'}>
+            {' '}
+            <p className='users-link center'>Back to users</p>
+          </Link>
         </div>
         <div className='user-container'>
           <h2>

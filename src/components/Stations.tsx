@@ -14,7 +14,7 @@ function Stations({ filteredStations }: any) {
     return mapModule.pIcon();
   }
 
-  console.log(filteredStations);
+  // console.log(filteredStations);
 
   return (
     <div>
