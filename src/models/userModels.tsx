@@ -4,14 +4,14 @@ const userModels = {
 
     const user = await response.json();
 
-    return user[0];
+    return user.data;
   },
   getSingleUser: async function getSingleUser(id: string) {
     const response = await fetch(`http://localhost:4000/user/${id}`);
 
     const user = await response.json();
 
-    return user[0];
+    return user.data;
   },
   deleteUser: async function deleteUser(id: any) {
     fetch(`http://localhost:4000/user/${id}`, {

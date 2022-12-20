@@ -33,23 +33,23 @@ function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="username">Email:</label>
+      <label htmlFor='username'>Email:</label>
       <input
-        type="text"
-        id="username"
+        type='text'
+        id='username'
         value={username}
         onChange={(event) => setUsername(event.target.value)}
       />
 
-      <label htmlFor="password">Password:</label>
+      <label htmlFor='password'>Password:</label>
       <input
-        type="password"
-        id="password"
+        type='password'
+        id='password'
         value={password}
         onChange={(event) => setPassword(event.target.value)}
       />
 
-      <button type="submit">Log in</button>
+      <button type='submit'>Log in</button>
     </form>
   );
 }
