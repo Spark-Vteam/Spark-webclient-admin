@@ -1,0 +1,13 @@
+.search-form {
+  width: 100%;
+}
+
+.flex-form {
+  display: flex;
+}
+
+
+.search-bike {
+  width: 30%;
+  float: left;
+}

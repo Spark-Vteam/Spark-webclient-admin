@@ -89,8 +89,8 @@
 
 .search-bike-btn {
   display: inline-block;
-  width: 100px;
-  background: linear-gradient(270deg, #0c0c0c 28.76%, #282828 100%);
+  width: 150px;
+  background-color: #ff7745;
   border-radius: 10px;
   border: none;
   color: #fff;

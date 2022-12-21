@@ -12,7 +12,6 @@ function SearchForm(props: any) {
     if (foundMarker.length !== 0) {
       const marker = allMarkers.filter((marker: any) => String(marker.id) === searchString);
       const getMarker = marker[0];
-      console.log(getMarker);
       props.map.current.setView(
         [getMarker.Position.split(',')[0], getMarker.Position.split(',')[1]],
         18,
@@ -24,13 +23,13 @@ function SearchForm(props: any) {
     <div className='search-bike'>
       <form className='search-form' onSubmit={handleSubmit}>
         <input
-          placeholder='Bike id'
+          placeholder='Station id'
           type='text'
           value={searchString}
           onChange={(event) => setSearchString(event.target.value)}
         />
         <button className='search-bike-btn' type='submit'>
-          Search Bike
+          Search Station
         </button>
       </form>
     </div>

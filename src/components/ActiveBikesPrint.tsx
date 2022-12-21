@@ -1,12 +1,10 @@
-// import { useState, useEffect } from 'react';
-// import userModel from '../models/userModels';
 import { Fragment } from 'react';
 import { Bike, ActiveBikeProps } from '../interfaces/maps';
 
-function ActiveBikesPrint({ activeBikes }: ActiveBikeProps) {
+function ActiveBikesPrint({ activeBikes, city }: any) {
   return (
     <>
-      <h3>Active bikes</h3>
+      <h3>Active bikes for {city}</h3>
       <hr />
       {activeBikes.map((bike: Bike) => (
         <Fragment key={bike.id}>

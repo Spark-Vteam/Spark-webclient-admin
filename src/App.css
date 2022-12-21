@@ -38,7 +38,7 @@ body {
 .container-2 {
   padding: 1em;
   width: 100%;
-  background-color: #bdbdbd;
+  background: linear-gradient(#bdbdbd, #272727);
 }
 
 .bg-layer {
