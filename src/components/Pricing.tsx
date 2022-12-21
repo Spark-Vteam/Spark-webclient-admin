@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import mapsModel from '../models/mapModels';
 import { Bike } from '../interfaces/maps';
 
-function ChargingStations({ stations }: StationProps) {
+function Pricing({ stations }: any) {
   const [bike, setBikes] = useState<Array<Bike>>([]);
 
   /**
@@ -57,4 +57,4 @@ function ChargingStations({ stations }: StationProps) {
   );
 }
 
-export default ChargingStations;
+export default Pricing;

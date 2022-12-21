@@ -4,6 +4,7 @@ import { Popup, Polygon } from 'react-leaflet';
 import { GeofenceInterface, GeofenceProps } from '../interfaces/maps';
 
 function Geofence({ geofence }: GeofenceProps) {
+  // console.log(geofence);
   function checkColor(type: number) {
     return geofenceModule.checkColor(type);
   }

@@ -22,6 +22,14 @@ const mapsModel = {
     // return geofence;
     return geofence.data;
   },
+  getStationBike: async function getStationBike() {
+    const response = await fetch('http://localhost:4000/stationBikes');
+
+    const geofence = await response.json();
+
+    // return geofence;
+    return geofence.data;
+  },
 };
 
 export default mapsModel;

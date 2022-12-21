@@ -2,23 +2,27 @@ import { useState, useEffect } from 'react';
 import Map from './components/Map';
 import Home from './components/Home';
 import Users from './components/Users';
+import PricingComp from './components/Pricing';
 import SingleUser from './components/SingleUser';
 import './App.css';
-import './components/Footer.css';
-import './components/Typography.css';
-import './components/Buttons.css';
-import './components/Navbar.css';
-import './components/User.css';
-import './components/Stations.css';
-import './components/Form.css';
+import './components/css/Footer.css';
+import './components/css/Typography.css';
+import './components/css/Buttons.css';
+import './components/css/Navbar.css';
+import './components/css/User.css';
+import './components/css/Stations.css';
+import './components/css/Form.css';
 import mapsModel from './models/mapModels';
+import pricingModel from './models/pricingModel';
 import { Station, GeofenceInterface } from './interfaces/maps';
+import { Pricing } from './interfaces/pricing';
 
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
   const [stations, setStations] = useState<Array<Station>>([]);
   const [geofence, setGeofence] = useState<Array<GeofenceInterface>>([]);
+  const [pricing, setPricing] = useState<Array<Pricing>>([]);
 
   /**
    * fetch stations from API
@@ -50,11 +54,29 @@ function App() {
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  /**
+   * fetch station bikes
+   * @returns {Promise<void>}
+   */
+  async function fetchPricing(): Promise<void> {
+    const getPricing = await pricingModel.getPricing();
+    setPricing(getPricing);
+  }
+
+  useEffect(() => {
+    (async () => {
+      await fetchPricing();
+    })();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // console.log(geofence);
+
   return (
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/map' element={<Map stations={stations} geofence={geofence} />} />
       <Route path='/users' element={<Users />} />
+      <Route path='/pricing' element={<PricingComp pricing={pricing} />} />
       <Route path={'/user/:id'} element={<SingleUser />} />
     </Routes>
   );

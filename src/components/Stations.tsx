@@ -1,5 +1,3 @@
-// import { useState, useEffect } from 'react';
-// import userModel from '../models/userModels';
 import { Fragment } from 'react';
 import { Marker, Popup } from 'react-leaflet';
 import MarkerClusterGroup from './MarkerClusterGroup';
@@ -13,8 +11,6 @@ function Stations({ filteredStations }: any) {
   function parkingIcon(): L.Icon {
     return mapModule.pIcon();
   }
-
-  // console.log(filteredStations);
 
   return (
     <div>
