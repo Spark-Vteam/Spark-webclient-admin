@@ -1,7 +1,29 @@
 import { Fragment } from 'react';
 import { Station, StationProps } from '../interfaces/maps';
+import { useState, useEffect } from 'react';
+import mapsModel from '../models/mapModels';
+import { Bike } from '../interfaces/maps';
 
 function ChargingStations({ stations }: StationProps) {
+  const [bike, setBikes] = useState<Array<Bike>>([]);
+
+  /**
+   * fetch station bikes
+   * @returns {Promise<void>}
+   */
+  async function fetchGeofence(): Promise<void> {
+    const getGeofence = await mapsModel.getStationBike();
+    setBikes(getGeofence);
+  }
+
+  useEffect(() => {
+    (async () => {
+      await fetchGeofence();
+    })();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  console.log(bike);
+
   return (
     <>
       <div className='table-wrapper'>

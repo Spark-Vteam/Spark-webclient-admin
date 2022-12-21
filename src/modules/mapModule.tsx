@@ -3,6 +3,7 @@ import active from '../img/pin/Active.png';
 import available from '../img/pin/Available.png';
 import service from '../img/pin/Service.png';
 import charging from '../img/pin/Charging.png';
+import isCharging from '../img/pin/IsCharging.png';
 import parking from '../img/pin/ChargingStation.png';
 
 const mapModule = {
@@ -36,6 +37,12 @@ const mapModule = {
         iconAnchor: [13, 41],
         iconUrl: charging,
       });
+    } else if (scooter.Status === 40) {
+      scooterIcon = L.icon({
+        iconSize: [35, 38],
+        iconAnchor: [13, 41],
+        iconUrl: isCharging,
+      });
     } else if (scooter.Status === 50) {
       scooterIcon = L.icon({
         iconSize: [35, 38],
@@ -63,6 +70,8 @@ const mapModule = {
       message = 'Bike is active';
     } else if (scooter.Status === 30) {
       message = 'Bike has no battery';
+    } else if (scooter.Status === 40) {
+      message = 'Bike is charging';
     } else if (scooter.Status === 50) {
       message = 'Bike needs maintenance';
     } else {

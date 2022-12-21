@@ -6,6 +6,7 @@ import MarkerClusterGroup from './MarkerClusterGroup';
 import mapModule from '../modules/mapModule';
 
 function Stations({ filteredStations }: any) {
+  console.log(filteredStations);
   /**
    * Set parking icon
    * @returns {L.Icon}
@@ -13,8 +14,6 @@ function Stations({ filteredStations }: any) {
   function parkingIcon(): L.Icon {
     return mapModule.pIcon();
   }
-
-  // console.log(filteredStations);
 
   return (
     <div>

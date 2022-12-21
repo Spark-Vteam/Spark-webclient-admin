@@ -12,7 +12,6 @@ function SearchForm(props: any) {
     if (foundMarker.length !== 0) {
       const marker = allMarkers.filter((marker: any) => String(marker.id) === searchString);
       const getMarker = marker[0];
-      console.log(getMarker);
       props.map.current.setView(
         [getMarker.Position.split(',')[0], getMarker.Position.split(',')[1]],
         18,

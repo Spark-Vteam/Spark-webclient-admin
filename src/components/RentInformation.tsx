@@ -2,7 +2,6 @@ import { Fragment } from 'react';
 import { SingleRent, SingleRentProps } from '../interfaces/maps';
 
 function RentInformation({ rents }: SingleRentProps) {
-  console.log(rents);
   function getDate(currentDate: string) {
     const date = new Date(currentDate);
     const dateMDY = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;

@@ -13,7 +13,7 @@ import Bikes from './Bikes';
 import ActiveBikesPrint from './ActiveBikesPrint';
 import DrawGeofence from './DrawGeofence';
 import ActiveBikes from './ActiveBikes';
-import ChargingStations from './ChargingStations';
+// import ChargingStations from './ChargingStations';
 import { Bike, Station } from '../interfaces/maps';
 import Footer from './Footer';
 import './css/Map.css';
@@ -66,7 +66,7 @@ function Map({ stations, geofence }: any) {
     if (event.target.value === 'Lund') {
       /** @type {Array} filter bikes depending on city */
       const filteredBikes: Array<Bike> = bikes.filter(
-        (bike: Bike) => bike.id < 1501 && bike.Status !== 40 && bike.Status !== 20,
+        (bike: Bike) => bike.id < 1501 && bike.Status !== 20,
       );
 
       const filteredStations: Array<Station> = stations.filter(
@@ -85,7 +85,7 @@ function Map({ stations, geofence }: any) {
     } else {
       /** @type {Array} filter bikes depending on city */
       const filteredBikes: Array<Bike> = bikes.filter(
-        (bike: Bike) => bike.id > 1500 && bike.Status !== 40 && bike.Status !== 20,
+        (bike: Bike) => bike.id > 1500 && bike.Status !== 20,
       );
 
       const filteredStations: Array<Station> = stations.filter(
@@ -165,7 +165,7 @@ function Map({ stations, geofence }: any) {
             </div>
           </div>
           <div className='container-2'>
-            <ChargingStations stations={stationsByCity} />
+            {/* <ChargingStations stations={stationsByCity} /> */}
           </div>
           {/* <Footer /> */}
         </>
