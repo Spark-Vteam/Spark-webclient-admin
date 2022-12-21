@@ -45,6 +45,13 @@ export interface SingleRent {
   id: number;
 }
 
+export interface Props {
+  currentPage: number;
+  totalPages: number;
+  handlePageChange: (page: number) => void;
+}
+
+
 export interface GeofenceProps {
   geofence: GeofenceInterface[];
 }

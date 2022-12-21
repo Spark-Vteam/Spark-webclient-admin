@@ -11,8 +11,9 @@ import SearchFormStations from './SearchFormStations';
 import Stations from './Stations';
 import Bikes from './Bikes';
 import ActiveBikesPrint from './ActiveBikesPrint';
-import DrawGeofence from './DrawGeofence';
+// import DrawGeofence from './DrawGeofence';
 import ActiveBikes from './ActiveBikes';
+import BikeList from './BikeList';
 // import ChargingStations from './ChargingStations';
 import { Bike, Station } from '../interfaces/maps';
 import Footer from './Footer';
@@ -81,20 +82,37 @@ function Map({ stations, geofence }: any) {
       setStationsByCity(filteredStations);
       setBikesByCity(filteredBikes);
       setActiveBikesByCity(activeBikes);
-      // console.log(filteredStations);
-    } else {
+    } else if (event.target.value === 'Stockholm') {
       /** @type {Array} filter bikes depending on city */
       const filteredBikes: Array<Bike> = bikes.filter(
-        (bike: Bike) => bike.id > 1500 && bike.Status !== 20,
+        (bike: Bike) => bike.id > 1500 && bike.id < 2736 && bike.Status !== 20,
       );
 
       const filteredStations: Array<Station> = stations.filter(
-        (station: Station) => station.id > 100,
+        (station: Station) => station.id > 100 && station.id < 348,
       );
 
       /** @type {Array} filter bikes depending on status */
       const activeBikes: Array<any> = bikes.filter(
-        (bike: any) => bike.id > 1500 && bike.Status === 20,
+        (bike: any) => bike.id > 1500 && bike.id < 2736 && bike.Status === 20,
+      );
+
+      setBikesByCity(filteredBikes);
+      setStationsByCity(filteredStations);
+      setActiveBikesByCity(activeBikes);
+    } else {
+      /** @type {Array} filter bikes depending on city */
+      const filteredBikes: Array<Bike> = bikes.filter(
+        (bike: Bike) => bike.id > 2735 && bike.Status !== 20,
+      );
+
+      const filteredStations: Array<Station> = stations.filter(
+        (station: Station) => station.id > 347,
+      );
+
+      /** @type {Array} filter bikes depending on status */
+      const activeBikes: Array<any> = bikes.filter(
+        (bike: any) => bike.id > 2735 && bike.Status === 20,
       );
 
       setBikesByCity(filteredBikes);
@@ -113,8 +131,7 @@ function Map({ stations, geofence }: any) {
     setLongitude(undefined);
   }
 
-  // /** @type {Array} filter bikes depending on status */
-  // const activeBikes: Array<any> = bikes.filter((bike: any) => bike.Status === 20);
+  console.log(geofence);
 
   return (
     <>
@@ -148,7 +165,7 @@ function Map({ stations, geofence }: any) {
                     <Bikes filteredBikes={bikesByCity} />
                     <ActiveBikes activeBikes={activeBikesByCity} />
                     <Stations filteredStations={stationsByCity} />
-                    <DrawGeofence />
+                    {/* <DrawGeofence /> */}
                     <Geofence geofence={geofence} />
                   </MapContainer>
                   <div className='flex-form'>
@@ -166,6 +183,7 @@ function Map({ stations, geofence }: any) {
           </div>
           <div className='container-2'>
             {/* <ChargingStations stations={stationsByCity} /> */}
+            <BikeList filteredBikes={bikesByCity.concat(activeBikesByCity)} />
           </div>
           {/* <Footer /> */}
         </>
@@ -179,6 +197,10 @@ function Map({ stations, geofence }: any) {
             <br></br>
             <button className='btn margin-top' onClick={setCityCoordinates} value='Stockholm'>
               Stockholm
+            </button>
+            <br></br>
+            <button className='btn margin-top' onClick={setCityCoordinates} value='Karlskrona'>
+              Karlskrona
             </button>
           </div>
           <Footer />

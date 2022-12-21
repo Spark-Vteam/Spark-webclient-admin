@@ -58,6 +58,14 @@
   text-align: left;
 }
 
+.btn-container-user {
+  margin: 0 auto;
+  padding: 5px;
+  display: flex;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
 .option-btn {
   background-color: rgba(245, 245, 220, 0);
   outline: none;
@@ -100,4 +108,34 @@
   padding: 10px 20px 10px;
   text-decoration: none;
   margin-left: 10px;
+}
+
+.next-prev {
+  background-color: #ff7745; /* Green */
+  border: none;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+/* Style the previous and next buttons */
+.pages {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 3;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+/* Style the active button */
+.active {
+  color: #b4b4b4;
 }

@@ -11,3 +11,10 @@
   width: 30%;
   float: left;
 }
+
+legend {
+  font-size: 32px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+}

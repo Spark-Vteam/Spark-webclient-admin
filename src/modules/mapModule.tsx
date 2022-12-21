@@ -12,6 +12,8 @@ const mapModule = {
       return [59.334591, 18.06324, 'Stockholm'];
     } else if (event.target.value === 'Lund') {
       return [55.70584, 13.19321, 'Lund'];
+    } else if (event.target.value === 'Karlskrona') {
+      return [56.16156, 15.58661, 'Karlskrona'];
     } else {
       throw console.error('City does not exist');
     }
