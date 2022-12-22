@@ -25,7 +25,7 @@ export default function BikeMarker({ data }: any) {
         icon={icon}
         position={[lat, lng]}
         previousPosition={prevPos}
-        duration={2000}
+        duration={5000}
         keepAtCenter={false}
         rotationAngle={0}
       ></LeafletTrackingMarker>

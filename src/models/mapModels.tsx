@@ -11,6 +11,7 @@ const mapsModel = {
 
     const bikes = await response.json();
 
+    console.log(bikes);
     // return bikes;
     return bikes.data;
   },

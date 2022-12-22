@@ -14,38 +14,15 @@ import './components/css/Stations.css';
 import './components/css/Form.css';
 import mapsModel from './models/mapModels';
 import pricingModel from './models/pricingModel';
-import { Station, GeofenceInterface, Bike } from './interfaces/maps';
-import { Pricing } from './interfaces/pricing';
+import { Station, GeofenceInterface } from './interfaces/maps';
+// import { Pricing } from './interfaces/pricing';
 
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
-  const [bikes, setBikes] = useState<Array<Bike>>([]);
   const [stations, setStations] = useState<Array<Station>>([]);
   const [geofence, setGeofence] = useState<Array<GeofenceInterface>>([]);
-  const [pricing, setPricing] = useState<Array<Pricing>>([]);
-
-  /**
-   *
-   * fetch bikes from API
-   * @returns {Promise<void>}
-   */
-  async function fetchBikes(): Promise<void> {
-    const stations = await mapsModel.getBikes();
-    setBikes(stations);
-  }
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      (async () => {
-        await fetchBikes();
-        // console.log('Fetching bikes from API');
-      })();
-    }, 5000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // const [pricing, setPricing] = useState<Array<Pricing>>([]);
 
   /**
    * fetch stations from API
@@ -77,27 +54,29 @@ function App() {
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  /**
-   * fetch station bikes
-   * @returns {Promise<void>}
-   */
-  async function fetchPricing(): Promise<void> {
-    const getPricing = await pricingModel.getPricing();
-    setPricing(getPricing);
-  }
+  // /**
+  //  * fetch station bikes
+  //  * @returns {Promise<void>}
+  //  */
+  // async function fetchPricing(): Promise<void> {
+  //   const getPricing = await pricingModel.getPricing();
+  //   setPricing(getPricing);
+  // }
 
-  useEffect(() => {
-    (async () => {
-      await fetchPricing();
-    })();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // useEffect(() => {
+  //   (async () => {
+  //     await fetchPricing();
+  //   })();
+  // }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // // console.log(geofence);
 
   return (
     <Routes>
       <Route path='/' element={<Home />} />
-      <Route path='/map' element={<Map stations={stations} geofence={geofence} bikes={bikes} />} />
+      <Route path='/map' element={<Map stations={stations} geofence={geofence} />} />
       <Route path='/users' element={<Users />} />
-      <Route path='/pricing' element={<PricingComp pricing={pricing} />} />
+      {/* <Route path='/pricing' element={<PricingComp pricing={pricing} />} /> */}
       <Route path={'/user/:id'} element={<SingleUser />} />
     </Routes>
   );
