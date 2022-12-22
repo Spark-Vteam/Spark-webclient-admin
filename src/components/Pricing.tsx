@@ -3,10 +3,14 @@ import Navbar from './Navbar';
 import { PricingInterface, PricingProps } from '../interfaces/pricing';
 import pricingModel from '../models/pricingModel';
 import PricingForm from './PricingForm'; // Lägg till import för PricingForm
+import './css/PricingTable.css';
+import Toast from './Toast';
 
 function Pricing() {
   const [pricing, setPricing] = useState<Array<PricingInterface>>([]);
-  const [selectedPricing, setSelectedPricing] = useState<PricingInterface | null>(null); // Lägg till statet selectedPricing och setSelectedPricing
+  const [selectedPricing, setSelectedPricing] = useState<PricingInterface | null>(null);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   /**
    * fetch station pricing
@@ -33,7 +37,7 @@ function Pricing() {
     Description: string;
     DiscountEndCharging: number;
     DiscountEndParkingZone: number;
-    DiscountStartFee: number;
+    DiscountStartFree: number;
     Minute: number;
     Parking: number;
     Start: number;
@@ -44,29 +48,33 @@ function Pricing() {
       description: values.Description,
       discountEndCharging: values.DiscountEndCharging,
       discountEndParkingZone: values.DiscountEndParkingZone,
-      discountStartFee: values.DiscountStartFee,
+      discountStartFree: values.DiscountStartFree,
       minute: values.Minute,
       parking: values.Parking,
       start: values.Start,
       type: values.Type,
     };
-    await pricingModel.updatePricing(values.id, newValues); // Uppdatera pricing objektet i databasen
-    setSelectedPricing(null); // Återställ selectedPricing
-    await fetchPricing(); // Hämta uppdaterade prisuppgifter från databasen
+    try {
+      await pricingModel.updatePricing(values.id, newValues);
+      setToastMessage('Pricing updated successfully!');
+      setShowToast(true);
+      setSelectedPricing(null);
+      await fetchPricing();
+    } catch (error) {
+      console.error(error);
+      setToastMessage('Could not update pricing, try again.');
+      setShowToast(true);
+    }
   };
-
-  console.log(pricing);
   return (
     <>
       <Navbar />
+      {showToast && <Toast message={toastMessage} />}
       <div className='table-wrapper'>
-        <p>Pricing</p>
-        {/* Rendera formulärkomponenten endast om selectedPricing är inte null */}
         {selectedPricing && <PricingForm initialValues={selectedPricing} onSubmit={handleUpdate} />}
-        {/* Lägg till tabell för att visa prisuppgifter */}
-        <table>
-          <thead>
-            <tr>
+        <table className='pricing-table'>
+          <thead className='pricing-table-head'>
+            <tr className='pricing-table-row'>
               <th>Description</th>
               <th>DiscountEndCharging</th>
               <th>DiscountEndParkingZone</th>
@@ -78,19 +86,18 @@ function Pricing() {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className='pricing-table-body'>
             {pricing.map((p) => (
               <tr key={p.id}>
                 <td>{p.Description}</td>
                 <td>{p.DiscountEndCharging}</td>
                 <td>{p.DiscountEndParkingZone}</td>
-                <td>{p.DiscountStartFee}</td>
+                <td>{p.DiscountStartFree}</td>
                 <td>{p.Minute}</td>
                 <td>{p.Parking}</td>
                 <td>{p.Start}</td>
                 <td>{p.Type}</td>
                 <td>
-                  {/* Lägg till knappar för att redigera och ta bort prisuppgifter */}
                   <button type='button' onClick={() => handleEdit(p)}>
                     Edit
                   </button>

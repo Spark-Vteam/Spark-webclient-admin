@@ -38,23 +38,25 @@ function Map({ stations }: any) {
    */
   async function fetchBikes(): Promise<void> {
     const fetchedBikes = await mapsModel.getBikesByCity(city);
-    const activeBikes = fetchedBikes.filter((bike: any) => bike.Status === 20);
-    setBikes(fetchedBikes);
+    const activeBikes = fetchedBikes.filter((bike: Bike) => bike.Status === 20);
+
+    const removeActiveBikes = fetchedBikes.filter((bike: Bike) => bike.Status !== 20);
+    setBikes(removeActiveBikes);
     setActiveBikesByCity(activeBikes);
   }
 
   console.log(bikes);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      (async () => {
-        await fetchBikes();
-        console.log('Fetching bikes from API');
-      })();
-    }, 5000);
-    return () => {
-      clearInterval(interval);
-    };
+    // const interval = setInterval(() => {
+    (async () => {
+      await fetchBikes();
+      console.log('Fetching bikes from API');
+    })();
+    // }, 5000);
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, [bikes]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**
@@ -136,7 +138,6 @@ function Map({ stations }: any) {
                   <Bikes filteredBikes={bikes} />
                   <ActiveBikes activeBikes={activeBikesByCity} />
                   <Stations filteredStations={stations} />
-                  {/* <DrawGeofence /> */}
                   <Geofence geofence={geofence} />
                 </MapContainer>
                 <div className='flex-form'>
