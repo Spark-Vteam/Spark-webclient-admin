@@ -37,20 +37,20 @@ function Map({ stations, geofence }: any) {
    * @returns {Promise<void>}
    */
   async function fetchBikes(): Promise<void> {
-    const stations = await mapsModel.getBikes();
-    setBikes(stations);
+    const fetchedBikes = await mapsModel.getBikes();
+    setBikes(fetchedBikes);
   }
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      (async () => {
-        await fetchBikes();
-        // console.log('Fetching bikes from API');
-      })();
-    }, 5000);
-    return () => {
-      clearInterval(interval);
-    };
+    // const interval = setInterval(() => {
+    (async () => {
+      await fetchBikes();
+      // console.log('Fetching bikes from API');
+    })();
+    // }, 5000);
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**
@@ -64,61 +64,25 @@ function Map({ stations, geofence }: any) {
     setLongitude(values[1]);
     setCity(values[2]);
 
-    if (event.target.value === 'Lund') {
-      /** @type {Array} filter bikes depending on city */
-      const filteredBikes: Array<Bike> = bikes.filter(
-        (bike: Bike) => bike.id < 1501 && bike.Status !== 20,
-      );
+    const city = event.target.value;
+    const bikeIdStart = city === 'Lund' ? 1 : city === 'Stockholm' ? 1501 : 2736;
+    const stationIdStart = city === 'Lund' ? 1 : city === 'Stockholm' ? 101 : 348;
 
-      const filteredStations: Array<Station> = stations.filter(
-        (station: Station) => station.id < 101,
-      );
+    const filteredBikes = bikes.filter(
+      (bike: Bike) => bike.id >= bikeIdStart && bike.id < bikeIdStart + 1235 && bike.Status !== 20,
+    );
 
-      /** @type {Array} filter bikes depending on status */
-      const activeBikes: Array<any> = bikes.filter(
-        (bike: any) => bike.id < 1501 && bike.Status === 20,
-      );
+    const filteredStations = stations.filter(
+      (station: Station) => station.id >= stationIdStart && station.id < stationIdStart + 248,
+    );
 
-      setStationsByCity(filteredStations);
-      setBikesByCity(filteredBikes);
-      setActiveBikesByCity(activeBikes);
-    } else if (event.target.value === 'Stockholm') {
-      /** @type {Array} filter bikes depending on city */
-      const filteredBikes: Array<Bike> = bikes.filter(
-        (bike: Bike) => bike.id > 1500 && bike.id < 2736 && bike.Status !== 20,
-      );
+    const activeBikes = bikes.filter(
+      (bike: Bike) => bike.id >= bikeIdStart && bike.id < bikeIdStart + 1235 && bike.Status === 20,
+    );
 
-      const filteredStations: Array<Station> = stations.filter(
-        (station: Station) => station.id > 100 && station.id < 348,
-      );
-
-      /** @type {Array} filter bikes depending on status */
-      const activeBikes: Array<any> = bikes.filter(
-        (bike: any) => bike.id > 1500 && bike.id < 2736 && bike.Status === 20,
-      );
-
-      setBikesByCity(filteredBikes);
-      setStationsByCity(filteredStations);
-      setActiveBikesByCity(activeBikes);
-    } else {
-      /** @type {Array} filter bikes depending on city */
-      const filteredBikes: Array<Bike> = bikes.filter(
-        (bike: Bike) => bike.id > 2735 && bike.Status !== 20,
-      );
-
-      const filteredStations: Array<Station> = stations.filter(
-        (station: Station) => station.id > 347,
-      );
-
-      /** @type {Array} filter bikes depending on status */
-      const activeBikes: Array<any> = bikes.filter(
-        (bike: any) => bike.id > 2735 && bike.Status === 20,
-      );
-
-      setBikesByCity(filteredBikes);
-      setStationsByCity(filteredStations);
-      setActiveBikesByCity(activeBikes);
-    }
+    setStationsByCity(filteredStations);
+    setBikesByCity(filteredBikes);
+    setActiveBikesByCity(activeBikes);
   }
 
   /**
