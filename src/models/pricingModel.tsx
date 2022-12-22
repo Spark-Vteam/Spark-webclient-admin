@@ -7,6 +7,7 @@ const pricingModel = {
     return user.data;
   },
   updatePricing: async function updatePricing(id: string, priceModel: any) {
+    console.log(id, priceModel);
     fetch(`http://localhost:4000/pricing/${id}`, {
       method: 'PUT',
       headers: {

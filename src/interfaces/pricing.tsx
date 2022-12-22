@@ -1,10 +1,11 @@
 export interface PricingInterface {
+  id: string;
   Type: string;
   Description: string;
   Start: number;
   Minute: number;
   Parking: number;
-  DiscountStartFree: number;
+  DiscountStartFee: number;
   DiscountEndParkingZone: number;
   DiscountEndCharging: number;
 }

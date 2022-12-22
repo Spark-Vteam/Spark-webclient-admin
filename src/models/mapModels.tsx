@@ -11,7 +11,14 @@ const mapsModel = {
 
     const bikes = await response.json();
 
-    console.log(bikes);
+    // return bikes;
+    return bikes.data;
+  },
+  getBikesByCity: async function getBikesByCity(city: string) {
+    const response = await fetch(`http://localhost:4000/bike/city/${city}`);
+
+    const bikes = await response.json();
+
     // return bikes;
     return bikes.data;
   },
