@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Props } from '../interfaces/maps';
 
-
 const Pagination = (props: Props) => {
   const { currentPage, totalPages, handlePageChange } = props;
   const [start, setStart] = useState(1);
@@ -32,15 +31,17 @@ const Pagination = (props: Props) => {
       <button className='next-prev' onClick={handlePreviousClick} disabled={currentPage === 1}>
         Previous
       </button>
-      {Array.from({ length: totalPages }, (_, i) => i + 1).slice(start - 1, end).map((page) => (
-        <button
-          key={page}
-          className={page === currentPage ? 'active pages' : 'pages'}
-          onClick={() => handlePageChange(page)}
-        >
-          {page}
-        </button>
-      ))}
+      {Array.from({ length: totalPages }, (_, i) => i + 1)
+        .slice(start - 1, end)
+        .map((page) => (
+          <button
+            key={page}
+            className={page === currentPage ? 'active pages' : 'pages'}
+            onClick={() => handlePageChange(page)}
+          >
+            {page}
+          </button>
+        ))}
       <button className='next-prev' onClick={handleNextClick} disabled={currentPage === totalPages}>
         Next
       </button>

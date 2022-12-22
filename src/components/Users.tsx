@@ -50,7 +50,11 @@ function Users() {
       <div>
         <div className='user-container'>
           <div className='search-header'>
-            <input placeholder='Search by first name...' id='search-box' onChange={handleSearch} />
+            <input
+              placeholder='Search by first name or id...'
+              id='search-box'
+              onChange={handleSearch}
+            />
           </div>
           {currentRows.map((user: User) => {
             return (

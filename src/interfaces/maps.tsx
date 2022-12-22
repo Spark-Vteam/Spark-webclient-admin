@@ -51,7 +51,6 @@ export interface Props {
   handlePageChange: (page: number) => void;
 }
 
-
 export interface GeofenceProps {
   geofence: GeofenceInterface[];
 }
