@@ -1,25 +1,25 @@
 .toast {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    width: 300px;
-    padding: 20px;
-    background-color: #eee;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 300px;
+  padding: 20px;
+  background-color: #eee;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .toast p {
-    margin: 0;
-    font-size: 14px;
-    color: black;
+  margin: 0;
+  font-size: 14px;
+  color: black;
 }
 
 .toast button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: transparent;
-    border: 0;
-    cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
 }

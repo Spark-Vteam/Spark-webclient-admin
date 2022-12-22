@@ -126,13 +126,13 @@
 
 /* Style the previous and next buttons */
 .pages {
-    background: none;
-    color: inherit;
-    border: none;
-    padding: 3;
-    font: inherit;
-    cursor: pointer;
-    outline: inherit;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 3;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }
 
 /* Style the active button */

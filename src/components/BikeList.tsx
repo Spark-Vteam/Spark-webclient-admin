@@ -6,7 +6,7 @@ import mapModule from '../modules/mapModule';
 import Pagination from './Pagination';
 
 function BikeList({ filteredBikes }: BikeProps) {
-  const [bike, setBikes] = useState<Array<Bike>>([]);
+  const [, setBikes] = useState<Array<Bike>>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(30);
 

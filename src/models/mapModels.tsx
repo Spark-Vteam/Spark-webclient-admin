@@ -23,12 +23,12 @@ const mapsModel = {
     return geofence.data;
   },
   getStationBike: async function getStationBike() {
-    const response = await fetch('http://localhost:4000/stationBikes');
+    const response = await fetch('http://localhost:4000/bike/charging');
 
-    const geofence = await response.json();
+    const bike = await response.json();
 
-    // return geofence;
-    return geofence.data;
+    // return bike;
+    return bike.data;
   },
 };
 
