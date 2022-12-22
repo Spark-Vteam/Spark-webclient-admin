@@ -21,14 +21,15 @@ import './css/Map.css';
 
 import { MapContainer, TileLayer } from 'react-leaflet';
 
-function Map({ stations, geofence }: any) {
-  const [bikes, setBikes] = useState<Array<Bike>>([]);
+function Map({ stations, geofence, bikes, setBikes }: any) {
+  // const [bikes, setBikes] = useState<Array<Bike>>([]);
   const [city, setCity] = useState<string>('');
   const [longitude, setLongitude] = useState<number>();
   const [latitude, setLatitude] = useState<number>();
   const [bikesByCity, setBikesByCity] = useState<Array<Bike>>([]);
   const [stationsByCity, setStationsByCity] = useState<Array<Station>>([]);
   const [activeBikesByCity, setActiveBikesByCity] = useState<Array<Bike>>([]);
+  const [intervalId, setIntervalId] = useState(null);
   const mapRef = useRef(null);
 
   /**
@@ -42,15 +43,17 @@ function Map({ stations, geofence }: any) {
   }
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      (async () => {
-        await fetchBikes();
-        // console.log('Fetching bikes from API');
-      })();
-    }, 1000);
-    return () => {
-      clearInterval(interval);
-    };
+    if (bikes) {
+      const interval = setInterval(() => {
+        (async () => {
+          await fetchBikes();
+          console.log('Fetching bikes from API');
+        })();
+      }, 5000);
+      return () => {
+        clearInterval(interval);
+      };
+    }
   }, [bikes]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**
