@@ -42,15 +42,15 @@ function Map({ stations, geofence }: any) {
   }
 
   useEffect(() => {
-    // const interval = setInterval(() => {
-    (async () => {
-      await fetchBikes();
-      // console.log('Fetching bikes from API');
-    })();
-    // }, 5000);
-    // return () => {
-    //   clearInterval(interval);
-    // };
+    const interval = setInterval(() => {
+      (async () => {
+        await fetchBikes();
+        // console.log('Fetching bikes from API');
+      })();
+    }, 5000);
+    return () => {
+      clearInterval(interval);
+    };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**

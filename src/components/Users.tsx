@@ -1,44 +1,47 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, SetStateAction } from 'react';
 import userModel from '../models/userModels';
 import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
 import { User } from '../interfaces/maps';
+import Pagination from './Pagination';
 
 function Users() {
-  const [users, setUsers] = useState<any>([]);
-  /**
-   * fetch users from API
-   * @returns {Promise<void>}
-   */
-  async function fetchUsers(): Promise<void> {
-    const users = await userModel.getUsers();
-    setUsers(users);
-    setFilteredList(users);
-  }
+  const [users, setUsers] = useState<User[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(30);
+  const [search, setSearch] = useState('');
+  const [filteredUsers, setFilteredUsers] = useState<any>([]);
 
   useEffect(() => {
     (async () => {
-      await fetchUsers();
+      const users = await userModel.getUsers();
+      setUsers(users);
+      setFilteredUsers(users);
     })();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
-  function handleClick(event: any) {
-    console.log(event.target);
-  }
+  useEffect(() => {
+    setFilteredUsers(
+      users.filter(
+        (user) =>
+          user.FirstName.toLowerCase().includes(search.toLowerCase()) ||
+          user.id.toString().includes(search.toLowerCase()),
+      ),
+    );
+  }, [search, users]);
 
-  const [filteredList, setFilteredList] = useState(users);
+  const totalPages = Math.ceil(filteredUsers.length / rowsPerPage);
 
-  const filterBySearch = (event: any) => {
-    // Access input value
-    const query = event.target.value;
-    // Create copy of item list
-    let updatedList = [...users];
-    // Include all elements which includes the search query
-    updatedList = updatedList.filter((item) => {
-      return item.FirstName.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-    });
-    // Trigger render with updated values
-    setFilteredList(updatedList);
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const indexOfLastRow = currentPage * rowsPerPage;
+  const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+  const currentRows = filteredUsers.slice(indexOfFirstRow, indexOfLastRow);
+
+  const handleSearch = (e: { target: { value: SetStateAction<string> } }) => {
+    setSearch(e.target.value);
   };
 
   return (
@@ -47,24 +50,20 @@ function Users() {
       <div>
         <div className='user-container'>
           <div className='search-header'>
-            <input
-              placeholder='Search by first name...'
-              id='search-box'
-              onChange={filterBySearch}
-            />
+            <input placeholder='Search by first name...' id='search-box' onChange={handleSearch} />
           </div>
-          {filteredList.map((user: User) => {
+          {currentRows.map((user: User) => {
             return (
               <div key={user.id}>
                 <h2>
                   <strong>
-                    {user.FirstName} {user.LastName}
+                    {user.id}. {user.FirstName} {user.LastName}
                   </strong>
                 </h2>
                 <p>{user.EmailAdress}</p>
                 <Link to={`/user/${user.id}`}>
                   {' '}
-                  <button className='customer-btn' value={user.id} onClick={handleClick}>
+                  <button className='customer-btn' value={user.id}>
                     Details
                   </button>
                 </Link>
@@ -72,6 +71,11 @@ function Users() {
               </div>
             );
           })}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            handlePageChange={handlePageChange}
+          />
         </div>
       </div>
     </div>
