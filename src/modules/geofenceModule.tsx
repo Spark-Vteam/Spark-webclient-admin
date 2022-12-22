@@ -17,7 +17,7 @@ const geofenceModule = {
     } else return greyOption;
   },
   checkStatus: function checkStatus(type: number): string {
-    if (type === 10) {
+    if (type >= 10 && type < 20) {
       return 'Slow zone';
     } else if (type === 20) {
       return 'Parking forbidden';
