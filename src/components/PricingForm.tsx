@@ -5,7 +5,7 @@ interface Props {
     Description: string;
     DiscountEndCharging: number;
     DiscountEndParkingZone: number;
-    DiscountStartFee: number;
+    DiscountStartFree: number;
     Minute: number;
     Parking: number;
     Start: number;
@@ -16,7 +16,7 @@ interface Props {
     Description: string;
     DiscountEndCharging: number;
     DiscountEndParkingZone: number;
-    DiscountStartFee: number;
+    DiscountStartFree: number;
     Minute: number;
     Parking: number;
     Start: number;
@@ -39,69 +39,98 @@ const PricingForm: React.FC<Props> = ({ initialValues, onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor='Description'>
-        Description:
-        <input
-          type='text'
-          name='Description'
-          value={formValues.Description}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <label htmlFor='DiscountEndCharging'>
-        DiscountEndCharging:
-        <input
-          type='number'
-          name='DiscountEndCharging'
-          value={formValues.DiscountEndCharging}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <label htmlFor='DiscountEndParkingZone'>
-        DiscountEndParkingZone:
-        <input
-          type='number'
-          name='DiscountEndParkingZone'
-          value={formValues.DiscountEndParkingZone}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <label htmlFor='DiscountStartFree'>
+    <div className='pricing-container'>
+      <form className='pricing-form' onSubmit={handleSubmit}>
+        <legend>Update pricing</legend>
+        <div style={{ display: 'block' }}>
+          <label htmlFor='Description' />
+          Description:
+        </div>
+        <div style={{ display: 'block' }}>
+          <input
+            type='text'
+            name='Description'
+            value={formValues.Description}
+            onChange={handleChange}
+          />
+        </div>
+        <br />
+        <div style={{ display: 'block' }}>
+          <label htmlFor='DiscountEndCharging' />
+          DiscountEndCharging:
+        </div>
+        <div style={{ display: 'block' }}>
+          <input
+            type='number'
+            name='DiscountEndCharging'
+            value={formValues.DiscountEndCharging}
+            onChange={handleChange}
+          />
+        </div>
+        <br />
+        <div style={{ display: 'block' }}>
+          <label htmlFor='DiscountEndParkingZone' />
+          DiscountEndParkingZone:
+        </div>
+        <div style={{ display: 'block' }}>
+          <input
+            type='number'
+            name='DiscountEndParkingZone'
+            value={formValues.DiscountEndParkingZone}
+            onChange={handleChange}
+          />
+        </div>
+        <br />
+        <div style={{ display: 'block' }}>
+          <label htmlFor='DiscountStartFree' />
+        </div>
         DiscountStartFree:
-        <input
-          type='number'
-          name='DiscountStartFree'
-          value={formValues.DiscountStartFee}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <label htmlFor='Minute'>
+        <div style={{ display: 'block' }}>
+          <input
+            type='number'
+            name='DiscountStartFree'
+            value={formValues.DiscountStartFree}
+            onChange={handleChange}
+          />
+        </div>
+        <br />
+        <div style={{ display: 'block' }}>
+          <label htmlFor='Minute' />
+        </div>
         Minute:
-        <input type='number' name='Minute' value={formValues.Minute} onChange={handleChange} />
-      </label>
-      <br />
-      <label htmlFor='Parking'>
+        <div style={{ display: 'block' }}>
+          <input type='number' name='Minute' value={formValues.Minute} onChange={handleChange} />
+        </div>
+        <br />
+        <div style={{ display: 'block' }}>
+          <label htmlFor='Parking' />
+        </div>
         Parking:
-        <input type='number' name='Parking' value={formValues.Parking} onChange={handleChange} />
-      </label>
-      <br />
-      <label htmlFor='Start'>
+        <div style={{ display: 'block' }}>
+          <input type='number' name='Parking' value={formValues.Parking} onChange={handleChange} />
+        </div>
+        <br />
+        <div style={{ display: 'block' }}>
+          <label htmlFor='Start' />
+        </div>
         Start:
-        <input type='number' name='Start' value={formValues.Start} onChange={handleChange} />
-      </label>
-      <br />
-      <label htmlFor='Type'>
+        <div style={{ display: 'block' }}>
+          <input type='number' name='Start' value={formValues.Start} onChange={handleChange} />
+        </div>
+        <br />
+        <div style={{ display: 'block' }}>
+          <label htmlFor='Type' />
+        </div>
         Type:
-        <input type='text' name='Type' value={formValues.Type} onChange={handleChange} />
-      </label>
-      <br />
-      <button type='submit'>Save</button>
-    </form>
+        <div style={{ display: 'block' }}>
+          <input type='text' name='Type' value={formValues.Type} onChange={handleChange} />
+        </div>
+        <br />
+        <button className='btn' type='submit'>
+          Save
+        </button>
+      </form>
+    </div>
   );
 };
 

@@ -5,7 +5,7 @@ export interface PricingInterface {
   Start: number;
   Minute: number;
   Parking: number;
-  DiscountStartFee: number;
+  DiscountStartFree: number;
   DiscountEndParkingZone: number;
   DiscountEndCharging: number;
 }

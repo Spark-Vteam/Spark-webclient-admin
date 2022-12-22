@@ -4,12 +4,6 @@ import L from 'leaflet';
 // import { Bike, DataProps } from '../interfaces/maps';
 import Active from '../img/pin/Active.png';
 
-const icon = L.icon({
-  iconSize: [45, 45],
-  popupAnchor: [2, -20],
-  iconUrl: Active,
-});
-
 export default function BikeMarker({ data }: any) {
   const lat = data.Position.split(',')[0];
   const lng = data.Position.split(',')[1];
@@ -18,6 +12,12 @@ export default function BikeMarker({ data }: any) {
   useEffect(() => {
     if (prevPos[1] !== lng && prevPos[0] !== lat) setPrevPos([lat, lng]);
   }, [lat, lng, prevPos]);
+
+  const icon = L.icon({
+    iconSize: [45, 45],
+    popupAnchor: [2, -20],
+    iconUrl: Active,
+  });
 
   return (
     <>
