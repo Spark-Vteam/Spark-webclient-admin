@@ -52,19 +52,24 @@ function Bikes({ filteredBikes }: BikeProps) {
       <MarkerClusterGroup>
         {filteredBikes.map((location: Bike) => (
           <Fragment key={location.id}>
-            <CircleMarker
+            {/* <CircleMarker
               center={[
                 parseFloat(location.Position.split(',')[0]),
                 parseFloat(location.Position.split(',')[1]),
               ]}
-              color={checkColor(location)}
+              color={checkIcon(location)}
+            > */}
+            <Marker
+              key={location.id}
+              position={location.Position.split(',').map(Number) as [number, number]}
+              icon={checkIcon(location)}
             >
               <Popup key={location.id}>
                 ID: {location.id} <br />
                 Status: {setStatus(location)} <br />
                 Battery: {location.Battery}% <br />
               </Popup>
-            </CircleMarker>
+            </Marker>
           </Fragment>
         ))}
       </MarkerClusterGroup>
