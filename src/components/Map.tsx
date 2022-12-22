@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
+import mapsModel from '../models/mapModels';
 import mapModule from '../modules/mapModule';
 import Navbar from './Navbar';
 import Geofence from './Geofence';
@@ -10,16 +11,18 @@ import SearchFormStations from './SearchFormStations';
 import Stations from './Stations';
 import Bikes from './Bikes';
 import ActiveBikesPrint from './ActiveBikesPrint';
+// import DrawGeofence from './DrawGeofence';
 import ActiveBikes from './ActiveBikes';
 import BikeList from './BikeList';
+// import ChargingStations from './ChargingStations';
 import { Bike, Station } from '../interfaces/maps';
 import Footer from './Footer';
 import './css/Map.css';
 
 import { MapContainer, TileLayer } from 'react-leaflet';
 
-function Map({ stations, geofence, bikes }: any) {
-  // const [bikes, setBikes] = useState<Array<Bike>>([]);
+function Map({ stations, geofence }: any) {
+  const [bikes, setBikes] = useState<Array<Bike>>([]);
   const [city, setCity] = useState<string>('');
   const [longitude, setLongitude] = useState<number>();
   const [latitude, setLatitude] = useState<number>();
@@ -28,7 +31,27 @@ function Map({ stations, geofence, bikes }: any) {
   const [activeBikesByCity, setActiveBikesByCity] = useState<Array<Bike>>([]);
   const mapRef = useRef(null);
 
-  console.log(bikesByCity);
+  /**
+   *
+   * fetch bikes from API
+   * @returns {Promise<void>}
+   */
+  async function fetchBikes(): Promise<void> {
+    const stations = await mapsModel.getBikes();
+    setBikes(stations);
+  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      (async () => {
+        await fetchBikes();
+        // console.log('Fetching bikes from API');
+      })();
+    }, 5000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**
    * Sets coordinates and city

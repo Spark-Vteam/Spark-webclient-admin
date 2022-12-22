@@ -1,4 +1,4 @@
-export interface Pricing {
+export interface PricingInterface {
   Type: string;
   Description: string;
   Start: number;
@@ -7,4 +7,8 @@ export interface Pricing {
   DiscountStartFree: number;
   DiscountEndParkingZone: number;
   DiscountEndCharging: number;
+}
+
+export interface PricingProps {
+  pricing: PricingInterface[];
 }
