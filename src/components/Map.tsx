@@ -46,15 +46,15 @@ function Map({ stations }: any) {
   console.log(bikes);
 
   useEffect(() => {
-    // const interval = setInterval(() => {
-    (async () => {
-      await fetchBikes();
-      console.log('Fetching bikes from API');
-    })();
-    // }, 5000);
-    // return () => {
-    //   clearInterval(interval);
-    // };
+    const interval = setInterval(() => {
+      (async () => {
+        await fetchBikes();
+        console.log('Fetching bikes from API');
+      })();
+    }, 5000);
+    return () => {
+      clearInterval(interval);
+    };
   }, [bikes]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**
@@ -71,7 +71,6 @@ function Map({ stations }: any) {
       await fetchGeofence();
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
 
   useEffect(() => {
     console.log(city);
