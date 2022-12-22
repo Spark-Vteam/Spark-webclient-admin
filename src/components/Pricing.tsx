@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
-import { PricingInterface, PricingProps } from '../interfaces/pricing';
+import { PricingInterface } from '../interfaces/pricing';
 import pricingModel from '../models/pricingModel';
 import PricingForm from './PricingForm'; // Lägg till import för PricingForm
 import './css/PricingTable.css';

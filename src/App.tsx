@@ -37,7 +37,7 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={<Home />} />
-      <Route path='/map' element={<Map stations={stations}/>} />
+      <Route path='/map' element={<Map stations={stations} />} />
       <Route path='/users' element={<Users />} />
       <Route path='/pricing' element={<PricingComp />} />
       <Route path={'/user/:id'} element={<SingleUser />} />

@@ -50,23 +50,23 @@ function Bikes({ filteredBikes }: BikeProps) {
   return (
     <div>
       <MarkerClusterGroup>
-      {filteredBikes.map((location: Bike) => (
-        <Fragment key={location.id}>
-          <CircleMarker
-            center={[
-              parseFloat(location.Position.split(',')[0]),
-              parseFloat(location.Position.split(',')[1]),
-            ]}
-            color={checkColor(location)}
-          >
-            <Popup key={location.id}>
-              ID: {location.id} <br />
-              Status: {setStatus(location)} <br />
-              Battery: {location.Battery}% <br />
-            </Popup>
-          </CircleMarker>
-        </Fragment>
-      ))}
+        {filteredBikes.map((location: Bike) => (
+          <Fragment key={location.id}>
+            <CircleMarker
+              center={[
+                parseFloat(location.Position.split(',')[0]),
+                parseFloat(location.Position.split(',')[1]),
+              ]}
+              color={checkColor(location)}
+            >
+              <Popup key={location.id}>
+                ID: {location.id} <br />
+                Status: {setStatus(location)} <br />
+                Battery: {location.Battery}% <br />
+              </Popup>
+            </CircleMarker>
+          </Fragment>
+        ))}
       </MarkerClusterGroup>
     </div>
   );
