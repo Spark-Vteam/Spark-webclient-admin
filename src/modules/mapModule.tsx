@@ -7,13 +7,13 @@ import isCharging from '../img/pin/IsCharging.png';
 import parking from '../img/pin/ChargingStation.png';
 
 const mapModule = {
-  setCityC: function setCityC(event: any): Array<any> {
-    if (event.target.value === 'Stockholm') {
-      return [59.334591, 18.06324, 'Stockholm'];
-    } else if (event.target.value === 'Lund') {
-      return [55.70584, 13.19321, 'Lund'];
-    } else if (event.target.value === 'Karlskrona') {
-      return [56.16156, 15.58661, 'Karlskrona'];
+  setCityC: function setCityC(city: string): Array<any> {
+    if (city === 'stockholm') {
+      return [59.334591, 18.06324, 'stockholm'];
+    } else if (city === 'lund') {
+      return [55.70584, 13.19321, 'lund'];
+    } else if (city === 'karlskrona') {
+      return [56.16156, 15.58661, 'karlskrona'];
     } else {
       throw console.error('City does not exist');
     }

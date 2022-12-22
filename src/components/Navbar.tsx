@@ -19,10 +19,10 @@ function Navbar() {
           {' '}
           City overview
         </Link>
-        {/* <Link to='/pricing' className='home-link'>
+        <Link to='/pricing' className='home-link'>
           {' '}
           Pricing
-        </Link> */}
+        </Link>
         <Link to='/map' className='login-link'>
           {' '}
           Log in
