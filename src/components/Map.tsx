@@ -11,25 +11,22 @@ import SearchFormStations from './SearchFormStations';
 import Stations from './Stations';
 import Bikes from './Bikes';
 import ActiveBikesPrint from './ActiveBikesPrint';
-// import DrawGeofence from './DrawGeofence';
 import ActiveBikes from './ActiveBikes';
 import BikeList from './BikeList';
-// import ChargingStations from './ChargingStations';
 import { Bike, Station } from '../interfaces/maps';
 import Footer from './Footer';
 import './css/Map.css';
 
 import { MapContainer, TileLayer } from 'react-leaflet';
 
-function Map({ stations, geofence, bikes, setBikes }: any) {
-  // const [bikes, setBikes] = useState<Array<Bike>>([]);
+function Map({ stations, geofence }: any) {
+  const [bikes, setBikes] = useState<Array<Bike>>([]);
   const [city, setCity] = useState<string>('');
   const [longitude, setLongitude] = useState<number>();
   const [latitude, setLatitude] = useState<number>();
   const [bikesByCity, setBikesByCity] = useState<Array<Bike>>([]);
   const [stationsByCity, setStationsByCity] = useState<Array<Station>>([]);
   const [activeBikesByCity, setActiveBikesByCity] = useState<Array<Bike>>([]);
-  const [intervalId, setIntervalId] = useState(null);
   const mapRef = useRef(null);
 
   /**
@@ -41,6 +38,18 @@ function Map({ stations, geofence, bikes, setBikes }: any) {
     const fetchedBikes = await mapsModel.getBikes();
     setBikes(fetchedBikes);
   }
+
+  useEffect(() => {
+    // const interval = setInterval(() => {
+    (async () => {
+      await fetchBikes();
+      // console.log('Fetching bikes from API');
+    })();
+    // }, 1000);
+    // return () => {
+    //   clearInterval(interval);
+    // };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (bikes) {
