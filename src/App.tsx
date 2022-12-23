@@ -50,28 +50,6 @@ function App() {
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  /**
-  //  *
-  //  * fetch bikes from API
-  //  * @returns {Promise<void>}
-  //  */
-  // async function fetchBikes(): Promise<void> {
-  //   const fetchedBikes = await mapsModel.getBikes();
-  //   setBikes(fetchedBikes);
-  // }
-
-  // useEffect(() => {
-  //   // const interval = setInterval(() => {
-  //   (async () => {
-  //     await fetchBikes();
-  //     // console.log('Fetching bikes from API');
-  //   })();
-  //   // }, 1000);
-  //   // return () => {
-  //   //   clearInterval(interval);
-  //   // };
-  // }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
   return (
     <Routes>
       <Route path='/' element={<Home />} />

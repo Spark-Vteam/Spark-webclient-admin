@@ -16,6 +16,7 @@ import BikeList from './BikeList';
 import { Bike, Station } from '../interfaces/maps';
 import Footer from './Footer';
 import './css/Map.css';
+import L from 'leaflet';
 
 import { MapContainer, TileLayer } from 'react-leaflet';
 
@@ -36,19 +37,75 @@ function Map({ stations, geofence }: any) {
    */
   async function fetchBikes(): Promise<void> {
     const fetchedBikes = await mapsModel.getBikes();
+    console.log(fetchedBikes);
     setBikes(fetchedBikes);
   }
 
   useEffect(() => {
     const interval = setInterval(() => {
       (async () => {
-        await fetchBikes();
+        fetchBikes();
       })();
-    }, 1000);
+    }, 5000);
     return () => {
       clearInterval(interval);
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (city === 'lund') {
+      /** @type {Array} filter bikes depending on city */
+      const filteredBikes: Array<Bike> = bikes.filter(
+        (bike: Bike) => bike.id < 1501 && bike.Status !== 20,
+      );
+      const filteredStations: Array<Station> = stations.filter(
+        (station: Station) => station.id < 101,
+      );
+      /** @type {Array} filter bikes depending on status */
+      const activeBikes: Array<any> = bikes.filter(
+        (bike: any) => bike.id < 1501 && bike.Status === 20,
+      );
+
+      setStationsByCity(filteredStations);
+      setBikesByCity(filteredBikes);
+      setActiveBikesByCity(activeBikes);
+    } else if (city === 'stockholm') {
+      /** @type {Array} filter bikes depending on city */
+      const filteredBikes: Array<Bike> = bikes.filter(
+        (bike: Bike) => bike.id > 1500 && bike.id < 2736 && bike.Status !== 20,
+      );
+      const filteredStations: Array<Station> = stations.filter(
+        (station: Station) => station.id > 100 && station.id < 348,
+      );
+
+      /** @type {Array} filter bikes depending on status */
+      const activeBikes: Array<any> = bikes.filter(
+        (bike: any) => bike.id > 1500 && bike.id < 2736 && bike.Status === 20,
+      );
+
+      setBikesByCity(filteredBikes);
+      setStationsByCity(filteredStations);
+      setActiveBikesByCity(activeBikes);
+    } else {
+      /** @type {Array} filter bikes depending on city */
+      const filteredBikes: Array<Bike> = bikes.filter(
+        (bike: Bike) => bike.id > 2735 && bike.Status !== 20,
+      );
+
+      const filteredStations: Array<Station> = stations.filter(
+        (station: Station) => station.id > 347,
+      );
+
+      /** @type {Array} filter bikes depending on status */
+      const activeBikes: Array<any> = bikes.filter(
+        (bike: any) => bike.id > 2735 && bike.Status === 20,
+      );
+
+      setBikesByCity(filteredBikes);
+      setStationsByCity(filteredStations);
+      setActiveBikesByCity(activeBikes);
+    }
+  }, [bikes]);
 
   /**
    * Sets coordinates and city
@@ -61,28 +118,24 @@ function Map({ stations, geofence }: any) {
     setLatitude(values[0]);
     setLongitude(values[1]);
     setCity(values[2]);
-
-    const city = event.target.value;
-    const bikeIdStart = city === 'lund' ? 1 : city === 'stockholm' ? 1501 : 2736;
-    const stationIdStart = city === 'lund' ? 1 : city === 'stockholm' ? 101 : 348;
-
-    const filteredBikes = bikes.filter(
-      (bike: Bike) => bike.id >= bikeIdStart && bike.id < bikeIdStart + 1235 && bike.Status !== 20,
-    );
-
-    const filteredStations = stations.filter(
-      (station: Station) => station.id >= stationIdStart && station.id < stationIdStart + 248,
-    );
-
-    const activeBikes = bikes.filter(
-      (bike: Bike) => bike.id >= bikeIdStart && bike.id < bikeIdStart + 1235 && bike.Status === 20,
-    );
-
-    setStationsByCity(filteredStations);
-    setBikesByCity(filteredBikes);
-    setActiveBikesByCity(activeBikes);
   }
 
+  // const filteredBikes = bikes.filter(
+  //   (bike: Bike) => bike.id >= bikeIdStart && bike.id < bikeIdStart + 1235 && bike.Status !== 20,
+  // );
+
+  // const filteredStations = stations.filter(
+  //   (station: Station) => station.id >= stationIdStart && station.id < stationIdStart + 248,
+  // );
+
+  // const activeBikes = bikes.filter(
+  //   (bike: Bike) => bike.id >= bikeIdStart && bike.id < bikeIdStart + 1235 && bike.Status === 20,
+  // );
+
+  // setStationsByCity(filteredStations);
+  // setBikesByCity(filteredBikes);
+  // setActiveBikesByCity(activeBikes);
+  // console.log(activeBikesByCity);
   /**
    * Resets city
    * @returns {void}
@@ -92,6 +145,8 @@ function Map({ stations, geofence }: any) {
     setLatitude(undefined);
     setLongitude(undefined);
   }
+
+  console.log(activeBikesByCity);
 
   return (
     <>
