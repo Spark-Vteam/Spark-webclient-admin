@@ -16,7 +16,6 @@ import BikeList from './BikeList';
 import { Bike, Station } from '../interfaces/maps';
 import Footer from './Footer';
 import './css/Map.css';
-import L from 'leaflet';
 
 import { MapContainer, TileLayer } from 'react-leaflet';
 
