@@ -2,7 +2,7 @@
 
 # Spark Administration
 
-Welcome to the Spark Administration! This is a frontend React app that is served at port 3000.
+Welcome to the Spark Administration! This is a sub module of the Spark project. It contains code for the admin web client. Follow instructions below to start up the client only. To start up all backend and frontend applications for Spark, follow the the README instructions in [the main Spark repo](https://github.com/Spark-Vteam/Spark-Project) instead.
 
 ## Getting Started
 
