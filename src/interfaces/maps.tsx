@@ -3,6 +3,7 @@ export interface Bike {
   Position: string;
   Battery: number;
   Status: number;
+  City: string;
 }
 
 export interface User {

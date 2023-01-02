@@ -3,6 +3,8 @@ import Map from './components/Map';
 import Home from './components/Home';
 import Users from './components/Users';
 import PricingComp from './components/Pricing';
+import About from './components/About';
+import Policy from './components/Policy';
 import SingleUser from './components/SingleUser';
 import './App.css';
 import './components/css/Footer.css';
@@ -10,6 +12,7 @@ import './components/css/Typography.css';
 import './components/css/Buttons.css';
 import './components/css/Navbar.css';
 import './components/css/User.css';
+import './components/css/AboutPolicy.css';
 import './components/css/Stations.css';
 import './components/css/Form.css';
 import mapsModel from './models/mapModels';
@@ -50,28 +53,6 @@ function App() {
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  /**
-  //  *
-  //  * fetch bikes from API
-  //  * @returns {Promise<void>}
-  //  */
-  // async function fetchBikes(): Promise<void> {
-  //   const fetchedBikes = await mapsModel.getBikes();
-  //   setBikes(fetchedBikes);
-  // }
-
-  // useEffect(() => {
-  //   // const interval = setInterval(() => {
-  //   (async () => {
-  //     await fetchBikes();
-  //     // console.log('Fetching bikes from API');
-  //   })();
-  //   // }, 1000);
-  //   // return () => {
-  //   //   clearInterval(interval);
-  //   // };
-  // }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
   return (
     <Routes>
       <Route path='/' element={<Home />} />
@@ -79,6 +60,8 @@ function App() {
       <Route path='/users' element={<Users />} />
       <Route path='/pricing' element={<PricingComp />} />
       <Route path={'/user/:id'} element={<SingleUser />} />
+      <Route path={'/about'} element={<About />} />
+      <Route path={'/policy'} element={<Policy />} />
     </Routes>
   );
 }

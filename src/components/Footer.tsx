@@ -1,13 +1,21 @@
+import { Link } from 'react-router-dom';
+
 const Footer = () => {
   return (
     <footer>
       <div className='left'>© Spark 2022</div>
       <ul className='right'>
         <li>
-          <a href='/about'>About</a>
+          <Link to='/about' className='customers-link center'>
+            {' '}
+            About
+          </Link>
         </li>
         <li>
-          <a href='/policy'>Policy</a>
+          <Link to='/policy' className='customers-link center'>
+            {' '}
+            Policy
+          </Link>
         </li>
       </ul>
     </footer>
