@@ -1,5 +1,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Spark-Vteam/Spark-webclient-admin/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/Spark-Vteam/Spark-webclient-admin/?branch=main) [![Build Status](https://scrutinizer-ci.com/g/Spark-Vteam/Spark-webclient-admin/badges/build.png?b=main)](https://scrutinizer-ci.com/g/Spark-Vteam/Spark-webclient-admin/build-status/main)
 
+[![.github/workflows/main.yml](https://github.com/Spark-Vteam/Spark-webclient-admin/actions/workflows/main.yml/badge.svg)](https://github.com/Spark-Vteam/Spark-webclient-admin/actions/workflows/main.yml)
+
 # Spark Administration
 
 Welcome to the Spark Administration! This is a sub module of the Spark project. It contains code for the admin web client. Follow instructions below to start up the client only. To start up all backend and frontend applications for Spark, follow the the README instructions in [the main Spark repo](https://github.com/Spark-Vteam/Spark-Project) instead.
