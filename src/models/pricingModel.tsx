@@ -1,6 +1,6 @@
 const pricingModel = {
   getPricing: async function getPricing() {
-    const response = await fetch('http://localhost:4000/pricing');
+    const response = await fetch('http://localhost:4000/v1/pricing');
 
     const user = await response.json();
 
@@ -17,7 +17,7 @@ const pricingModel = {
       start: parseInt(priceModel.start),
       type: priceModel.type,
     };
-    fetch(`http://localhost:4000/pricing/${id}`, {
+    fetch(`http://localhost:4000/v1/pricing/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

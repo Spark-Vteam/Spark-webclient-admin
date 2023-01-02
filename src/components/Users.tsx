@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
 import { User } from '../interfaces/maps';
 import Pagination from './Pagination';
+import Footer from './Footer';
 
 function Users() {
   const [users, setUsers] = useState<User[]>([]);
@@ -47,7 +48,7 @@ function Users() {
   return (
     <div>
       <Navbar />
-      <div>
+      <div className ='user-box'>
         <div className='user-container'>
           <div className='search-header'>
             <input
@@ -82,6 +83,7 @@ function Users() {
           />
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 import mapsModel from '../models/mapModels';
 import mapModule from '../modules/mapModule';
-import Navbar from './Navbar';
+import Navbar from './NavbarMap';
 import Geofence from './Geofence';
 import SearchForm from './SearchForm';
 import SearchFormStations from './SearchFormStations';
@@ -132,7 +132,7 @@ function Map({ stations, geofence }: any) {
 
   return (
     <>
-      <Navbar />
+      <Navbar resetCity={resetCity}/>
       {longitude !== undefined && latitude !== undefined ? (
         <>
           <div className='container-1'>
@@ -182,7 +182,7 @@ function Map({ stations, geofence }: any) {
             {/* <ChargingStations stations={stationsByCity} /> */}
             <BikeList filteredBikes={bikesByCity.concat(activeBikesByCity)} />
           </div>
-          {/* <Footer /> */}
+          <Footer />
         </>
       ) : (
         <div className='container'>

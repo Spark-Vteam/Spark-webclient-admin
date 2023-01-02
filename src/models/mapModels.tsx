@@ -1,13 +1,13 @@
 const mapsModel = {
   getStations: async function getStations() {
-    const response = await fetch('http://localhost:4000/station');
+    const response = await fetch('http://localhost:4000/v1/station');
 
     const stations = await response.json();
 
     return stations.data;
   },
   getBikes: async function getBikes() {
-    const response = await fetch('http://localhost:4000/bike');
+    const response = await fetch('http://localhost:4000/v1/bike');
 
     const bikes = await response.json();
 
@@ -15,7 +15,7 @@ const mapsModel = {
     return bikes.data;
   },
   getBikesByCity: async function getBikesByCity(city: string) {
-    const response = await fetch(`http://localhost:4000/bike/city/${city}`);
+    const response = await fetch(`http://localhost:4000/v1/bike/city/${city}`);
 
     const bikes = await response.json();
 
@@ -23,7 +23,7 @@ const mapsModel = {
     return bikes.data;
   },
   getGeofence: async function getGeofence() {
-    const response = await fetch('http://localhost:4000/geofence');
+    const response = await fetch('http://localhost:4000/v1/geofence');
 
     const geofence = await response.json();
 
@@ -31,7 +31,7 @@ const mapsModel = {
     return geofence.data;
   },
   getStationBike: async function getStationBike() {
-    const response = await fetch('http://localhost:4000/bike/charging');
+    const response = await fetch('http://localhost:4000/v1/bike/charging');
 
     const bike = await response.json();
 
