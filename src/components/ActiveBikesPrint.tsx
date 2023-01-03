@@ -1,7 +1,12 @@
 import { Fragment } from 'react';
-import { Bike, ActiveBikeProps } from '../interfaces/maps';
+import { Bike } from '../interfaces/maps';
+import simulationModel from '../models/simulationModel';
 
 function ActiveBikesPrint({ activeBikes, city }: any) {
+  async function stopBike(event: any) {
+    await simulationModel.stopSpecificBike(event.target.value);
+  }
+
   return (
     <>
       <h3>Active bikes for {city}</h3>
@@ -14,10 +19,13 @@ function ActiveBikesPrint({ activeBikes, city }: any) {
             Latitude: {bike.Position.split(',')[0]}
             <br />
             Longitude: {bike.Position.split(',')[1]} <br />
-            {/* Vet inte om man ska stanna cykeln */}
-            <a className='stop-bike' href='#'>
+            {/* Vet inte om man ska stanna cykeln
+            <a className='stop-bike' href='http://localhost:8000/stop/:bike.id'>
               Stop bike
-            </a>
+            </a> */}
+            <button className='stop-bike' value={bike.id} onClick={stopBike}>
+              Stop bike
+            </button>
           </p>
           <hr />
         </Fragment>
