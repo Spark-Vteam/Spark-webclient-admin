@@ -1,0 +1,7 @@
+# .scrutinizer.yml
+
+filter:
+    excluded_paths:
+        - "coverage/"
+        - "tests/"
+
