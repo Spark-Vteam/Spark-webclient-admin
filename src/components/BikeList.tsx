@@ -63,7 +63,7 @@ function BikeList({ filteredBikes }: BikeProps) {
           </thead>
           {currentRows.map((bike: Bike) => (
             <Fragment key={bike.id}>
-              <tbody>
+              <tbody data-testid={'bike-row'}>
                 <tr>
                   <td>{bike.id}</td>
                   <td>{bike.Position.split(',')[0]}</td>

@@ -28,9 +28,9 @@ const Pagination = (props: Props) => {
 
   return (
     <div className='pagination'>
-      <button className='next-prev' onClick={handlePreviousClick} disabled={currentPage === 1}>
+      <button className='next-prev' onClick={handlePreviousClick} disabled={currentPage === 1} data-testid='page-button' >
         Previous
-      </button>
+      </button >
       {Array.from({ length: totalPages }, (_, i) => i + 1)
         .slice(start - 1, end)
         .map((page) => (
