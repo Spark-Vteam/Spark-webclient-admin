@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { User } from '../interfaces/maps';
 import Pagination from './Pagination';
 import Footer from './Footer';
+import Home from './Home';
 
 function Users() {
   const [users, setUsers] = useState<User[]>([]);
@@ -44,48 +45,51 @@ function Users() {
   const handleSearch = (e: { target: { value: SetStateAction<string> } }) => {
     setSearch(e.target.value);
   };
-
-  return (
-    <div>
-      <Navbar />
-      <div className ='user-box'>
-        <div className='user-container'>
-          <div className='search-header'>
-            <input
-              placeholder='Search by first name or id...'
-              id='search-box'
-              onChange={handleSearch}
+  if (localStorage.getItem('token')) {
+    return (
+      <div>
+        <Navbar />
+        <div className='user-box'>
+          <div className='user-container'>
+            <div className='search-header'>
+              <input
+                placeholder='Search by first name or id...'
+                id='search-box'
+                onChange={handleSearch}
+              />
+            </div>
+            {currentRows.map((user: User) => {
+              return (
+                <div key={user.id}>
+                  <h2>
+                    <strong>
+                      {user.id}. {user.FirstName} {user.LastName}
+                    </strong>
+                  </h2>
+                  <p>{user.EmailAdress}</p>
+                  <Link to={`/user/${user.id}`}>
+                    {' '}
+                    <button className='customer-btn' value={user.id}>
+                      Details
+                    </button>
+                  </Link>
+                  <hr />
+                </div>
+              );
+            })}
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              handlePageChange={handlePageChange}
             />
           </div>
-          {currentRows.map((user: User) => {
-            return (
-              <div key={user.id}>
-                <h2>
-                  <strong>
-                    {user.id}. {user.FirstName} {user.LastName}
-                  </strong>
-                </h2>
-                <p>{user.EmailAdress}</p>
-                <Link to={`/user/${user.id}`}>
-                  {' '}
-                  <button className='customer-btn' value={user.id}>
-                    Details
-                  </button>
-                </Link>
-                <hr />
-              </div>
-            );
-          })}
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            handlePageChange={handlePageChange}
-          />
         </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
-  );
+    );
+  } else {
+    return <Home />;
+  }
 }
 
 export default Users;

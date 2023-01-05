@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import Toast from './Toast';
 import { Link, useNavigate } from 'react-router-dom';
 import RentInformation from './RentInformation';
+import Home from './Home';
 
 function SingleUser() {
   const [user, setUser] = useState<any>([]);
@@ -102,124 +103,128 @@ function SingleUser() {
   /** @type {Array} filter rents depending on user */
   const filteredRents: Array<any> = rents.filter((rent: any) => user.id === rent.Users_id);
 
-  return (
-    <div>
-      <Navbar />
-      {showToast && <Toast message={toastMessage} />}
-      <div className='container'>
-        <div className='link-container'>
-          <Link to={'/users'}>
-            {' '}
-            <p className='users-link center'>Back to users</p>
-          </Link>
-        </div>
-        <div className='user-container'>
-          <form onSubmit={handleSubmit}>
-            <legend>User {user.id}</legend>
-            <div style={{ display: 'block' }}>
-              <label htmlFor='firstName' />
-              First name:
+  if (localStorage.getItem('token')) {
+    return (
+      <div>
+        <Navbar />
+        {showToast && <Toast message={toastMessage} />}
+        <div className='container'>
+          <div className='link-container'>
+            <Link to={'/users'}>
+              {' '}
+              <p className='users-link center'>Back to users</p>
+            </Link>
+          </div>
+          <div className='user-container'>
+            <form onSubmit={handleSubmit}>
+              <legend>User {user.id}</legend>
+              <div style={{ display: 'block' }}>
+                <label htmlFor='firstName' />
+                First name:
+              </div>
+              <div style={{ display: 'block' }}>
+                <input
+                  type='text'
+                  name='firstName'
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  placeholder='First name'
+                />
+              </div>
+              {formErrors.firstName && <p>{formErrors.firstName}</p>}
+              <br />
+              <div style={{ display: 'block' }}>
+                <label htmlFor='lastName' />
+                Last name
+              </div>
+              <div style={{ display: 'block' }}>
+                <input
+                  type='text'
+                  name='lastName'
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  placeholder='Last name'
+                />
+              </div>
+              {formErrors.lastName && <p>{formErrors.lastName}</p>}
+              <br />
+              <div style={{ display: 'block' }}>
+                <label htmlFor='emailAdress' />
+                Email address:
+              </div>
+              <div style={{ display: 'block' }}>
+                <input
+                  type='text'
+                  name='emailAdress'
+                  value={formData.emailAdress}
+                  onChange={handleChange}
+                  placeholder='Email address'
+                />
+              </div>
+              {formErrors.emailAdress && <p>{formErrors.emailAdress}</p>}
+              <br />
+              <div style={{ display: 'block' }}>
+                <label htmlFor='phoneNumber' />
+                Phone number:
+              </div>
+              <div style={{ display: 'block' }}>
+                <input
+                  type='text'
+                  name='phoneNumber'
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                  placeholder='Phone number'
+                />
+              </div>
+              {formErrors.phoneNumber && <p>{formErrors.phoneNumber}</p>}
+              <br />
+              <div style={{ display: 'block' }}>
+                <label htmlFor='oauth' />
+                OAuth authorized:
+              </div>
+              <div style={{ display: 'block' }}>
+                <input
+                  type='text'
+                  name='oauth'
+                  value={formData.oauth || ''}
+                  onChange={handleChange}
+                  placeholder='OAuth authorized'
+                />
+              </div>
+              {formErrors.oauth && <p>{formErrors.oauth}</p>}
+              <br />
+              <div style={{ display: 'block' }}>
+                <label htmlFor='password' />
+              </div>
+              Password:
+              <div style={{ display: 'block' }}>
+                <input
+                  type='password'
+                  name='password'
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder='Payment method'
+                />
+              </div>
+              {formErrors.password && <p>{formErrors.password}</p>}
+              <br />
+              <div className='btn-container-user'>
+                <button className='update-btn'>Update User</button>
+                <button className='delete-btn' onClick={deleteUser}>
+                  Delete User
+                </button>
+              </div>
+            </form>
+            <div>
+              <RentInformation rents={filteredRents} />
             </div>
-            <div style={{ display: 'block' }}>
-              <input
-                type='text'
-                name='firstName'
-                value={formData.firstName}
-                onChange={handleChange}
-                placeholder='First name'
-              />
-            </div>
-            {formErrors.firstName && <p>{formErrors.firstName}</p>}
-            <br />
-            <div style={{ display: 'block' }}>
-              <label htmlFor='lastName' />
-              Last name
-            </div>
-            <div style={{ display: 'block' }}>
-              <input
-                type='text'
-                name='lastName'
-                value={formData.lastName}
-                onChange={handleChange}
-                placeholder='Last name'
-              />
-            </div>
-            {formErrors.lastName && <p>{formErrors.lastName}</p>}
-            <br />
-            <div style={{ display: 'block' }}>
-              <label htmlFor='emailAdress' />
-              Email address:
-            </div>
-            <div style={{ display: 'block' }}>
-              <input
-                type='text'
-                name='emailAdress'
-                value={formData.emailAdress}
-                onChange={handleChange}
-                placeholder='Email address'
-              />
-            </div>
-            {formErrors.emailAdress && <p>{formErrors.emailAdress}</p>}
-            <br />
-            <div style={{ display: 'block' }}>
-              <label htmlFor='phoneNumber' />
-              Phone number:
-            </div>
-            <div style={{ display: 'block' }}>
-              <input
-                type='text'
-                name='phoneNumber'
-                value={formData.phoneNumber}
-                onChange={handleChange}
-                placeholder='Phone number'
-              />
-            </div>
-            {formErrors.phoneNumber && <p>{formErrors.phoneNumber}</p>}
-            <br />
-            <div style={{ display: 'block' }}>
-              <label htmlFor='oauth' />
-              OAuth authorized:
-            </div>
-            <div style={{ display: 'block' }}>
-              <input
-                type='text'
-                name='oauth'
-                value={formData.oauth || ''}
-                onChange={handleChange}
-                placeholder='OAuth authorized'
-              />
-            </div>
-            {formErrors.oauth && <p>{formErrors.oauth}</p>}
-            <br />
-            <div style={{ display: 'block' }}>
-              <label htmlFor='password' />
-            </div>
-            Password:
-            <div style={{ display: 'block' }}>
-              <input
-                type='password'
-                name='password'
-                value={formData.password}
-                onChange={handleChange}
-                placeholder='Payment method'
-              />
-            </div>
-            {formErrors.password && <p>{formErrors.password}</p>}
-            <br />
-            <div className='btn-container-user'>
-              <button className='update-btn'>Update User</button>
-              <button className='delete-btn' onClick={deleteUser}>
-                Delete User
-              </button>
-            </div>
-          </form>
-          <div>
-            <RentInformation rents={filteredRents} />
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return <Home />;
+  }
 }
 
 export default SingleUser;

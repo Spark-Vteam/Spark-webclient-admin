@@ -18,6 +18,7 @@ import Footer from './Footer';
 import './css/Map.css';
 
 import { MapContainer, TileLayer } from 'react-leaflet';
+import Home from './Home';
 
 function Map({ stations, geofence }: any) {
   const [bikes, setBikes] = useState<Array<Bike>>([]);
@@ -130,81 +131,88 @@ function Map({ stations, geofence }: any) {
     setLongitude(undefined);
   }
 
-  return (
-    <>
-      <Navbar resetCity={resetCity}/>
-      {longitude !== undefined && latitude !== undefined ? (
-        <>
-          <div className='container-1'>
-            <div className='flex-container'>
-              <div className='child child1'>
-                <div className='btn-container'>
-                  <Link to='/map' className='customers-link center'>
-                    {' '}
-                    <button className='option-btn' onClick={resetCity}>
-                      Change city
-                    </button>
-                  </Link>
+  if (localStorage.getItem('token')) {
+    return (
+      <>
+        <Navbar resetCity={resetCity} />
+        {longitude !== undefined && latitude !== undefined ? (
+          <>
+            <div className='container-1'>
+              <div className='flex-container'>
+                <div className='child child1'>
+                  <div className='btn-container'>
+                    <Link to='/map' className='customers-link center'>
+                      {' '}
+                      <button className='option-btn' onClick={resetCity}>
+                        Change city
+                      </button>
+                    </Link>
+                  </div>
+                  <div className='map-container'>
+                    <MapContainer
+                      key={1}
+                      center={[latitude, longitude]}
+                      zoom={13}
+                      scrollWheelZoom={true}
+                      ref={mapRef}
+                    >
+                      {/* <MapEvents /> */}
+                      <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                      />
+                      <Bikes filteredBikes={bikesByCity} />
+                      <ActiveBikes activeBikes={activeBikesByCity} />
+                      <Stations filteredStations={stationsByCity} />
+                      {/* <DrawGeofence /> */}
+                      <Geofence geofence={geofence} />
+                    </MapContainer>
+                    <div className='flex-form'>
+                      <SearchForm markers={bikesByCity.concat(activeBikesByCity)} map={mapRef} />
+                      <SearchFormStations markers={stationsByCity} map={mapRef} />
+                    </div>
+                  </div>
                 </div>
-                <div className='map-container'>
-                  <MapContainer
-                    key={1}
-                    center={[latitude, longitude]}
-                    zoom={13}
-                    scrollWheelZoom={true}
-                    ref={mapRef}
-                  >
-                    {/* <MapEvents /> */}
-                    <TileLayer
-                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                      url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-                    />
-                    <Bikes filteredBikes={bikesByCity} />
-                    <ActiveBikes activeBikes={activeBikesByCity} />
-                    <Stations filteredStations={stationsByCity} />
-                    {/* <DrawGeofence /> */}
-                    <Geofence geofence={geofence} />
-                  </MapContainer>
-                  <div className='flex-form'>
-                    <SearchForm markers={bikesByCity.concat(activeBikesByCity)} map={mapRef} />
-                    <SearchFormStations markers={stationsByCity} map={mapRef} />
+                <div className='child child2'>
+                  <div className='active-container'>
+                    <ActiveBikesPrint activeBikes={activeBikesByCity} city={city} />
                   </div>
                 </div>
               </div>
-              <div className='child child2'>
-                <div className='active-container'>
-                  <ActiveBikesPrint activeBikes={activeBikesByCity} city={city} />
-                </div>
-              </div>
             </div>
+            <div className='container-2'>
+              {/* <ChargingStations stations={stationsByCity} /> */}
+              <BikeList filteredBikes={bikesByCity.concat(activeBikesByCity)} />
+            </div>
+            <Footer />
+          </>
+        ) : (
+          <div className='container'>
+            <div className='center'>
+              <h1>Choose a city</h1>
+              <button className='btn' onClick={setCityCoordinates} value='lund'>
+                Lund
+              </button>
+              <br></br>
+              <button className='btn margin-top' onClick={setCityCoordinates} value='stockholm'>
+                Stockholm
+              </button>
+              <br></br>
+              <button className='btn margin-top' onClick={setCityCoordinates} value='karlskrona'>
+                Karlskrona
+              </button>
+            </div>
+            <Footer />
           </div>
-          <div className='container-2'>
-            {/* <ChargingStations stations={stationsByCity} /> */}
-            <BikeList filteredBikes={bikesByCity.concat(activeBikesByCity)} />
-          </div>
-          <Footer />
-        </>
-      ) : (
-        <div className='container'>
-          <div className='center'>
-            <h1>Choose a city</h1>
-            <button className='btn' onClick={setCityCoordinates} value='lund'>
-              Lund
-            </button>
-            <br></br>
-            <button className='btn margin-top' onClick={setCityCoordinates} value='stockholm'>
-              Stockholm
-            </button>
-            <br></br>
-            <button className='btn margin-top' onClick={setCityCoordinates} value='karlskrona'>
-              Karlskrona
-            </button>
-          </div>
-          <Footer />
-        </div>
-      )}
-    </>
-  );
+        )}
+      </>
+    );
+  }
+  else {
+    return (
+      <Home />
+    )
+  }
 }
 
 export default Map;

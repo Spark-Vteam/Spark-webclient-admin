@@ -23,13 +23,14 @@ function SearchForm(props: any) {
     <div className='search-bike'>
       <form className='search-form' onSubmit={handleSubmit}>
         <input
+          className='search-form-input'
           placeholder='Station id'
           type='text'
           value={searchString}
           onChange={(event) => setSearchString(event.target.value)}
         />
         <button className='search-bike-btn' type='submit'>
-          Search Station
+          Search
         </button>
       </form>
     </div>

@@ -5,6 +5,7 @@ import pricingModel from '../models/pricingModel';
 import PricingForm from './PricingForm'; // Lägg till import för PricingForm
 import './css/PricingTable.css';
 import Toast from './Toast';
+import Home from './Home';
 
 function Pricing() {
   const [pricing, setPricing] = useState<Array<PricingInterface>>([]);
@@ -66,49 +67,56 @@ function Pricing() {
       setShowToast(true);
     }
   };
-  return (
-    <>
-      <Navbar />
-      {showToast && <Toast message={toastMessage} />}
-      <div className='table-wrapper'>
-        {selectedPricing && <PricingForm initialValues={selectedPricing} onSubmit={handleUpdate} />}
-        <table className='pricing-table'>
-          <thead className='pricing-table-head'>
-            <tr className='pricing-table-row'>
-              <th>Description</th>
-              <th>DiscountEndCharging</th>
-              <th>DiscountEndParkingZone</th>
-              <th>DiscountStartFree</th>
-              <th>Minute</th>
-              <th>Parking</th>
-              <th>Start</th>
-              <th>Type</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody className='pricing-table-body'>
-            {pricing.map((p) => (
-              <tr key={p.id}>
-                <td>{p.Description}</td>
-                <td>{p.DiscountEndCharging}</td>
-                <td>{p.DiscountEndParkingZone}</td>
-                <td>{p.DiscountStartFree}</td>
-                <td>{p.Minute}</td>
-                <td>{p.Parking}</td>
-                <td>{p.Start}</td>
-                <td>{p.Type}</td>
-                <td>
-                  <button type='button' onClick={() => handleEdit(p)}>
-                    Edit
-                  </button>
-                </td>
+
+  if (localStorage.getItem('token')) {
+    return (
+      <>
+        <Navbar />
+        {showToast && <Toast message={toastMessage} />}
+        <div className='table-wrapper'>
+          {selectedPricing && (
+            <PricingForm initialValues={selectedPricing} onSubmit={handleUpdate} />
+          )}
+          <table className='pricing-table'>
+            <thead className='pricing-table-head'>
+              <tr className='pricing-table-row'>
+                <th>Description</th>
+                <th>DiscountEndCharging</th>
+                <th>DiscountEndParkingZone</th>
+                <th>DiscountStartFree</th>
+                <th>Minute</th>
+                <th>Parking</th>
+                <th>Start</th>
+                <th>Type</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </>
-  );
+            </thead>
+            <tbody className='pricing-table-body'>
+              {pricing.map((p) => (
+                <tr key={p.id}>
+                  <td>{p.Description}</td>
+                  <td>{p.DiscountEndCharging}</td>
+                  <td>{p.DiscountEndParkingZone}</td>
+                  <td>{p.DiscountStartFree}</td>
+                  <td>{p.Minute}</td>
+                  <td>{p.Parking}</td>
+                  <td>{p.Start}</td>
+                  <td>{p.Type}</td>
+                  <td>
+                    <button type='button' onClick={() => handleEdit(p)}>
+                      Edit
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </>
+    );
+  } else {
+    return <Home />;
+  }
 }
 
 export default Pricing;
