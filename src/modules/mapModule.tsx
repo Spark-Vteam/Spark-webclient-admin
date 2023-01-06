@@ -21,13 +21,13 @@ const mapModule = {
   sIcon: function sIcon(scooter: any): L.Icon<L.IconOptions> | undefined {
     let scooterIcon;
 
-    if (scooter.Status >= 10 && scooter.Status < 20) {
+    if (scooter.Status < 20) {
       scooterIcon = L.icon({
         iconSize: [35, 38],
         iconAnchor: [13, 41],
         iconUrl: available,
       });
-    } else if (scooter.Status === 20) {
+    } else if (scooter.Status < 30) {
       scooterIcon = L.icon({
         iconSize: [35, 38],
         iconAnchor: [13, 41],
