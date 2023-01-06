@@ -25,40 +25,11 @@ function Bikes({ filteredBikes }: BikeProps) {
     return scooterIcon;
   }
 
-  /**
-   * Check which icon bike should have on map depending on status
-   * @param {Bike} scooter Current bike
-   * @returns {string}
-   */
-  function checkColor(scooter: Bike): string | undefined {
-    let scooterIcon;
-
-    if (scooter.Status === 10) {
-      scooterIcon = '#00ff00';
-    } else if (scooter.Status === 20) {
-      scooterIcon = '#0000ff';
-    } else if (scooter.Status === 30) {
-      scooterIcon = '#ffff00';
-    } else if (scooter.Status === 40) {
-      scooterIcon = '#ffa500';
-    } else if (scooter.Status === 50) {
-      scooterIcon = '#ff0000';
-    }
-    return scooterIcon;
-  }
-
   return (
     <div>
       <MarkerClusterGroup>
         {filteredBikes.map((location: Bike) => (
           <Fragment key={location.id}>
-            {/* <CircleMarker
-              center={[
-                parseFloat(location.Position.split(',')[0]),
-                parseFloat(location.Position.split(',')[1]),
-              ]}
-              color={checkIcon(location)}
-            > */}
             <Marker
               key={location.id}
               position={location.Position.split(',').map(Number) as [number, number]}

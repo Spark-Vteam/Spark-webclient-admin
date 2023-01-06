@@ -1,3 +1,22 @@
+form {
+  padding: 20px;
+  width: 320px;
+  margin: 0 auto;
+}
+
+input {
+  background-color: #d6d6d6c7;
+  border-radius: 10px;
+  border: 0;
+  color: rgb(17, 17, 17);
+  font-size: 14px;
+  height: 100%;
+  outline: 0;
+  padding: 10px 20px 10px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
 .search-form {
   width: 100%;
 }
@@ -21,7 +40,7 @@ legend {
 .pricing-container {
   width: 40%;
   margin: 0 auto;
-  background-color: rgba(255, 255, 255, 0.837);
+  background-color: rgb(255, 255, 255);
   padding: 1em;
   color: black;
   border-radius: 10px;
@@ -32,4 +51,20 @@ legend {
 
 .pricing-form {
   margin: 0 auto;
+}
+
+.form-container {
+  width: 30%;
+  margin: 0 auto;
+  background-color: rgb(255, 255, 255);
+  padding: 1em;
+  color: black;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+.search-form-input {
+  width: 50%;
+  margin-right: 5px;
+  background-color: #fbfbfbe4;
 }

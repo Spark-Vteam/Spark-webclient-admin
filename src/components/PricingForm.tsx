@@ -126,9 +126,11 @@ const PricingForm: React.FC<Props> = ({ initialValues, onSubmit }) => {
           <input type='text' name='Type' value={formValues.Type} onChange={handleChange} />
         </div>
         <br />
-        <button className='btn' type='submit'>
-          Save
-        </button>
+        <div className='btn-container-login'>
+          <button className='btn-logout' type='submit'>
+            Save
+          </button>
+        </div>
       </form>
     </div>
   );

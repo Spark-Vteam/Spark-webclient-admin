@@ -2,16 +2,15 @@ import { render, screen } from '@testing-library/react';
 import { HashRouter } from 'react-router-dom';
 import LoginForm from '../components/Login';
 
-
 it('renders the login form', () => {
-    render(
-        <HashRouter>
-            <LoginForm />
-        </HashRouter>,
-    );
-    expect(screen.getByText('Email:')).toBeInTheDocument();
-    expect(screen.getByText('Password:')).toBeInTheDocument();
-    expect(screen.getByText('Log in')).toBeInTheDocument();
+  render(
+    <HashRouter>
+      <LoginForm />
+    </HashRouter>,
+  );
+  expect(screen.getByText('Email:')).toBeInTheDocument();
+  expect(screen.getByText('Password:')).toBeInTheDocument();
+  expect(screen.getByText('Log in')).toBeInTheDocument();
 });
 
 // it('redirects to the protected page when login is successful', async () => {

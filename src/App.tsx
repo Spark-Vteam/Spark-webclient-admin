@@ -4,6 +4,7 @@ import Home from './components/Home';
 import Users from './components/Users';
 import PricingComp from './components/Pricing';
 import About from './components/About';
+import Login from './components/Login';
 import Policy from './components/Policy';
 import SingleUser from './components/SingleUser';
 import './App.css';
@@ -23,6 +24,8 @@ import { Routes, Route } from 'react-router-dom';
 function App() {
   const [stations, setStations] = useState<Array<Station>>([]);
   const [geofence, setGeofence] = useState<Array<GeofenceInterface>>([]);
+  const [admin, setAdmin] = useState([]);
+
   /**
    * fetch stations from API
    * @returns {Promise<void>}
@@ -62,6 +65,7 @@ function App() {
       <Route path={'/user/:id'} element={<SingleUser />} />
       <Route path={'/about'} element={<About />} />
       <Route path={'/policy'} element={<Policy />} />
+      <Route path={'/login'} element={<Login setAdmin={setAdmin} />} />
     </Routes>
   );
 }

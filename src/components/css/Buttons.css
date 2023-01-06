@@ -12,6 +12,24 @@
   text-decoration: none;
 }
 
+.login-btn {
+  display: inline-block;
+  width: 100px;
+  background: linear-gradient(270deg, #00b38e 28.76%, #01ffcd 100%);
+  border-radius: 20px;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.login-btn:hover {
+  opacity: 0.7;
+}
+
 .update-btn {
   display: inline-block;
   width: 150px;
@@ -58,6 +76,31 @@
   text-align: left;
 }
 
+.btn-logout {
+  display: inline-block;
+  width: 100px;
+  background-color: #ff7745;
+  border-radius: 20px;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 10px 20px 10px;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.btn-logout:hover {
+  opacity: 0.7;
+}
+
+.btn-container-login {
+  margin: 0 auto;
+  text-align: center;
+  padding: 0.5em;
+}
+
 .btn-container-user {
   margin: 0 auto;
   padding: 5px;
@@ -97,7 +140,7 @@
 
 .search-bike-btn {
   display: inline-block;
-  width: 150px;
+  /* width: 70px; */
   background-color: #ff7745;
   border-radius: 10px;
   border: none;
@@ -107,11 +150,12 @@
   cursor: pointer;
   padding: 10px 20px 10px;
   text-decoration: none;
-  margin-left: 10px;
+  /* margin-left: 10px; */
 }
 
 .next-prev {
-  background-color: #ff7745; /* Green */
+  background-color: #ff7745;
+  /* Green */
   border: none;
   color: white;
   padding: 5px;

@@ -1,5 +1,5 @@
 // import { useState, useEffect } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../img/logo-admin.png';
 
 function Navbar() {
@@ -7,6 +7,10 @@ function Navbar() {
     <div className='topnav'>
       <img src={logo} width='50px' alt='logo' />
       <div className='topnav-right'>
+        {/* <Link to='/' className='home-link'>
+          {' '}
+          Home
+        </Link>
         <Link to='/users' className='home-link'>
           {' '}
           Customer overview
@@ -18,16 +22,11 @@ function Navbar() {
         <Link to='/pricing' className='home-link'>
           {' '}
           Pricing
+        </Link> */}
+        <Link to='/login' className='login-link'>
+          {' '}
+          Log in
         </Link>
-        <button
-          className='btn-logout'
-          onClick={() => {
-            localStorage.removeItem('token');
-            window.location.reload();
-          }}
-        >
-          Log out
-        </button>
       </div>
     </div>
   );

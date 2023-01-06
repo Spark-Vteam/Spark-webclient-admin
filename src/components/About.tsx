@@ -12,11 +12,12 @@ function About() {
             <h1>About Spark</h1>
             <p>
               This is a project at Blekinge Institute of Technology in the course of web development
-              in virtual teams. The project involves developing a system for the company Spark, which rents electric scooters in various cities in Sweden. The
-              company operates in three cities and plans to expand to more in the future with the
-              help of the new system being developed by the students. The system will handle the
-              logistics of scooter rentals, including the availability of scooters, the location of
-              each scooter, and the management of customer accounts.
+              in virtual teams. The project involves developing a system for the company Spark,
+              which rents electric scooters in various cities in Sweden. The company operates in
+              three cities and plans to expand to more in the future with the help of the new system
+              being developed by the students. The system will handle the logistics of scooter
+              rentals, including the availability of scooters, the location of each scooter, and the
+              management of customer accounts.
             </p>
           </div>
           <div className='about-column column-2'>

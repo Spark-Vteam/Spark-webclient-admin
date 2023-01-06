@@ -12,10 +12,8 @@ function ActiveBikesPrint({ activeBikes, city }: any) {
       <h3>Active bikes for {city}</h3>
       <hr />
       {activeBikes.map((bike: Bike) => (
-        <Fragment
-          key={bike.id}
-        >
-          <p data-testid="fragment">
+        <Fragment key={bike.id}>
+          <p data-testid='fragment'>
             ID: {bike.id} <br />
             Battery: {bike.Battery}% <br />
             Latitude: {bike.Position.split(',')[0]}
