@@ -207,11 +207,8 @@ function Map({ stations, geofence }: any) {
         )}
       </>
     );
-  }
-  else {
-    return (
-      <Home />
-    )
+  } else {
+    return <Home />;
   }
 }
 

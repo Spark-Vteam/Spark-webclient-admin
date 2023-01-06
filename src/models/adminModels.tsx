@@ -5,7 +5,7 @@ const adminModels = {
       password: password,
     };
     try {
-      const response = await fetch(`http://localhost:4000/v1/admin/login`, {
+      const response = await fetch('http://localhost:4000/v1/admin/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
