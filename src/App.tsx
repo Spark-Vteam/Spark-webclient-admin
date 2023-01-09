@@ -3,9 +3,7 @@ import Map from './components/Map';
 import Home from './components/Home';
 import Users from './components/Users';
 import PricingComp from './components/Pricing';
-import About from './components/About';
 import Login from './components/Login';
-import Policy from './components/Policy';
 import SingleUser from './components/SingleUser';
 import './App.css';
 import './components/css/Footer.css';
@@ -63,8 +61,6 @@ function App() {
       <Route path='/users' element={<Users />} />
       <Route path='/pricing' element={<PricingComp />} />
       <Route path={'/user/:id'} element={<SingleUser />} />
-      <Route path={'/about'} element={<About />} />
-      <Route path={'/policy'} element={<Policy />} />
       <Route path={'/login'} element={<Login setAdmin={setAdmin} />} />
     </Routes>
   );

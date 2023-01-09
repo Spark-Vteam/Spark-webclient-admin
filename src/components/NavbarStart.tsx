@@ -7,22 +7,6 @@ function Navbar() {
     <div className='topnav'>
       <img src={logo} width='50px' alt='logo' />
       <div className='topnav-right'>
-        {/* <Link to='/' className='home-link'>
-          {' '}
-          Home
-        </Link>
-        <Link to='/users' className='home-link'>
-          {' '}
-          Customer overview
-        </Link>
-        <Link to='/map' className='home-link'>
-          {' '}
-          City overview
-        </Link>
-        <Link to='/pricing' className='home-link'>
-          {' '}
-          Pricing
-        </Link> */}
         <Link to='/login' className='login-link'>
           {' '}
           Log in

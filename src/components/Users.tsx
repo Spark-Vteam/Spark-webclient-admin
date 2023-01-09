@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
 import { User } from '../interfaces/maps';
 import Pagination from './Pagination';
-import Footer from './Footer';
+import Footer from './FooterStart';
 import Home from './Home';
 
 function Users() {
