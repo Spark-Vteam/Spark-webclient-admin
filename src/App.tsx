@@ -24,7 +24,7 @@ import { Routes, Route } from 'react-router-dom';
 function App() {
   const [stations, setStations] = useState<Array<Station>>([]);
   const [geofence, setGeofence] = useState<Array<GeofenceInterface>>([]);
-  const [admin, setAdmin] = useState([]);
+  const [, setAdmin] = useState([]);
 
   /**
    * fetch stations from API

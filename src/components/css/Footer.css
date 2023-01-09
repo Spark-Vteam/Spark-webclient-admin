@@ -1,5 +1,5 @@
 footer {
-  position: fixed;
+  /* position: absolute; */
   bottom: 0;
   left: 0;
   right: 0;
@@ -8,7 +8,7 @@ footer {
   align-items: center;
   color: #fff;
   padding: 5px;
-  /* background-color: #000000; */
+  background-color: #000;
 }
 
 .left {
@@ -24,4 +24,16 @@ footer {
   color: #fff;
   text-decoration: none;
   font-size: 0.8em;
+}
+
+.footer-start {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  padding: 5px;
 }

@@ -8,10 +8,8 @@ test('Navbar is displayed', () => {
       <About />
     </HashRouter>,
   );
-  const navBarHome = screen.getByText('Home');
-  const navBarLogIn = screen.getByText('Log in');
-  expect(navBarHome).toBeInTheDocument();
-  expect(navBarLogIn).toBeInTheDocument();
+  const navBarLogOut = screen.getByText('Log out');
+  expect(navBarLogOut).toBeInTheDocument();
 });
 
 test('About Spark heading is displayed', () => {

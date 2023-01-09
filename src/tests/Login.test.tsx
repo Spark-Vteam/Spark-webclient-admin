@@ -10,7 +10,6 @@ it('renders the login form', () => {
   );
   expect(screen.getByText('Email:')).toBeInTheDocument();
   expect(screen.getByText('Password:')).toBeInTheDocument();
-  expect(screen.getByText('Log in')).toBeInTheDocument();
 });
 
 // it('redirects to the protected page when login is successful', async () => {

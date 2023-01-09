@@ -1,6 +1,5 @@
-import { Fragment } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { Bike, BikeProps } from '../interfaces/maps';
-import { useState, useEffect } from 'react';
 import mapsModel from '../models/mapModels';
 import mapModule from '../modules/mapModule';
 import Pagination from './Pagination';
@@ -8,7 +7,7 @@ import Pagination from './Pagination';
 function BikeList({ filteredBikes }: BikeProps) {
   const [, setBikes] = useState<Array<Bike>>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(30);
+  const [rowsPerPage] = useState(30);
 
   const totalPages = Math.ceil(filteredBikes.length / rowsPerPage);
 

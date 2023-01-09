@@ -10,7 +10,7 @@ import Home from './Home';
 function Users() {
   const [users, setUsers] = useState<User[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(30);
+  const [rowsPerPage] = useState(30);
   const [search, setSearch] = useState('');
   const [filteredUsers, setFilteredUsers] = useState<any>([]);
 

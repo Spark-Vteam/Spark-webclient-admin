@@ -15,6 +15,7 @@ import ActiveBikes from './ActiveBikes';
 import BikeList from './BikeList';
 import { Bike, Station } from '../interfaces/maps';
 import Footer from './Footer';
+import FooterStart from './FooterStart';
 import './css/Map.css';
 
 import { MapContainer, TileLayer } from 'react-leaflet';
@@ -107,7 +108,7 @@ function Map({ stations, geofence }: any) {
       setStationsByCity(filteredStations);
       setActiveBikesByCity(activeBikes);
     }
-  }, [bikes, city]);
+  }, [bikes, city]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**
    * Sets coordinates and city
@@ -134,7 +135,7 @@ function Map({ stations, geofence }: any) {
   if (localStorage.getItem('token')) {
     return (
       <>
-        <Navbar resetCity={resetCity} />
+        <Navbar />
         {longitude !== undefined && latitude !== undefined ? (
           <>
             <div className='container-1'>
@@ -202,7 +203,7 @@ function Map({ stations, geofence }: any) {
                 Karlskrona
               </button>
             </div>
-            <Footer />
+            <FooterStart />
           </div>
         )}
       </>

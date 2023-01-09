@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { LeafletTrackingMarker } from 'react-leaflet-tracking-marker';
 import L from 'leaflet';
 // import { Bike, DataProps } from '../interfaces/maps';
-import Active from '../img/pin/Active.png';
+import Active from '../img/pin/Activedot.png';
 
 export default function BikeMarker({ data }: any) {
   const lat = data.Position.split(',')[0];
@@ -14,7 +14,7 @@ export default function BikeMarker({ data }: any) {
   }, [lat, lng, prevPos]);
 
   const icon = L.icon({
-    iconSize: [45, 45],
+    iconSize: [20, 20],
     popupAnchor: [2, -20],
     iconUrl: Active,
   });

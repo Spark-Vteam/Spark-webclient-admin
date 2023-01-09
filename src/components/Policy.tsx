@@ -11,10 +11,10 @@ function Policy() {
           <p>
             Electric Bikes, also known as e-scooters, have become a popular mode of transportation
             in recent years. In Sweden, the use of e-scooters is regulated by law. To learn more
-            about the specific laws governing e-scooters in Sweden, please visit{' '}
+            about the specific laws governing e-scooters in Sweden, please visit
           </p>
           <a href='https://www.transportstyrelsen.se/elsparkcykel'>
-            The Swedish Transport Agency's website
+            The Swedish Transport Agency website
           </a>
           <p>
             which provides information on the rules and regulations surrounding the use of

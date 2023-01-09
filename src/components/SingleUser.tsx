@@ -6,6 +6,7 @@ import Toast from './Toast';
 import { Link, useNavigate } from 'react-router-dom';
 import RentInformation from './RentInformation';
 import Home from './Home';
+import FooterStart from './FooterStart';
 
 function SingleUser() {
   const [user, setUser] = useState<any>([]);
@@ -21,7 +22,7 @@ function SingleUser() {
     password: '',
     oauth: '',
   });
-  const [formErrors, setFormErrors] = useState({
+  const [formErrors] = useState({
     firstName: '',
     lastName: '',
     phoneNumber: '',
@@ -219,6 +220,7 @@ function SingleUser() {
               <RentInformation rents={filteredRents} />
             </div>
           </div>
+          <FooterStart />
         </div>
       </div>
     );
