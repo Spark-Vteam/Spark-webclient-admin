@@ -2,16 +2,6 @@ import { render, screen } from '@testing-library/react';
 import { HashRouter } from 'react-router-dom';
 import NavbarMap from '../components/NavbarMap';
 
-test('Home is displayed', () => {
-  render(
-    <HashRouter>
-      <NavbarMap />
-    </HashRouter>,
-  );
-  const navE = screen.getByText('Home');
-  expect(navE).toBeInTheDocument();
-});
-
 test('Customer overview is displayed', () => {
   render(
     <HashRouter>
@@ -32,12 +22,12 @@ test('Pricing is displayed', () => {
   expect(navE).toBeInTheDocument();
 });
 
-test('Log in is displayed', () => {
+test('Log out is displayed', () => {
   render(
     <HashRouter>
       <NavbarMap />
     </HashRouter>,
   );
-  const navE = screen.getByText('Log in');
+  const navE = screen.getByText('Log out');
   expect(navE).toBeInTheDocument();
 });

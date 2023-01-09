@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import NavbarStart from './NavbarStart';
-import Navbar from './Navbar';
-
 import adminModels from '../models/adminModels';
+import Footer from './FooterStart';
 
 function LoginForm({ setAdmin }: any) {
   const [username, setUsername] = useState('');
@@ -52,6 +51,7 @@ function LoginForm({ setAdmin }: any) {
             </button>
           </div>
         </form>
+        <Footer />
       </div>
     </div>
   );

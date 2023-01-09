@@ -1,7 +1,7 @@
 import cell from '../img/cell.png';
 import spark from '../img/heading.png';
 import NavbarStart from './NavbarStart';
-import Footer from './Footer';
+import Footer from './FooterStart';
 
 function Home() {
   localStorage.removeItem('token');
@@ -14,8 +14,8 @@ function Home() {
         <h3 className='head-text-sub'>
           <span>Administration</span>
         </h3>
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 }

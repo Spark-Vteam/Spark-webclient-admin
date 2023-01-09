@@ -1,5 +1,4 @@
-// import { useState, useEffect } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../img/logo-admin.png';
 
 function Navbar() {

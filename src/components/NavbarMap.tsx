@@ -1,8 +1,8 @@
 // import { useState, useEffect } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../img/logo-admin.png';
 
-function NavbarMap({ resetCity }: any) {
+function NavbarMap() {
   return (
     <div className='topnav'>
       <img src={logo} width='50px' alt='logo' />

@@ -6,6 +6,7 @@ import PricingForm from './PricingForm'; // Lägg till import för PricingForm
 import './css/PricingTable.css';
 import Toast from './Toast';
 import Home from './Home';
+import FooterStart from './FooterStart';
 
 function Pricing() {
   const [pricing, setPricing] = useState<Array<PricingInterface>>([]);
@@ -111,6 +112,7 @@ function Pricing() {
               ))}
             </tbody>
           </table>
+          <FooterStart />
         </div>
       </>
     );
