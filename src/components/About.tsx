@@ -1,5 +1,5 @@
 import Navbar from './Navbar';
-import Footer from './Footer';
+import Footer from './FooterStart';
 import Spark from '../img/Spark-head.png';
 
 function About() {
