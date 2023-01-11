@@ -151,18 +151,16 @@ function Map({ stations, geofence }: any) {
               <div className='flex-container'>
                 <div className='child child1'>
                   <div className='btn-container'>
-                    <Link to='/map' className='customers-link center'>
-                      {' '}
-                      <button className='option-btn' onClick={resetCity}>
-                        Change city
-                      </button>
-                      <button className='option-btn' onClick={startSimulation}>
-                        Start simulation
-                      </button>
-                      <button className='option-btn' onClick={stopSimulation}>
-                        Stop simulation
-                      </button>
-                    </Link>
+                    <Link to='/map' className='customers-link center'></Link>
+                    <button className='option-btn' onClick={resetCity}>
+                      Change city
+                    </button>
+                    <button className='option-btn' onClick={startSimulation}>
+                      Start simulation
+                    </button>
+                    <button className='option-btn' onClick={stopSimulation}>
+                      Stop simulation
+                    </button>
                   </div>
                   <div className='map-container'>
                     <MapContainer
