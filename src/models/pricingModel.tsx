@@ -1,6 +1,10 @@
 const pricingModel = {
   getPricing: async function getPricing() {
-    const response = await fetch('http://localhost:4000/v1/pricing');
+    const response = await fetch('http://localhost:4000/v1/pricing', {
+      headers: {
+        'key': '18c364b7-641e-440e-849a-20a3c67036a1'
+      }
+    });
 
     const user = await response.json();
 
@@ -21,6 +25,7 @@ const pricingModel = {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        'key': '18c364b7-641e-440e-849a-20a3c67036a1'
       },
       body: JSON.stringify(update),
     })
