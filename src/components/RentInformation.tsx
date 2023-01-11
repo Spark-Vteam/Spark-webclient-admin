@@ -55,6 +55,9 @@ function RentInformation({ rents }: SingleRentProps) {
           <br />
           <strong>Duration: </strong>
           {timeDifference(rent.DestinationTimestamp, rent.StartTimestamp)}
+          <br />
+          <strong>Bike id: </strong>
+          {rent.Bikes_id}
           <hr />
         </Fragment>
       ))}

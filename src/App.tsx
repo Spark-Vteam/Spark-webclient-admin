@@ -11,7 +11,6 @@ import './components/css/Typography.css';
 import './components/css/Buttons.css';
 import './components/css/Navbar.css';
 import './components/css/User.css';
-import './components/css/AboutPolicy.css';
 import './components/css/Stations.css';
 import './components/css/Form.css';
 import mapsModel from './models/mapModels';

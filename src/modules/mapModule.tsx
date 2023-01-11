@@ -21,13 +21,13 @@ const mapModule = {
   sIcon: function sIcon(scooter: any): L.Icon<L.IconOptions> | undefined {
     let scooterIcon;
 
-    if (scooter.Status >= 10 && scooter.Status < 20) {
+    if (scooter.Status < 20) {
       scooterIcon = L.icon({
         iconSize: [35, 38],
         iconAnchor: [13, 41],
         iconUrl: available,
       });
-    } else if (scooter.Status >= 20 && scooter.Status < 29) {
+    } else if (scooter.Status < 30) {
       scooterIcon = L.icon({
         iconSize: [35, 38],
         iconAnchor: [13, 41],
@@ -66,9 +66,9 @@ const mapModule = {
   statusMessage: function statusMessage(scooter: any): string {
     let message = '';
 
-    if (scooter.Status >= 10 && scooter.Status < 20) {
+    if (scooter.Status < 20) {
       message = 'Bike is available';
-    } else if (scooter.Status >= 20 && scooter.Status < 29) {
+    } else if (scooter.Status < 30) {
       message = 'Bike is active';
     } else if (scooter.Status === 30) {
       message = 'Bike has no battery';
