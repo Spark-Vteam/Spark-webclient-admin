@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 import mapsModel from '../models/mapModels';
 import mapModule from '../modules/mapModule';
+import simulationModel from '../models/simulationModel';
 import Navbar from './NavbarMap';
 import Geofence from './Geofence';
 import SearchForm from './SearchForm';
@@ -132,6 +133,14 @@ function Map({ stations, geofence }: any) {
     setLongitude(undefined);
   }
 
+  async function startSimulation() {
+    await simulationModel.start();
+  }
+
+  async function stopSimulation() {
+    await simulationModel.stop();
+  }
+
   if (localStorage.getItem('token')) {
     return (
       <>
@@ -146,6 +155,12 @@ function Map({ stations, geofence }: any) {
                       {' '}
                       <button className='option-btn' onClick={resetCity}>
                         Change city
+                      </button>
+                      <button className='option-btn' onClick={startSimulation}>
+                        Start simulation
+                      </button>
+                      <button className='option-btn' onClick={stopSimulation}>
+                        Stop simulation
                       </button>
                     </Link>
                   </div>
