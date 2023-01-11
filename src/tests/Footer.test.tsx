@@ -8,6 +8,6 @@ test('Footer is displayed', () => {
       <Footer />
     </HashRouter>,
   );
-  const spark = screen.getByText('© Spark 2022');
+  const spark = screen.getByText('© Spark 2023');
   expect(spark).toBeInTheDocument();
 });
