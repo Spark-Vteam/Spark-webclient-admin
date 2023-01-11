@@ -2,14 +2,12 @@ import { render, screen } from '@testing-library/react';
 import Footer from '../components/Footer';
 import { HashRouter } from 'react-router-dom';
 
-test('Links "About" and "Policy" are displayed', () => {
+test('Footer is displayed', () => {
   render(
     <HashRouter>
       <Footer />
     </HashRouter>,
   );
-  const about = screen.getByText('About');
-  const policy = screen.getByText('Policy');
-  expect(about).toBeInTheDocument();
-  expect(policy).toBeInTheDocument();
+  const spark = screen.getByText('© Spark 2022');
+  expect(spark).toBeInTheDocument();
 });

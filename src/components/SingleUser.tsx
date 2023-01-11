@@ -62,7 +62,6 @@ function SingleUser() {
    * @returns {Promise<void>}
    */
   async function fetchRents(): Promise<void> {
-    console.log(user.id);
     const fetchedRents = await rentModel.getRents();
     setRents(fetchedRents);
   }
@@ -104,6 +103,7 @@ function SingleUser() {
   /** @type {Array} filter rents depending on user */
   const filteredRents: Array<any> = rents.filter((rent: any) => user.id === rent.Users_id);
 
+  console.log(filteredRents);
   if (localStorage.getItem('token')) {
     return (
       <div>
