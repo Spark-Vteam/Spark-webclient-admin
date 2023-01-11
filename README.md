@@ -4,7 +4,15 @@
 
 # Spark Administration
 
-Welcome to the Spark Administration! This is a sub module of the Spark project. It contains code for the admin web client. Follow instructions below to start up the client only. To start up all backend and frontend applications for Spark, follow the the README instructions in [the main Spark repo](https://github.com/Spark-Vteam/Spark-Project) instead.
+Welcome to the Spark Administration! This is a sub module of the Spark project and is a powerful tool for managing bike rentals across multiple cities. Follow instructions below to start up the client only. To start up all backend and frontend applications for Spark, follow the the README instructions in [the main Spark repo](https://github.com/Spark-Vteam/Spark-Project) instead.
+
+## Features
+
+- Log in using admin credentials stored in the database
+- View maps of three cities (Lund, Karlskrona, and Stockholm)
+- View locations of bikes, stations, and parking on the map
+- View and manage customers in the system
+- View and manage bike rental prices and fees
 
 ## Getting Started
 
@@ -20,6 +28,25 @@ Next, start the development server by running:
 `npm start`
 
 This will start the development server at http://localhost:3000.
+
+Log in using your admin credentials stored in the database.
+Utilize the various features of the client to manage bike rentals across multiple cities.
+
+## Map View
+
+- View the map of Lund, Karlskrona, and Stockholm
+- View the location of bikes, stations, and parking on the map
+
+## Customer Management
+
+- View a list of all customers in the system
+- Search for specific customers
+- Edit customer information
+- Remove customers from the system
+
+## Rental Pricing Management
+- View current rental prices and fees
+- Modify rental prices and fees as needed
 
 ## Deployment
 
