@@ -1,5 +1,5 @@
 import L from 'leaflet';
-import active from '../img/pin/Active.png';
+import active from '../img/pin/Activedot.png';
 import available from '../img/pin/Available.png';
 import service from '../img/pin/Service.png';
 import charging from '../img/pin/Charging.png';

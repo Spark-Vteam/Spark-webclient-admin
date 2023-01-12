@@ -40,7 +40,6 @@ function Map({ stations, geofence }: any) {
   async function fetchBikes(): Promise<void> {
     if (city) {
       const fetchedBikes = await mapsModel.getBikesByCity(city);
-      console.log(fetchedBikes);
       setBikes(fetchedBikes);
     }
   }
@@ -60,14 +59,14 @@ function Map({ stations, geofence }: any) {
     if (city === 'lund') {
       /** @type {Array} filter bikes depending on city */
       const filteredBikes: Array<Bike> = bikes.filter(
-        (bike: Bike) => bike.City === 'lund' && bike.Status !== 20,
+        (bike: Bike) => (bike.City === 'lund' && bike.Status < 20) || (bike.City === 'lund' && bike.Status > 29),
       );
       const filteredStations: Array<Station> = stations.filter(
         (station: Station) => station.City === 'Lund',
       );
       /** @type {Array} filter bikes depending on status */
-      const activeBikes: Array<any> = bikes.filter(
-        (bike: any) => bike.City === 'lund' && bike.Status === 20,
+      const activeBikes: Array<Bike> = bikes.filter(
+        (bike: Bike) => bike.City === 'lund' && bike.Status > 19 && bike.Status < 30,
       );
 
       setStationsByCity(filteredStations);
@@ -76,15 +75,15 @@ function Map({ stations, geofence }: any) {
     } else if (city === 'stockholm') {
       /** @type {Array} filter bikes depending on city */
       const filteredBikes: Array<Bike> = bikes.filter(
-        (bike: Bike) => bike.City === 'stockholm' && bike.Status !== 20,
+        (bike: Bike) => (bike.City === 'stockholm' && bike.Status < 20) || (bike.City === 'stockholm' && bike.Status > 29),
       );
       const filteredStations: Array<Station> = stations.filter(
         (station: Station) => station.City === 'Stockholm',
       );
 
       /** @type {Array} filter bikes depending on status */
-      const activeBikes: Array<any> = bikes.filter(
-        (bike: any) => bike.City === 'stockholm' && bike.Status === 20,
+      const activeBikes: Array<Bike> = bikes.filter(
+        (bike: Bike) => bike.City === 'stockholm' && bike.Status > 19 && bike.Status < 30,
       );
 
       setBikesByCity(filteredBikes);
@@ -93,16 +92,16 @@ function Map({ stations, geofence }: any) {
     } else {
       /** @type {Array} filter bikes depending on city */
       const filteredBikes: Array<Bike> = bikes.filter(
-        (bike: Bike) => bike.id > 2735 && bike.Status !== 20,
+        (bike: Bike) => (bike.City === 'karlskrona' && bike.Status < 20) || (bike.City === 'karlskrona' && bike.Status > 29),
       );
 
       const filteredStations: Array<Station> = stations.filter(
-        (station: Station) => station.id > 347,
+        (station: Station) => station.City === 'Karlskrona',
       );
 
       /** @type {Array} filter bikes depending on status */
-      const activeBikes: Array<any> = bikes.filter(
-        (bike: any) => bike.id > 2735 && bike.Status === 20,
+      const activeBikes: Array<Bike> = bikes.filter(
+        (bike: Bike) => bike.City === 'karlskrona' && bike.Status > 19 && bike.Status < 30,
       );
 
       setBikesByCity(filteredBikes);
@@ -117,7 +116,6 @@ function Map({ stations, geofence }: any) {
    * @returns {void}
    */
   function setCityCoordinates(event: any): void {
-    console.log('byter stad till', event.target.value);
     const values = mapModule.setCityC(event.target.value);
     setLatitude(values[0]);
     setLongitude(values[1]);
@@ -151,18 +149,16 @@ function Map({ stations, geofence }: any) {
               <div className='flex-container'>
                 <div className='child child1'>
                   <div className='btn-container'>
-                    <Link to='/map' className='customers-link center'>
-                      {' '}
-                      <button className='option-btn' onClick={resetCity}>
-                        Change city
-                      </button>
-                      <button className='option-btn' onClick={startSimulation}>
-                        Start simulation
-                      </button>
-                      <button className='option-btn' onClick={stopSimulation}>
-                        Stop simulation
-                      </button>
-                    </Link>
+                    <Link to='/map' className='customers-link center'></Link>
+                    <button className='option-btn' onClick={resetCity}>
+                      Change city
+                    </button>
+                    <button className='option-btn' onClick={startSimulation}>
+                      Start simulation
+                    </button>
+                    <button className='option-btn' onClick={stopSimulation}>
+                      Stop simulation
+                    </button>
                   </div>
                   <div className='map-container'>
                     <MapContainer

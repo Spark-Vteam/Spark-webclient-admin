@@ -1,7 +1,7 @@
 const FooterStart = () => {
   return (
     <div className='footer-start'>
-      <div className='left'>© Spark 2022</div>
+      <div className='left'>© Spark 2023</div>
     </div>
   );
 };
