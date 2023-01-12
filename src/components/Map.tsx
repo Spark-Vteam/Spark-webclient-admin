@@ -40,7 +40,6 @@ function Map({ stations, geofence }: any) {
   async function fetchBikes(): Promise<void> {
     if (city) {
       const fetchedBikes = await mapsModel.getBikesByCity(city);
-      console.log(fetchedBikes);
       setBikes(fetchedBikes);
     }
   }
@@ -117,8 +116,7 @@ function Map({ stations, geofence }: any) {
    * @returns {void}
    */
   function setCityCoordinates(event: any): void {
-    console.log('byter stad till', event.target.value);
-    const values = mapModule.setCityC(event.target.value);
+      const values = mapModule.setCityC(event.target.value);
     setLatitude(values[0]);
     setLongitude(values[1]);
     setCity(event.target.value);

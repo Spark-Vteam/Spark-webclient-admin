@@ -75,7 +75,6 @@ function SingleUser() {
   async function deleteUser() {
     await userModel.deleteUser(user.id);
     navigate('/users');
-    // window.location.reload();
   }
 
   function handleChange(event: any) {
@@ -103,7 +102,6 @@ function SingleUser() {
   /** @type {Array} filter rents depending on user */
   const filteredRents: Array<any> = rents.filter((rent: any) => user.id === rent.Users_id);
 
-  console.log(filteredRents);
   if (localStorage.getItem('token')) {
     return (
       <div>

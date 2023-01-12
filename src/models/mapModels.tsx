@@ -1,9 +1,11 @@
+const key = process.env.REACT_APP_API_KEY as string;
+
 const mapsModel = {
   getStations: async function getStations() {
     const response = await fetch('http://localhost:4000/v1/station', {
       headers: {
-        'key': '18c364b7-641e-440e-849a-20a3c67036a1'
-      }
+        key: key,
+      },
     });
 
     const stations = await response.json();
@@ -13,8 +15,8 @@ const mapsModel = {
   getBikes: async function getBikes() {
     const response = await fetch('http://localhost:4000/v1/bike', {
       headers: {
-        'key': '18c364b7-641e-440e-849a-20a3c67036a1'
-      }
+        key: key,
+      },
     });
 
     const bikes = await response.json();
@@ -25,8 +27,8 @@ const mapsModel = {
   getBikesByCity: async function getBikesByCity(city: string) {
     const response = await fetch(`http://localhost:4000/v1/bike/city/${city}`, {
       headers: {
-        'key': '18c364b7-641e-440e-849a-20a3c67036a1'
-      }
+        key: key,
+      },
     });
 
     const bikes = await response.json();
@@ -37,8 +39,8 @@ const mapsModel = {
   getGeofence: async function getGeofence() {
     const response = await fetch('http://localhost:4000/v1/geofence', {
       headers: {
-        'key': '18c364b7-641e-440e-849a-20a3c67036a1'
-      }
+        key: key,
+      },
     });
 
     const geofence = await response.json();
@@ -49,8 +51,8 @@ const mapsModel = {
   getStationBike: async function getStationBike() {
     const response = await fetch('http://localhost:4000/v1/bike/charging', {
       headers: {
-        'key': '18c364b7-641e-440e-849a-20a3c67036a1'
-      }
+        key: key,
+      },
     });
 
     const bike = await response.json();
